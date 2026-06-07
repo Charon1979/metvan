@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bxee6fm2hcr84"
+path="res://.godot/imported/door_crash.wav-22e5ae2e7dbdd4fcbfb200ca56e1af76.sample"
+
+[deps]
+
+source_file="res://Michaels Stuff/door_crash.wav"
+dest_files=["res://.godot/imported/door_crash.wav-22e5ae2e7dbdd4fcbfb200ca56e1af76.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

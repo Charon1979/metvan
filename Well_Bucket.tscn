@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dohnqrs1rg6s6"]
+
+[ext_resource type="Texture2D" uid="uid://ckwlarg08c1d4" path="res://levels/00_forest/tilesets/sprites/Well_Bucket.png" id="1_e3cx1"]
+
+[sub_resource type="Animation" id="Animation_e3cx1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0017453292]
+}
+
+[sub_resource type="Animation" id="Animation_w88s8"]
+resource_name = "swing"
+length = 8.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.017453292519943295, 0.0, -0.017453292519943295, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6exl1"]
+_data = {
+&"RESET": SubResource("Animation_e3cx1"),
+&"swing": SubResource("Animation_w88s8")
+}
+
+[node name="Well_Bucket" type="Node2D" unique_id=552639079]
+skew = 0.0017453292
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1782882290]
+offset_right = 32.0
+offset_bottom = 64.0
+texture = ExtResource("1_e3cx1")
+region_rect = Rect2(0, 0, 32, 64)
+patch_margin_bottom = 61
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=728392008]
+libraries/ = SubResource("AnimationLibrary_6exl1")
+autoplay = &"swing"

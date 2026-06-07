@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b01mccy06o2bi"
+path="res://.godot/imported/aargh.wav-17b02dc46d2c66086c6035b1ba54ea4a.sample"
+
+[deps]
+
+source_file="res://Michaels Stuff/aargh.wav"
+dest_files=["res://.godot/imported/aargh.wav-17b02dc46d2c66086c6035b1ba54ea4a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

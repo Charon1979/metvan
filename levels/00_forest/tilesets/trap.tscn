@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://3hbuwbwrr6ei"]
+
+[ext_resource type="Script" uid="uid://mdhpajosjaxo" path="res://levels/00_forest/tilesets/trap.gd" id="1_0ibmv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbg46"]
+resource_local_to_scene = true
+size = Vector2(32, 16)
+
+[node name="Trap" type="Control"]
+custom_minimum_size = Vector2(32, 16)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_right = -160.0
+offset_bottom = -270.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0ibmv")
+
+[node name="DmgArea" type="Area2D" parent="."]
+position = Vector2(16, 16)
+collision_layer = 0
+collision_mask = 16
+input_pickable = false
+monitorable = false
+priority = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DmgArea"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_mbg46")
+debug_color = Color(1, 0, 0.015913963, 0.41960785)
+
+[connection signal="body_entered" from="DmgArea" to="." method="_on_dmg_area_body_entered"]
+[connection signal="body_exited" from="DmgArea" to="." method="_on_dmg_area_body_exited"]

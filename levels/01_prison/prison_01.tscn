@@ -1,0 +1,110 @@
+[gd_scene format=4 uid="uid://dmb7aucwyb0mu"]
+
+[ext_resource type="Script" uid="uid://dknswg5tayvv4" path="res://general/scripts/level_bounds.gd" id="1_7mwe6"]
+[ext_resource type="TileSet" uid="uid://bm0ncdnh6p2wi" path="res://levels/00_forest/tilesets/autumn_forest.tres" id="1_w0rnf"]
+[ext_resource type="PackedScene" uid="uid://qpe4sqh7ml5t" path="res://general/level_transistion/level_transistion.tscn" id="2_tq35c"]
+[ext_resource type="Shader" uid="uid://bkgan307ht57w" path="res://water.gdshader" id="4_rnedc"]
+[ext_resource type="PackedScene" uid="uid://c0f6mxwx8kue2" path="res://general/player_spawn/player_spawn.tscn" id="5_blrcc"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5c1od"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cp18a"]
+width = 800
+height = 320
+noise = SubResource("FastNoiseLite_5c1od")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jovd8"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qcgjn"]
+width = 800
+height = 320
+noise = SubResource("FastNoiseLite_jovd8")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_blrcc"]
+resource_local_to_scene = true
+shader = ExtResource("4_rnedc")
+shader_parameter/waterNoise = SubResource("NoiseTexture2D_qcgjn")
+shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_cp18a")
+shader_parameter/waterColor = Color(0.1254902, 0.8392157, 0.78039217, 1)
+shader_parameter/colorCorection = 0.1999999955296
+shader_parameter/distortionForce = 0.10000000149012
+shader_parameter/WDBrightness = 0.45000000670554
+shader_parameter/WDFreq = 0.75000001117589
+shader_parameter/WDSize = 1.0500000305474
+shader_parameter/WDSpeed = 1.0
+shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/offSetSpeed = Vector2(0.003, 0.1)
+shader_parameter/backGroundDirX = 0.01
+shader_parameter/backGroundDirY = 0.01
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4cihr"]
+resource_local_to_scene = true
+shader = ExtResource("4_rnedc")
+shader_parameter/waterNoise = SubResource("NoiseTexture2D_qcgjn")
+shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_cp18a")
+shader_parameter/waterColor = Color(0.1254902, 0.8392157, 0.78039217, 1)
+shader_parameter/colorCorection = 0.1999999955296
+shader_parameter/distortionForce = 0.10000000149012
+shader_parameter/WDBrightness = 2.15000003203758
+shader_parameter/WDFreq = 0.75000001117589
+shader_parameter/WDSize = 0.90000002831222
+shader_parameter/WDSpeed = 9.10000012069972
+shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
+shader_parameter/backGroundDirX = 0.01
+shader_parameter/backGroundDirY = 0.01
+
+[node name="Prison_01" type="Node2D" unique_id=1531045734]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=28567288 groups=["Tilemap"]]
+tile_map_data = PackedByteArray("AAD///r/AQAHAAIAAAAAAPr/AQAHAAIAAAABAPr/AQACAAIAACABAPv/AQACAAEAAAABAPz/AQACAAEAAAABAP3/AQACAAEAAAABAP7/AQAGAAIAAAACAP7/AQAHAAIAAAADAP7/AQAHAAIAAAAEAP7/AQAHAAIAAAAFAP7/AQAHAAIAAAAGAP7/AQAHAAIAAAAHAP7/AQAHAAIAAAAIAP7/AQAHAAIAAAAJAP7/AQAHAAIAAAAKAP7/AQAHAAIAAAALAP7/AQAHAAIAAAAMAP7/AQAHAAIAAAANAP7/AQAHAAIAAAAOAP7/AQAHAAIAAAAPAP7/AQAHAAIAAAAEAPn/AQAGAAUAAAAFAPn/AQAHAAUAAAAGAPn/AQAIAAUAAAAJAPf/AQAGAAUAAAAKAPf/AQAHAAUAAAALAPf/AQAIAAUAAAANAPn/AQAGAAMAAAANAPr/AQAGAAQAAAAPAPn/AQAGAAMAAAAPAPr/AQAGAAQAAAAQAP7/AQAHAAIAAAARAP7/AQAIAAIAAAD///v/AQABAAEAAAD///z/AQABAAEAAAD///3/AQABAAEAAAD///7/AQABAAEAAAD/////AQABAAEAAAD//wAAAQABAAEAAAAAAPv/AQABAAEAAAAAAPz/AQABAAEAAAAAAP3/AQABAAEAAAAAAP7/AQABAAEAAAAAAP//AQABAAEAAAAAAAAAAQABAAEAAAABAP//AQABAAEAAAABAAAAAQABAAEAAAACAP//AQABAAEAAAACAAAAAQABAAEAAAADAP//AQABAAEAAAADAAAAAQABAAEAAAAEAP//AQABAAEAAAAEAAAAAQABAAEAAAAFAP//AQABAAEAAAAFAAAAAQABAAEAAAAGAP//AQABAAEAAAAGAAAAAQABAAEAAAAHAP//AQABAAEAAAAHAAAAAQABAAEAAAAIAP//AQABAAEAAAAIAAAAAQABAAEAAAAJAP//AQABAAEAAAAJAAAAAQABAAEAAAAKAP//AQABAAEAAAAKAAAAAQABAAEAAAALAP//AQABAAEAAAALAAAAAQABAAEAAAAMAP//AQABAAEAAAAMAAAAAQABAAEAAAANAP//AQABAAEAAAANAAAAAQABAAEAAAAOAP//AQABAAEAAAAOAAAAAQABAAEAAAAPAP//AQABAAEAAAAPAAAAAQABAAEAAAAQAP//AQABAAEAAAAQAAAAAQABAAEAAAARAP//AQABAAEAAAARAAAAAQABAAEAAAASAP//AQABAAEAAAASAAAAAQABAAEAAAATAP//AQABAAEAAAATAAAAAQABAAEAAAATAPr/AQABAAEAAAATAPv/AQABAAEAAAATAPz/AQABAAEAAAATAP3/AQABAAEAAAATAP7/AQABAAEAAAATAPT/AQABAAEAAAATAPX/AQABAAEAAAATAPb/AQABAAEAAAATAPf/AQABAAEAAAD///P/AQABAAEAAAAAAPP/AQABAAEAAAABAPP/AQABAAEAAAACAPP/AQABAAEAAAADAPP/AQABAAEAAAAEAPP/AQABAAEAAAAFAPP/AQABAAEAAAAGAPP/AQAGAAAAAAAHAPP/AQABAAIAAAAIAPP/AQABAAIAAAAJAPP/AQABAAIAAAAKAPP/AQABAAIAAAALAPP/AQABAAIAAAAMAPP/AQABAAIAAAANAPP/AQABAAIAAAAOAPP/AQABAAIAAAAPAPP/AQAIAAAAAAAQAPP/AQABAAEAAAARAPP/AQABAAEAAAASAPP/AQABAAEAAAATAPP/AQABAAEAAAD///T/AQABAAEAAAD///X/AQABAAEAAAD///b/AQABAAEAAAD///f/AQABAAIAAAAAAPf/AQACAAIAAAAAAPX/AQACAAEAAAAAAPb/AQACAAEAAAAAAPT/AQAGAAAAAAABAPT/AQAHAAMAAAACAPT/AQAIAAMAAAADAPT/AQAHAAMAAAAEAPT/AQAIAAMAAAAFAPT/AQAHAAMAAAAGAPT/AQACAAIAAAAPAPT/AQAAAAIAAAAQAPT/AQAHAAMAAAAQAPX/AQAHAAQAAAARAPT/AQAIAAMAAAARAPX/AQAIAAQAAAARAPv/AQAAAAEAAAARAPz/AQAAAAEAAAARAP3/AQAAAAEAAAARAPr/AQACAAIAADAIAPv/AQAGAAUAAAAJAPv/AQAHAAUAAAAKAPv/AQAIAAUAAAASAPT/AQABAAIAAAA=")
+tile_set = ExtResource("1_w0rnf")
+
+[node name="LevelBounds" type="Node2D" parent="." unique_id=717593251]
+z_index = 256
+position = Vector2(0, -384)
+script = ExtResource("1_7mwe6")
+width = 608
+height = 384
+metadata/_custom_type_script = "uid://dknswg5tayvv4"
+
+[node name="Prison_01A" parent="." unique_id=663659368 instance=ExtResource("2_tq35c")]
+position = Vector2(-32, -192)
+target_level = "uid://d3enbpnnhnukr"
+target_area_name = "Forest_16B"
+
+[node name="Prison_01B" parent="." unique_id=1174904407 instance=ExtResource("2_tq35c")]
+position = Vector2(640, -192)
+location = 1
+target_area_name = "Prison_02A"
+
+[node name="Water" type="Node2D" parent="." unique_id=2032612934]
+z_index = 5
+position = Vector2(-1, -67)
+
+[node name="ColorRect" type="ColorRect" parent="Water" unique_id=1484717048]
+z_index = 5
+material = SubResource("ShaderMaterial_blrcc")
+offset_left = 60.0
+offset_top = -122.0
+offset_right = 548.0
+offset_bottom = 6.0
+color = Color(0.1254902, 0.8392157, 0.78039217, 1)
+
+[node name="Water" type="Node2D" parent="Water" unique_id=425830978]
+z_index = 5
+position = Vector2(0, -164)
+
+[node name="ColorRect" type="ColorRect" parent="Water/Water" unique_id=1874435205]
+z_index = 5
+material = SubResource("ShaderMaterial_4cihr")
+offset_left = 1.0
+offset_top = 26.0
+offset_right = 548.0
+offset_bottom = 42.0
+color = Color(0.1254902, 0.8392157, 0.78039217, 1)
+
+[node name="PlayerSpawn" parent="." unique_id=1390794315 instance=ExtResource("5_blrcc")]
+position = Vector2(21, -240)

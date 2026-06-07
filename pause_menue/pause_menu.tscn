@@ -1,0 +1,909 @@
+[gd_scene format=3 uid="uid://orcv8nfhnb66"]
+
+[ext_resource type="Script" uid="uid://cslp2v4wenim6" path="res://pause_menue/pause_menue.gd" id="1_mliuv"]
+[ext_resource type="PackedScene" uid="uid://cf3pgbomo7aks" path="res://pause_menue/map_node.tscn" id="2_0hokk"]
+[ext_resource type="Script" uid="uid://bdh68il8stjwl" path="res://pause_menue/scripts/abilities_list.gd" id="3_1oyhi"]
+[ext_resource type="Texture2D" uid="uid://bu66e5huwt44j" path="res://Michaels Stuff/abilities.png" id="3_lh2mf"]
+
+[sub_resource type="Gradient" id="Gradient_0hokk"]
+offsets = PackedFloat32Array(0, 0.5033113, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.8352941, 0.25490198, 1, 0.98039216, 0.41568628, 0.039215688, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lh2mf"]
+gradient = SubResource("Gradient_0hokk")
+width = 5
+height = 5
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Animation" id="Animation_qew62"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1oyhi"]
+resource_name = "default"
+length = 0.7
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.8745098, 0.24313726, 0.13725491, 0.5882353)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3lgyr"]
+_data = {
+&"RESET": SubResource("Animation_qew62"),
+&"default": SubResource("Animation_1oyhi")
+}
+
+[sub_resource type="Animation" id="Animation_lh2mf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_lh2mf")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_3lgyr"]
+resource_name = "dash_menu"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_lh2mf")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_54dcd"]
+_data = {
+&"RESET": SubResource("Animation_lh2mf"),
+&"dash_menu": SubResource("Animation_3lgyr")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k00gm"]
+load_path = "res://.godot/imported/abilities.png-adb9fc110185ab6eac4475c1d45d0331.ctex"
+
+[sub_resource type="Animation" id="Animation_oxhqq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CompressedTexture2D_k00gm")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_k00gm"]
+resource_name = "jump_menu"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CompressedTexture2D_k00gm")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3pfpl"]
+_data = {
+&"RESET": SubResource("Animation_oxhqq"),
+&"jump_menu": SubResource("Animation_k00gm")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3pfpl"]
+load_path = "res://.godot/imported/abilities.png-adb9fc110185ab6eac4475c1d45d0331.ctex"
+
+[sub_resource type="Animation" id="Animation_dgqoh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CompressedTexture2D_3pfpl")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_ym1yr"]
+resource_name = "slam_menu"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CompressedTexture2D_3pfpl")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v42c5"]
+_data = {
+&"RESET": SubResource("Animation_dgqoh"),
+&"slam_menu": SubResource("Animation_ym1yr")
+}
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_0hokk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lh2mf"]
+texture = SubResource("CanvasTexture_0hokk")
+modulate_color = Color(0.83264434, 0.12062373, 0.12062373, 1)
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1684188178]
+process_mode = 3
+script = ExtResource("1_mliuv")
+
+[node name="Control" type="Control" parent="." unique_id=352574117]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="Control" unique_id=1889420157]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.18039216, 0.18039216, 0.18039216, 0.49019608)
+
+[node name="ColorRect3" type="ColorRect" parent="Control" unique_id=1215955190]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 56.0
+offset_bottom = -182.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.33288082, 0.33288062, 0.33288074, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=609377778]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="Control/ColorRect" unique_id=969778012]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -7.5
+offset_right = -32.0
+offset_bottom = 7.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "P A U S E"
+
+[node name="PauseScreen" type="Control" parent="Control" unique_id=1184446798]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Map" type="Control" parent="Control/PauseScreen" unique_id=1277562225]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_top = 32.0
+offset_right = 480.0
+offset_bottom = 214.0
+
+[node name="ColorRect2" type="ColorRect" parent="Control/PauseScreen/Map" unique_id=962801978]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07683582, 0.07683582, 0.07683582, 1)
+
+[node name="MapNode" parent="Control/PauseScreen/Map" unique_id=1172175052 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 197.0
+offset_top = 83.0
+offset_right = 223.0
+offset_bottom = 105.0
+linked_scene = "uid://6ac15jur3t8x"
+entrances_right = Array[float]([10.6])
+entrances_left = Array[float]([17.0, 4.2])
+
+[node name="MapNode2" parent="Control/PauseScreen/Map" unique_id=1966204321 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 151.0
+offset_top = 92.0
+offset_right = 197.0
+offset_bottom = 112.0
+linked_scene = "uid://dohldgyj1sipn"
+entrances_right = Array[float]([8.2])
+entrances_left = Array[float]([10.6])
+
+[node name="MapNode3" parent="Control/PauseScreen/Map" unique_id=337649179 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 123.0
+offset_top = 78.0
+offset_right = 151.0
+offset_bottom = 93.0
+linked_scene = "uid://bpllry4031hep"
+entrances_top = Array[float]([5.6])
+entrances_right = Array[float]([5.0])
+entrances_bottom = Array[float]([5.6])
+entrances_left = Array[float]([2.0])
+
+[node name="MapNode4" parent="Control/PauseScreen/Map" unique_id=1253709054 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 151.0
+offset_top = 74.0
+offset_right = 197.0
+offset_bottom = 92.0
+linked_scene = "uid://ck1eky1ahpcol"
+entrances_right = Array[float]([13.0])
+entrances_left = Array[float]([9.0])
+
+[node name="MapNode5" parent="Control/PauseScreen/Map" unique_id=650356314 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 223.0
+offset_top = 90.0
+offset_right = 235.0
+offset_bottom = 102.0
+linked_scene = "uid://c7268ttrrsbn8"
+entrances_left = Array[float]([4.2])
+
+[node name="MapNode6" parent="Control/PauseScreen/Map" unique_id=1331835273 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 120.0
+offset_top = 93.0
+offset_right = 151.0
+offset_bottom = 108.0
+linked_scene = "uid://qrtkvued7hjv"
+entrances_top = Array[float]([8.8])
+entrances_right = Array[float]([10.0])
+
+[node name="MapNode7" parent="Control/PauseScreen/Map" unique_id=1347976767 instance=ExtResource("2_0hokk")]
+modulate = Color(0.14117648, 0.62352943, 0.87058824, 1)
+layout_mode = 0
+offset_left = 147.0
+offset_top = 53.0
+offset_right = 185.0
+offset_bottom = 63.0
+linked_scene = "uid://pqlmaphvsr6c"
+entrances_right = Array[float]([5.0])
+entrances_bottom = Array[float]([19.2, 33.0])
+entrances_left = Array[float]([5.0])
+
+[node name="MapNode8" parent="Control/PauseScreen/Map" unique_id=2033454728 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 123.0
+offset_top = 63.0
+offset_right = 147.0
+offset_bottom = 78.0
+linked_scene = "uid://drh2mjhjnl3iu"
+entrances_top = Array[float]([5.6])
+entrances_right = Array[float]([5.8])
+entrances_bottom = Array[float]([5.6])
+entrances_left = Array[float]([4.2])
+
+[node name="MapNode9" parent="Control/PauseScreen/Map" unique_id=1874978732 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 110.0
+offset_top = 63.0
+offset_right = 123.0
+offset_bottom = 85.0
+linked_scene = "uid://uqeedlsuwx7h"
+entrances_right = Array[float]([17.0, 4.2])
+
+[node name="MapNode10" parent="Control/PauseScreen/Map" unique_id=1823240701 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 147.0
+offset_top = 63.0
+offset_right = 177.0
+offset_bottom = 74.0
+linked_scene = "uid://dyvo4wtnhl2uy"
+entrances_top = Array[float]([19.2])
+entrances_left = Array[float]([6.0])
+
+[node name="MapNode11" parent="Control/PauseScreen/Map" unique_id=401038866 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 123.0
+offset_top = 53.0
+offset_right = 147.0
+offset_bottom = 63.0
+linked_scene = "uid://cwoopqg2rrau0"
+entrances_right = Array[float]([5.0])
+entrances_bottom = Array[float]([5.6])
+entrances_left = Array[float]([5.0])
+
+[node name="MapNode12" parent="Control/PauseScreen/Map" unique_id=171811931 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 105.0
+offset_top = 53.0
+offset_right = 123.0
+offset_bottom = 63.0
+linked_scene = "uid://dtxe7n21rpq3k"
+entrances_right = Array[float]([5.0])
+
+[node name="MapNode13" parent="Control/PauseScreen/Map" unique_id=1727016669 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 185.0
+offset_top = 53.0
+offset_right = 203.0
+offset_bottom = 63.0
+linked_scene = "uid://c6xewf8hak8po"
+entrances_right = Array[float]([5.0])
+entrances_bottom = Array[float]([13.0])
+entrances_left = Array[float]([5.0])
+
+[node name="MapNode14" parent="Control/PauseScreen/Map" unique_id=2117093827 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 177.0
+offset_top = 63.0
+offset_right = 189.0
+offset_bottom = 74.0
+linked_scene = "uid://bwb1f6x6g03pa"
+entrances_top = Array[float]([3.2])
+entrances_right = Array[float]([2.0])
+
+[node name="MapNode15" parent="Control/PauseScreen/Map" unique_id=175467818 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 189.0
+offset_top = 63.0
+offset_right = 209.0
+offset_bottom = 69.0
+linked_scene = "uid://cetnugl8fokve"
+entrances_top = Array[float]([8.8])
+entrances_right = Array[float]([2.0])
+entrances_left = Array[float]([2.0])
+
+[node name="MapNode16" parent="Control/PauseScreen/Map" unique_id=1024638913 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 203.0
+offset_top = 53.0
+offset_right = 233.0
+offset_bottom = 63.0
+linked_scene = "uid://c7rpadrafqav6"
+entrances_right = Array[float]([5.0])
+entrances_left = Array[float]([5.0])
+
+[node name="MapNode17" parent="Control/PauseScreen/Map" unique_id=1560987935 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 233.0
+offset_top = 53.0
+offset_right = 256.0
+offset_bottom = 63.0
+linked_scene = "uid://bcyo0e5dumofn"
+entrances_left = Array[float]([5.0])
+
+[node name="MapNode18" parent="Control/PauseScreen/Map" unique_id=52772821 instance=ExtResource("2_0hokk")]
+modulate = Color(0.101960786, 0.47843137, 0.24313726, 1)
+layout_mode = 0
+offset_left = 209.0
+offset_top = 63.0
+offset_right = 241.0
+offset_bottom = 69.0
+linked_scene = "uid://d3enbpnnhnukr"
+entrances_right = Array[float]([2.0])
+entrances_left = Array[float]([2.0])
+
+[node name="MapNode19" parent="Control/PauseScreen/Map" unique_id=690293228 instance=ExtResource("2_0hokk")]
+modulate = Color(0.1254902, 0.8392157, 0.78039217, 1)
+layout_mode = 0
+offset_left = 241.0
+offset_top = 63.0
+offset_right = 256.0
+offset_bottom = 73.0
+linked_scene = "uid://dmb7aucwyb0mu"
+entrances_right = Array[float]([2.0])
+entrances_left = Array[float]([2.0])
+
+[node name="PlayerIndicator" type="Control" parent="Control/PauseScreen/Map" unique_id=1438424830]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 42.0
+offset_top = 56.0
+offset_right = 42.0
+offset_bottom = 56.0
+
+[node name="TextureRect" type="TextureRect" parent="Control/PauseScreen/Map/PlayerIndicator" unique_id=217440415]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 2.0
+texture = SubResource("GradientTexture2D_lh2mf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/PauseScreen/Map/PlayerIndicator" unique_id=1272366472]
+libraries/ = SubResource("AnimationLibrary_3lgyr")
+autoplay = &"default"
+
+[node name="SkillButton" type="Button" parent="Control/PauseScreen" unique_id=654505603]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 192.0
+offset_right = 288.0
+offset_bottom = 32.0
+text = "Talente"
+
+[node name="SystemButton" type="Button" parent="Control/PauseScreen" unique_id=1318899982]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 384.0
+offset_right = 480.0
+offset_bottom = 32.0
+text = "System"
+
+[node name="MapButton" type="Button" parent="Control/PauseScreen" unique_id=1689020199]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 32.0
+text = "Karte"
+
+[node name="InventoryButton" type="Button" parent="Control/PauseScreen" unique_id=1366738088]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 288.0
+offset_right = 384.0
+offset_bottom = 32.0
+text = "Inventar"
+
+[node name="CharacterButton" type="Button" parent="Control/PauseScreen" unique_id=897562203]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 96.0
+offset_right = 192.0
+offset_bottom = 32.0
+text = "Charakter"
+
+[node name="Skills" type="Control" parent="Control/PauseScreen" unique_id=811018152]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_top = 32.0
+offset_right = 480.0
+offset_bottom = 214.0
+
+[node name="ColorRect" type="ColorRect" parent="Control/PauseScreen/Skills" unique_id=428269001]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 182.0
+color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+
+[node name="AbilitiesList" type="VBoxContainer" parent="Control/PauseScreen/Skills" unique_id=1903238328]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 182.0
+script = ExtResource("3_1oyhi")
+
+[node name="AbilityDash" type="Sprite2D" parent="Control/PauseScreen/Skills/AbilitiesList" unique_id=1129135368]
+unique_name_in_owner = true
+position = Vector2(46, 49)
+texture = ExtResource("3_lh2mf")
+hframes = 5
+vframes = 5
+
+[node name="DashAnim" type="AnimationPlayer" parent="Control/PauseScreen/Skills/AbilitiesList/AbilityDash" unique_id=1060688689]
+libraries/ = SubResource("AnimationLibrary_54dcd")
+autoplay = &"dash_menu"
+
+[node name="AbilityDoubleJump" type="Sprite2D" parent="Control/PauseScreen/Skills/AbilitiesList" unique_id=167617804]
+unique_name_in_owner = true
+position = Vector2(46, 91)
+texture = SubResource("CompressedTexture2D_k00gm")
+hframes = 5
+vframes = 5
+frame = 5
+
+[node name="JumpAnim" type="AnimationPlayer" parent="Control/PauseScreen/Skills/AbilitiesList/AbilityDoubleJump" unique_id=115306936]
+libraries/ = SubResource("AnimationLibrary_3pfpl")
+autoplay = &"jump_menu"
+
+[node name="AbilitySlam" type="Sprite2D" parent="Control/PauseScreen/Skills/AbilitiesList" unique_id=2008785143]
+unique_name_in_owner = true
+position = Vector2(46, 146)
+texture = SubResource("CompressedTexture2D_3pfpl")
+hframes = 5
+vframes = 5
+frame = 10
+
+[node name="SlamAnim" type="AnimationPlayer" parent="Control/PauseScreen/Skills/AbilitiesList/AbilitySlam" unique_id=1902097471]
+libraries/ = SubResource("AnimationLibrary_v42c5")
+autoplay = &"slam_menu"
+
+[node name="System" type="Control" parent="Control" unique_id=1555950627]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 0
+offset_top = 88.0
+offset_right = 480.0
+offset_bottom = 270.0
+
+[node name="ColorRect" type="ColorRect" parent="Control/System" unique_id=1919327539]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 182.0
+color = Color(0, 0, 0, 1)
+
+[node name="Quit" type="Button" parent="Control/System" unique_id=223681651]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 0
+offset_left = 160.0
+offset_top = 129.0
+offset_right = 320.0
+offset_bottom = 161.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_lh2mf")
+text = "Spiel beenden"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/System" unique_id=2095783783]
+layout_mode = 0
+offset_left = 96.0
+offset_right = 384.0
+offset_bottom = 129.0
+theme_override_constants/separation = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/System/VBoxContainer" unique_id=1752225005]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/System/VBoxContainer/HBoxContainer" unique_id=292611993]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8352941, 0.25490198, 1)
+theme_override_font_sizes/font_size = 20
+text = "Audio"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/System/VBoxContainer" unique_id=1655226535]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/System/VBoxContainer/HBoxContainer2" unique_id=501624616]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "Musik"
+
+[node name="MusicSlider" type="HSlider" parent="Control/System/VBoxContainer/HBoxContainer2" unique_id=1828062025]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/System/VBoxContainer" unique_id=1646893209]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/System/VBoxContainer/HBoxContainer4" unique_id=949787600]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "SFX"
+
+[node name="SFXSlider" type="HSlider" parent="Control/System/VBoxContainer/HBoxContainer4" unique_id=2115324391]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/System/VBoxContainer" unique_id=248030187]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/System/VBoxContainer/HBoxContainer3" unique_id=2033323534]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "UI"
+
+[node name="UISlider" type="HSlider" parent="Control/System/VBoxContainer/HBoxContainer3" unique_id=1249773420]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[connection signal="changed" from="Control/System/VBoxContainer/HBoxContainer2/MusicSlider" to="." method="_on_music_slider_changed"]
+[connection signal="changed" from="Control/System/VBoxContainer/HBoxContainer4/SFXSlider" to="." method="_on_sfx_slider_changed"]
+[connection signal="changed" from="Control/System/VBoxContainer/HBoxContainer3/UISlider" to="." method="_on_ui_slider_changed"]

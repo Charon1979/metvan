@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bpigthmhm67f8"]
+
+[ext_resource type="Texture2D" uid="uid://du7fclwohkc57" path="res://levels/00_forest/tilesets/sprites/Ladder.png" id="1_ygsyh"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5nudp"]
+
+[node name="Ladder" type="Node2D" unique_id=1136307291]
+scale = Vector2(2, 2)
+skew = 0.0017453292
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1147600935]
+offset_right = 32.0
+offset_bottom = 10.500016
+texture = ExtResource("1_ygsyh")
+region_rect = Rect2(0, 54, 32, 10)
+patch_margin_bottom = 5
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1366499503]
+libraries/ = SubResource("AnimationLibrary_5nudp")

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b27gt6qfdp5yk"]
+
+[ext_resource type="Material" uid="uid://bmqhd76uxf05a" path="res://double_jump_part.tres" id="1_fco53"]
+[ext_resource type="Script" uid="uid://dgkf1igataaee" path="res://00_global/visual_effects/effect_particles.gd" id="1_xxpx7"]
+
+[node name="EffectParticles" type="GPUParticles2D" unique_id=397018543]
+amount = 128
+lifetime = 3.0
+preprocess = 1.0
+explosiveness = 0.5
+randomness = 0.25
+process_material = ExtResource("1_fco53")
+script = ExtResource("1_xxpx7")

@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://hx0a72i15xnn"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_epyyu"]
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_s2tn3"]
+offsets = PackedFloat32Array(0, 0.25827813, 0.9735099)
+colors = PackedColorArray(13.18741, 18.892157, 12.623979, 1, 1.2588136, 1.8247963, 1.2029141, 1, 0, 1.8247963, 0, 0.003921569)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o5ap7"]
+gradient = SubResource("Gradient_s2tn3")
+width = 16
+height = 16
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_tfgdr"]
+offsets = PackedFloat32Array(0, 0.35514018, 0.6728972, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.2990654, 0.2990654, 0.2990654, 1, 0.6542057, 0.6542057, 0.6542057, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_152a0"]
+gradient = SubResource("Gradient_tfgdr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yy75x"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(680, 160, 1)
+direction = Vector3(0, 0, 0)
+initial_velocity_max = 300.0
+gravity = Vector3(0, 10, 0)
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_152a0")
+hue_variation_min = -0.020000022
+hue_variation_max = 0.019999977
+turbulence_enabled = true
+turbulence_noise_strength = 1.05
+turbulence_influence_max = 0.2
+
+[sub_resource type="Environment" id="Environment_uvhek"]
+background_mode = 3
+tonemap_mode = 1
+glow_enabled = true
+glow_strength = 1.15
+glow_mix = 0.15
+glow_bloom = 0.75
+glow_blend_mode = 4
+
+[node name="Wisps" type="GPUParticles2D"]
+visibility_layer = 3
+z_index = -1
+material = SubResource("CanvasItemMaterial_epyyu")
+amount = 50
+texture = SubResource("GradientTexture2D_o5ap7")
+lifetime = 5.0
+preprocess = 4.0
+randomness = 0.75
+visibility_rect = Rect2(-500, -100, 1000, 200)
+process_material = SubResource("ParticleProcessMaterial_yy75x")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uvhek")

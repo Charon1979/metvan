@@ -1,0 +1,192 @@
+[gd_scene format=4 uid="uid://cetnugl8fokve"]
+
+[ext_resource type="Script" uid="uid://dknswg5tayvv4" path="res://general/scripts/level_bounds.gd" id="1_eivfr"]
+[ext_resource type="TileSet" uid="uid://bm0ncdnh6p2wi" path="res://levels/00_forest/tilesets/autumn_forest.tres" id="1_uou33"]
+[ext_resource type="PackedScene" uid="uid://qpe4sqh7ml5t" path="res://general/level_transistion/level_transistion.tscn" id="2_t2ga1"]
+[ext_resource type="Texture2D" uid="uid://ckwlarg08c1d4" path="res://levels/00_forest/tilesets/sprites/Well_Bucket.png" id="4_uvqai"]
+[ext_resource type="PackedScene" uid="uid://c0f6mxwx8kue2" path="res://general/player_spawn/player_spawn.tscn" id="5_fck0l"]
+[ext_resource type="Shader" uid="uid://bkgan307ht57w" path="res://water.gdshader" id="6_5c1od"]
+[ext_resource type="PackedScene" uid="uid://bkv5bfac6a4nh" path="res://levels/01_prison/Water.tscn" id="6_cp18a"]
+[ext_resource type="PackedScene" uid="uid://dunfl1qr3c38" path="res://general/loot/gold.tscn" id="6_jovd8"]
+
+[sub_resource type="Animation" id="Animation_e3cx1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0017453292]
+}
+
+[sub_resource type="Animation" id="Animation_w88s8"]
+resource_name = "swing"
+length = 8.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.01745329251994329, 0.0, -0.01745329251994329, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6exl1"]
+_data = {
+&"RESET": SubResource("Animation_e3cx1"),
+&"swing": SubResource("Animation_w88s8")
+}
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5c1od"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cp18a"]
+width = 800
+height = 320
+noise = SubResource("FastNoiseLite_5c1od")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jovd8"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qcgjn"]
+width = 800
+height = 320
+noise = SubResource("FastNoiseLite_jovd8")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cp18a"]
+resource_local_to_scene = true
+shader = ExtResource("6_5c1od")
+shader_parameter/waterNoise = SubResource("NoiseTexture2D_qcgjn")
+shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_cp18a")
+shader_parameter/waterColor = Color(0.1254902, 0.8392157, 0.78039217, 1)
+shader_parameter/colorCorection = 0.35
+shader_parameter/distortionForce = 0.01
+shader_parameter/WDBrightness = 1.5
+shader_parameter/WDFreq = 0.6
+shader_parameter/WDSize = 0.9
+shader_parameter/WDSpeed = 4.0
+shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
+shader_parameter/backGroundDirX = 0.01
+shader_parameter/backGroundDirY = 0.01
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jovd8"]
+size = Vector2(800, 16)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qcgjn"]
+resource_local_to_scene = true
+bounce = 0.5
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2wg67"]
+resource_local_to_scene = true
+bounce = 0.5
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_w3gvu"]
+resource_local_to_scene = true
+bounce = 0.5
+
+[node name="Forest_13" type="Node2D" unique_id=44863653]
+
+[node name="LevelBounds" type="Node2D" parent="." unique_id=1772506890]
+z_index = 256
+position = Vector2(0, -256)
+script = ExtResource("1_eivfr")
+width = 800
+metadata/_custom_type_script = "uid://dknswg5tayvv4"
+
+[node name="Forest_13A" parent="." unique_id=663659368 instance=ExtResource("2_t2ga1")]
+position = Vector2(-32, -128)
+target_level = "uid://bwb1f6x6g03pa"
+target_area_name = "Forest_12B"
+
+[node name="Forest_13B" parent="." unique_id=655187672 instance=ExtResource("2_t2ga1")]
+position = Vector2(832, -128)
+location = 1
+target_level = "uid://d3enbpnnhnukr"
+target_area_name = "Forest_16A"
+
+[node name="Forest_13C" parent="." unique_id=1519738889 instance=ExtResource("2_t2ga1")]
+position = Vector2(352, -224)
+size = 3
+location = 2
+target_level = "uid://c6xewf8hak8po"
+target_area_name = "Forest_11C"
+
+[node name="Well_Bucket" type="Node2D" parent="." unique_id=552639079]
+z_index = -5
+position = Vector2(287, -257)
+skew = 0.0017453292
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Well_Bucket" unique_id=1782882290]
+offset_right = 32.0
+offset_bottom = 112.00017
+texture = ExtResource("4_uvqai")
+region_rect = Rect2(0, 0, 32, 64)
+patch_margin_bottom = 61
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Well_Bucket" unique_id=728392008]
+libraries/ = SubResource("AnimationLibrary_6exl1")
+autoplay = &"swing"
+
+[node name="Water" parent="." unique_id=600988617 instance=ExtResource("6_cp18a")]
+position = Vector2(0, -160)
+
+[node name="ColorRect" parent="Water" index="0" unique_id=404013724]
+material = SubResource("ShaderMaterial_cp18a")
+offset_top = 23.0
+offset_right = 800.0
+offset_bottom = 39.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water/StaticBody2D" parent_id_path=PackedInt32Array(600988617, 1322398973) index="0" unique_id=1465334305]
+position = Vector2(401, 31)
+shape = SubResource("RectangleShape2D_jovd8")
+
+[node name="Gold" parent="." unique_id=1025746384 instance=ExtResource("6_jovd8")]
+position = Vector2(507, -133)
+scale = Vector2(1, 0.99999994)
+skew = 0.0017453432
+disable_mode = 1
+physics_material_override = SubResource("PhysicsMaterial_qcgjn")
+freeze_mode = 1
+
+[node name="Gold2" parent="." unique_id=1406634883 instance=ExtResource("6_jovd8")]
+process_mode = 1
+position = Vector2(550, -134)
+scale = Vector2(1, 0.99999994)
+skew = 0.0017453432
+physics_material_override = SubResource("PhysicsMaterial_2wg67")
+
+[node name="Gold3" parent="." unique_id=998528164 instance=ExtResource("6_jovd8")]
+process_mode = 1
+position = Vector2(600, -189)
+scale = Vector2(1, 0.99999994)
+skew = 0.0017453432
+physics_material_override = SubResource("PhysicsMaterial_w3gvu")
+freeze_mode = 1
+
+[node name="PlayerSpawn" parent="." unique_id=1253357635 instance=ExtResource("5_fck0l")]
+position = Vector2(33, -126)
+scale = Vector2(1.5, 1.4999999)
+skew = 0.0017453432
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=676338199 groups=["Tilemap"]]
+tile_map_data = PackedByteArray("AAD///z/AQAHAAIAAAAAAPz/AQAHAAIAAAABAPz/AQAHAAIAAAACAPz/AQAHAAIAAAADAPz/AQAHAAIAAAAEAPz/AQAHAAIAAAAFAPz/AQAHAAIAAAAGAPz/AQAHAAIAAAAHAPz/AQAHAAIAAAAIAPz/AQAHAAIAAAAJAPz/AQAHAAIAAAAKAPz/AQAHAAIAAAALAPz/AQAHAAIAAAAMAPz/AQAHAAIAAAANAPz/AQAHAAIAAAAOAPz/AQAHAAIAAAAPAPz/AQAHAAIAAAAQAPz/AQAHAAIAAAARAPz/AQAHAAIAAAASAPz/AQAHAAIAAAATAPz/AQAHAAIAAAAUAPz/AQAHAAIAAAAVAPz/AQAHAAIAAAAWAPz/AQAHAAIAAAAXAPz/AQAHAAIAAAAYAPz/AQAHAAIAAAAZAPz/AQAHAAIAAAD///3/AQABAAEAAAD///7/AQABAAEAAAAAAP7/AQABAAEAAAABAP//AQABAAEAAAACAP//AQABAAEAAAADAP//AQABAAEAAAD/////AQABAAEAAAD//wAAAQABAAEAAAAAAP3/AQABAAEAAAAAAP//AQABAAEAAAAAAAAAAQABAAEAAAABAP3/AQABAAEAAAABAP7/AQABAAEAAAABAAAAAQABAAEAAAACAP3/AQABAAEAAAACAP7/AQABAAEAAAACAAAAAQABAAEAAAADAP3/AQABAAEAAAADAP7/AQABAAEAAAADAAAAAQABAAEAAAAEAP3/AQABAAEAAAAEAP7/AQABAAEAAAAEAP//AQABAAEAAAAEAAAAAQABAAEAAAAFAP3/AQABAAEAAAAFAP7/AQABAAEAAAAFAP//AQABAAEAAAAFAAAAAQABAAEAAAAGAP3/AQABAAEAAAAGAP7/AQABAAEAAAAGAP//AQABAAEAAAAGAAAAAQABAAEAAAAHAP3/AQABAAEAAAAHAP7/AQABAAEAAAAHAP//AQABAAEAAAAHAAAAAQABAAEAAAAIAP3/AQABAAEAAAAIAP7/AQABAAEAAAAIAP//AQABAAEAAAAIAAAAAQABAAEAAAAJAP3/AQABAAEAAAAJAP7/AQABAAEAAAAJAP//AQABAAEAAAAJAAAAAQABAAEAAAAKAP3/AQABAAEAAAAKAP7/AQABAAEAAAAKAP//AQABAAEAAAAKAAAAAQABAAEAAAALAP3/AQABAAEAAAALAP7/AQABAAEAAAALAP//AQABAAEAAAALAAAAAQABAAEAAAAMAP3/AQABAAEAAAAMAP7/AQABAAEAAAAMAP//AQABAAEAAAAMAAAAAQABAAEAAAANAP3/AQABAAEAAAANAP7/AQABAAEAAAANAP//AQABAAEAAAANAAAAAQABAAEAAAAOAP3/AQABAAEAAAAOAP7/AQABAAEAAAAOAP//AQABAAEAAAAOAAAAAQABAAEAAAAPAP3/AQABAAEAAAAPAP7/AQABAAEAAAAPAP//AQABAAEAAAAPAAAAAQABAAEAAAAQAP3/AQABAAEAAAAQAP7/AQABAAEAAAAQAP//AQABAAEAAAAQAAAAAQABAAEAAAARAP3/AQABAAEAAAARAP7/AQABAAEAAAARAP//AQABAAEAAAARAAAAAQABAAEAAAASAP3/AQABAAEAAAASAP7/AQABAAEAAAASAP//AQABAAEAAAASAAAAAQABAAEAAAATAP3/AQABAAEAAAATAP7/AQABAAEAAAATAP//AQABAAEAAAATAAAAAQABAAEAAAAUAP3/AQABAAEAAAAUAP7/AQABAAEAAAAUAP//AQABAAEAAAAUAAAAAQABAAEAAAAVAP3/AQABAAEAAAAVAP7/AQABAAEAAAAVAP//AQABAAEAAAAVAAAAAQABAAEAAAAWAP3/AQABAAEAAAAWAP7/AQABAAEAAAAWAP//AQABAAEAAAAWAAAAAQABAAEAAAAXAP3/AQABAAEAAAAXAP7/AQABAAEAAAAXAP//AQABAAEAAAAXAAAAAQABAAEAAAAYAP3/AQABAAEAAAAYAP7/AQABAAEAAAAYAP//AQABAAEAAAAYAAAAAQABAAEAAAAZAP3/AQABAAEAAAAZAP7/AQABAAEAAAAZAP//AQABAAEAAAAZAAAAAQABAAEAAAAAAPn/AQAIAAMAAAAAAPr/AQAIAAQAAAABAPn/AQAIAAMAAAABAPr/AQAIAAQAAAACAPn/AQAHAAMAAAACAPr/AQAHAAQAAAADAPn/AQAIAAMAAAADAPr/AQAIAAQAAAAEAPn/AQAHAAMAAAAEAPr/AQAHAAQAAAAFAPn/AQAIAAMAAAAFAPr/AQAIAAQAAAAGAPn/AQAHAAMAAAAGAPr/AQAHAAQAAAAHAPn/AQAHAAMAAAAHAPr/AQAHAAQAAAAIAPn/AQACAAIAAAAKAPn/AQAAAAIAAAALAPn/AQAIAAMAAAALAPr/AQAIAAQAAAAMAPn/AQAHAAMAAAAMAPr/AQAHAAQAAAANAPn/AQAIAAMAAAANAPr/AQAIAAQAAAAOAPn/AQAHAAMAAAAOAPr/AQAHAAQAAAAPAPn/AQAIAAMAAAAPAPr/AQAIAAQAAAAQAPn/AQAHAAMAAAAQAPr/AQAHAAQAAAARAPn/AQAIAAMAAAARAPr/AQAIAAQAAAASAPn/AQAHAAMAAAASAPr/AQAHAAQAAAATAPn/AQAIAAMAAAATAPr/AQAIAAQAAAAUAPn/AQAHAAMAAAAUAPr/AQAHAAQAAAAVAPn/AQAIAAMAAAAVAPr/AQAIAAQAAAAWAPn/AQAHAAMAAAAWAPr/AQAHAAQAAAAXAPn/AQAIAAMAAAAXAPr/AQAIAAQAAAAYAPn/AQAHAAMAAAAYAPr/AQAHAAQAAAAZAPn/AQAIAAMAAAAZAPr/AQAIAAQAAAD///n/AQAHAAMAAAD///r/AQAHAAQAAAD///j/AQABAAEAAAAAAPj/AQABAAEAAAABAPj/AQABAAEAAAACAPj/AQABAAEAAAADAPj/AQABAAEAAAAEAPj/AQABAAEAAAAFAPj/AQABAAEAAAAGAPj/AQABAAEAAAAHAPj/AQABAAEAAAAIAPj/AQACAAEAAAAKAPj/AQAAAAEAAAALAPj/AQABAAEAAAAMAPj/AQABAAEAAAANAPj/AQABAAEAAAAOAPj/AQABAAEAAAAPAPj/AQABAAEAAAAQAPj/AQABAAEAAAARAPj/AQABAAEAAAASAPj/AQABAAEAAAATAPj/AQABAAEAAAAUAPj/AQABAAEAAAAVAPj/AQABAAEAAAAWAPj/AQABAAEAAAAXAPj/AQABAAEAAAAYAPj/AQABAAEAAAAZAPj/AQABAAEAAAA=")
+tile_set = ExtResource("1_uou33")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=665402199]
+tile_set = ExtResource("1_uou33")
+
+[editable path="Water"]

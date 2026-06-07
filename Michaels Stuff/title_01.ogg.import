@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b8lu7npcf40gl"
+path="res://.godot/imported/title_01.ogg-c0f53fd6617ec5c583e97d50d4a55005.oggvorbisstr"
+
+[deps]
+
+source_file="res://Michaels Stuff/title_01.ogg"
+dest_files=["res://.godot/imported/title_01.ogg-c0f53fd6617ec5c583e97d50d4a55005.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

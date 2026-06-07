@@ -1,0 +1,14 @@
+MusicAutoTrigger
+Node
+CollisionShape3D
+StaticBody3D
+AnimationPlayer
+Sprite2D
+AnimatedSprite2D
+VBoxContainer
+ColorRect
+Control
+CollisionShape2D
+DamageArea
+AttackArea
+Breakable

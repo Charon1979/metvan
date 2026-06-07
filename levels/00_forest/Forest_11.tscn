@@ -1,0 +1,43 @@
+[gd_scene format=4 uid="uid://c6xewf8hak8po"]
+
+[ext_resource type="TileSet" uid="uid://bm0ncdnh6p2wi" path="res://levels/00_forest/tilesets/autumn_forest.tres" id="1_b1f51"]
+[ext_resource type="Script" uid="uid://dknswg5tayvv4" path="res://general/scripts/level_bounds.gd" id="1_sd832"]
+[ext_resource type="PackedScene" uid="uid://qpe4sqh7ml5t" path="res://general/level_transistion/level_transistion.tscn" id="2_kive4"]
+[ext_resource type="PackedScene" uid="uid://c0f6mxwx8kue2" path="res://general/player_spawn/player_spawn.tscn" id="4_o6g0p"]
+
+[node name="Forest_11" type="Node2D" unique_id=2016680241]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1594318873 groups=["Tilemap"]]
+tile_map_data = PackedByteArray("AAD///7/AQABAAwAAAAAAP7/AQABAAwAAAABAP7/AQABAAwAAAACAP7/AQABAAwAAAADAP7/AQABAAwAAAAEAP7/AQABAAwAAAAFAP7/AQAAAAMAABAGAP7/AQABAAAAAAAHAP7/AQABAAAAAAAIAP7/AQABAAAAAAAJAP7/AQABAAAAAAAKAP7/AQABAAAAAAALAP7/AQABAAAAAAAMAP7/AQABAAAAAAANAP7/AQABAAAAAAAOAP7/AQABAAAAAAAPAP7/AQABAAAAAAAQAP7/AQACAAAAAAASAP7/AQAAAAAAAAATAP7/AQABAAAAAAAUAP7/AQABAAAAAAAVAP7/AQABAAAAAAAWAP7/AQABAAAAAAAXAP7/AQABAAAAAAAQAP//AQACAAEAAAAQAAAAAQACAAEAAAASAP//AQAAAAEAAAASAAAAAQAAAAEAAAATAP//AQABAAEAAAATAAAAAQABAAEAAAAUAP//AQABAAEAAAAUAAAAAQABAAEAAAAVAP//AQABAAEAAAAVAAAAAQABAAEAAAAWAP//AQABAAEAAAAWAAAAAQABAAEAAAAXAP//AQABAAEAAAAXAAAAAQABAAEAAAD/////AQABAAEAAAD//wAAAQABAAEAAAAAAP//AQABAAEAAAAAAAAAAQABAAEAAAABAP//AQABAAEAAAABAAAAAQABAAEAAAACAP//AQABAAEAAAACAAAAAQABAAEAAAADAP//AQABAAEAAAADAAAAAQABAAEAAAAEAP//AQABAAEAAAAEAAAAAQABAAEAAAAFAP//AQABAAEAAAAFAAAAAQABAAEAAAAGAP//AQABAAEAAAAGAAAAAQABAAEAAAAHAP//AQABAAEAAAAHAAAAAQABAAEAAAAIAP//AQABAAEAAAAIAAAAAQABAAEAAAAJAP//AQABAAEAAAAJAAAAAQABAAEAAAAKAP//AQABAAEAAAAKAAAAAQABAAEAAAALAP//AQABAAEAAAALAAAAAQABAAEAAAAMAP//AQABAAEAAAAMAAAAAQABAAEAAAANAP//AQABAAEAAAANAAAAAQABAAEAAAAOAP//AQABAAEAAAAOAAAAAQABAAEAAAAPAP//AQABAAEAAAAPAAAAAQABAAEAAAD///T/AQABAAEAAAD///X/AQABAAEAAAD///b/AQABAAEAAAD///f/AQABAAEAAAD///j/AQABAAEAAAAXAPT/AQABAAEAAAAXAPX/AQABAAEAAAAXAPb/AQABAAEAAAAXAPf/AQABAAEAAAAXAPj/AQABAAEAAAA=")
+tile_set = ExtResource("1_b1f51")
+
+[node name="LevelBounds" type="Node2D" parent="." unique_id=1826897596]
+z_index = 256
+position = Vector2(0, -416)
+script = ExtResource("1_sd832")
+width = 736
+height = 416
+metadata/_custom_type_script = "uid://dknswg5tayvv4"
+
+[node name="Forest_11A" parent="." unique_id=663659368 instance=ExtResource("2_kive4")]
+position = Vector2(-32, -64)
+size = 5
+target_level = "uid://pqlmaphvsr6c"
+target_area_name = "Forest_09B"
+
+[node name="Forest_11B" parent="." unique_id=1506098579 instance=ExtResource("2_kive4")]
+position = Vector2(768, -64)
+size = 5
+location = 1
+target_level = "uid://c7rpadrafqav6"
+target_area_name = "Forest_14A"
+
+[node name="Forest_11C" parent="." unique_id=1792854781 instance=ExtResource("2_kive4")]
+position = Vector2(608, -32)
+size = 3
+location = 3
+target_level = "uid://cetnugl8fokve"
+target_area_name = "Forest_13C"
+
+[node name="PlayerSpawn" parent="." unique_id=1390794315 instance=ExtResource("4_o6g0p")]
+position = Vector2(95, -109.00001)

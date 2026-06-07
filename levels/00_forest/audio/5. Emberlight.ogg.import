@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c7w1aso2bv1ya"
+path="res://.godot/imported/5. Emberlight.ogg-4d8357a863a9ddd5133ae1c90fbe0e86.oggvorbisstr"
+
+[deps]
+
+source_file="res://levels/00_forest/audio/5. Emberlight.ogg"
+dest_files=["res://.godot/imported/5. Emberlight.ogg-4d8357a863a9ddd5133ae1c90fbe0e86.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

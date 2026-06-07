@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ut854lmdw0eo"
+path="res://.godot/imported/electic_arcs.ogg-887aaf40a6954d13cd41cb136efebde1.oggvorbisstr"
+
+[deps]
+
+source_file="res://Michaels Stuff/TestDummy/electic_arcs.ogg"
+dest_files=["res://.godot/imported/electic_arcs.ogg-887aaf40a6954d13cd41cb136efebde1.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

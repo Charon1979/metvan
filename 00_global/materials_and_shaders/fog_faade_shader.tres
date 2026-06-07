@@ -1,0 +1,31 @@
+[gd_resource type="VisualShader" format=3 uid="uid://2c5s8ufw1dxo"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_gg5fv"]
+expanded_output_ports = [0]
+input_name = "color"
+
+[sub_resource type="Gradient" id="Gradient_dytys"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tcpyf"]
+gradient = SubResource("Gradient_dytys")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_xgaue"]
+expanded_output_ports = [0]
+texture = SubResource("GradientTexture2D_tcpyf")
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_8h0sh"]
+operator = 2
+
+[resource]
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(760, 220)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_gg5fv")
+nodes/fragment/2/position = Vector2(140, -40)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_xgaue")
+nodes/fragment/3/position = Vector2(160, 220)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatOp_8h0sh")
+nodes/fragment/4/position = Vector2(520, 220)
+nodes/fragment/connections = PackedInt32Array(3, 4, 4, 1, 2, 4, 4, 0, 4, 0, 0, 1)

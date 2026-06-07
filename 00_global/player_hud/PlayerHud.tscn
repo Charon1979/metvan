@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://dbpwloi1e8tty"]
+
+[ext_resource type="Script" uid="uid://6iqhughmul4u" path="res://00_global/player_hud/player_hud.gd" id="1_pfcfe"]
+[ext_resource type="Texture2D" uid="uid://c1en10wxleroj" path="res://00_global/player_hud/ManaFlaskBack.png" id="2_ifptl"]
+[ext_resource type="Texture2D" uid="uid://bwl3i4eylmjtq" path="res://00_global/player_hud/ManaFlaskEmpty.png" id="3_yx1pk"]
+[ext_resource type="Texture2D" uid="uid://05jfu4ik6uhx" path="res://00_global/player_hud/ManaFlaskLiquid.png" id="4_qnhk3"]
+[ext_resource type="PackedScene" uid="uid://60gtry87ecr6" path="res://00_global/player_hud/life_gem.tscn" id="5_ifptl"]
+[ext_resource type="PackedScene" uid="uid://3fiwr31f4q4q" path="res://00_global/player_hud/currency.tscn" id="6_yx1pk"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6ouu3"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ifptl"]
+light_mode = 1
+
+[node name="PlayerHud" type="CanvasLayer" unique_id=304501498]
+process_mode = 3
+layer = 2
+script = ExtResource("1_pfcfe")
+
+[node name="Mana" type="Control" parent="." unique_id=888359461]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_right = -434.0
+offset_bottom = -218.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="ManaBar" type="TextureProgressBar" parent="Mana" unique_id=1743146592]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_6ouu3")
+layout_mode = 1
+offset_top = -2.0
+offset_right = 48.0
+offset_bottom = 46.0
+value = 50.0
+fill_mode = 3
+texture_under = ExtResource("2_ifptl")
+texture_over = ExtResource("3_yx1pk")
+texture_progress = ExtResource("4_qnhk3")
+texture_progress_offset = Vector2(12, 12)
+tint_under = Color(0.8156863, 0.8156863, 0.8156863, 0.29411766)
+tint_progress = Color(1.353256, 1.353256, 1.353256, 1)
+
+[node name="HP" type="Control" parent="." unique_id=1433721060]
+material = SubResource("CanvasItemMaterial_ifptl")
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 58.0
+offset_top = 14.0
+offset_right = 100.0
+offset_bottom = 30.0
+scale = Vector2(1.25, 1.25)
+mouse_filter = 1
+
+[node name="GemContainer" type="HFlowContainer" parent="HP" unique_id=1220189830]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_left = -8.0
+offset_top = -2.0
+offset_right = 88.0
+offset_bottom = 34.0
+scale = Vector2(0.5, 0.5)
+
+[node name="LifeGem" parent="HP/GemContainer" unique_id=1957875190 instance=ExtResource("5_ifptl")]
+layout_mode = 2
+
+[node name="LifeGem2" parent="HP/GemContainer" unique_id=17999682 instance=ExtResource("5_ifptl")]
+layout_mode = 2
+
+[node name="LifeGem3" parent="HP/GemContainer" unique_id=1407893472 instance=ExtResource("5_ifptl")]
+layout_mode = 2
+
+[node name="LifeGem4" parent="HP/GemContainer" unique_id=941527338 instance=ExtResource("5_ifptl")]
+layout_mode = 2
+
+[node name="LifeGem5" parent="HP/GemContainer" unique_id=1140191799 instance=ExtResource("5_ifptl")]
+layout_mode = 2
+
+[node name="LifeGem6" parent="HP/GemContainer" unique_id=216206480 instance=ExtResource("5_ifptl")]
+layout_mode = 2
+
+[node name="LifeGem7" parent="HP/GemContainer" unique_id=954296019 instance=ExtResource("5_ifptl")]
+layout_mode = 2
+
+[node name="LifeGem8" parent="HP/GemContainer" unique_id=1258292591 instance=ExtResource("5_ifptl")]
+layout_mode = 2
+
+[node name="LifeGem9" parent="HP/GemContainer" unique_id=277754498 instance=ExtResource("5_ifptl")]
+layout_mode = 2
+
+[node name="LifeGem10" parent="HP/GemContainer" unique_id=1901895703 instance=ExtResource("5_ifptl")]
+layout_mode = 2
+
+[node name="Money" type="Control" parent="." unique_id=557077310]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 14.0
+offset_top = 14.0
+offset_right = 110.0
+offset_bottom = 30.0
+scale = Vector2(0.75, 0.75)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Currency" parent="Money" unique_id=838263141 instance=ExtResource("6_yx1pk")]
+layout_mode = 1
+offset_left = 52.0
+offset_top = 40.0
+offset_right = 52.0
+offset_bottom = 40.0

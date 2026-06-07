@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://dlarkdvukdoso"]
+
+[ext_resource type="Shader" uid="uid://brwh70wa4evsg" path="res://levels/00_forest/white_tree.gdshader" id="1_e1glw"]
+[ext_resource type="Texture2D" uid="uid://dk4je7my0i565" path="res://levels/00_forest/tilesets/sprites/Dark_Tree1.png" id="2_e1glw"]
+[ext_resource type="Texture2D" uid="uid://d2rtk8k7jbu3v" path="res://levels/00_forest/tilesets/sprites/Autnum_Leaves_Dark.png" id="3_ophlg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4p8i4"]
+resource_local_to_scene = true
+shader = ExtResource("1_e1glw")
+shader_parameter/wind_start_threshold = 0.1200000057
+shader_parameter/wind_end_threshold = 2.0
+shader_parameter/wind_end_threshold_2 = 0.2000000095
+shader_parameter/wind_strength = 0.050000002375
+shader_parameter/wind_speed = 0.25000000535523
+shader_parameter/scale = 2.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5d6qm"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4na0q"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(32, 32, 1)
+direction = Vector3(1, 1, 0)
+spread = 40.0
+initial_velocity_min = 40.0
+initial_velocity_max = 80.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 50.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.79999995
+scale_max = 1.1999999
+hue_variation_min = -2.2351742e-08
+hue_variation_max = -2.2351742e-08
+anim_offset_max = 1.0
+turbulence_enabled = true
+
+[node name="White_Tree" type="Sprite2D" unique_id=480325694]
+material = SubResource("ShaderMaterial_4p8i4")
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_e1glw")
+
+[node name="Falling_Leaves" type="GPUParticles2D" parent="." unique_id=1039305341]
+material = SubResource("CanvasItemMaterial_5d6qm")
+position = Vector2(0, 28)
+amount = 2
+texture = ExtResource("3_ophlg")
+lifetime = 4.0
+preprocess = 2.0
+speed_scale = 0.5
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_4na0q")

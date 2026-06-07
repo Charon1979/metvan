@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://bkv5bfac6a4nh"]
+
+[ext_resource type="Shader" uid="uid://bkgan307ht57w" path="res://water.gdshader" id="1_i2jmd"]
+[ext_resource type="Script" uid="uid://mbcixv0ysrhy" path="res://general/scripts/water.gd" id="2_tn1jy"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5c1od"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cp18a"]
+width = 800
+height = 320
+noise = SubResource("FastNoiseLite_5c1od")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jovd8"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qcgjn"]
+width = 800
+height = 320
+noise = SubResource("FastNoiseLite_jovd8")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tn1jy"]
+resource_local_to_scene = true
+shader = ExtResource("1_i2jmd")
+shader_parameter/waterNoise = SubResource("NoiseTexture2D_qcgjn")
+shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_cp18a")
+shader_parameter/waterColor = Color(0.1254902, 0.8392157, 0.78039217, 1)
+shader_parameter/colorCorection = 0.35
+shader_parameter/distortionForce = 0.01
+shader_parameter/WDBrightness = 1.5
+shader_parameter/WDFreq = 0.6
+shader_parameter/WDSize = 0.9
+shader_parameter/WDSpeed = 4.0
+shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
+shader_parameter/backGroundDirX = 0.01
+shader_parameter/backGroundDirY = 0.01
+
+[sub_resource type="Gradient" id="Gradient_15nhp"]
+colors = PackedColorArray(0.1254902, 0.8392157, 0.78039217, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_41ks5"]
+gradient = SubResource("Gradient_15nhp")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+metadata/_snap_count = 12
+
+[sub_resource type="Gradient" id="Gradient_ylt6w"]
+offsets = PackedFloat32Array(0, 0.7222222, 1)
+colors = PackedColorArray(0.1254902, 0.8392157, 0.78039217, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j2x2m"]
+gradient = SubResource("Gradient_ylt6w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m6ywf"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+angle_min = -14.9999895
+angle_max = 15.0000105
+direction = Vector3(0, -2, 0)
+spread = 30.0
+initial_velocity_min = 70.0
+initial_velocity_max = 130.0
+gravity = Vector3(0, 120, 0)
+scale_min = 0.099999994
+scale_max = 0.29999998
+color_ramp = SubResource("GradientTexture1D_j2x2m")
+
+[node name="Water" type="Node2D" unique_id=600988617]
+z_index = 5
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=404013724]
+material = SubResource("ShaderMaterial_tn1jy")
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.1254902, 0.8392157, 0.78039217, 1)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1322398973]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("2_tn1jy")
+speed = 50.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1628469288]
+z_index = 1
+emitting = false
+amount = 30
+texture = SubResource("GradientTexture2D_41ks5")
+lifetime = 0.75
+one_shot = true
+explosiveness = 0.9
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_m6ywf")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="." unique_id=511725178]
+z_index = 1
+emitting = false
+amount = 15
+texture = SubResource("GradientTexture2D_41ks5")
+lifetime = 0.75
+one_shot = true
+explosiveness = 0.9
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_m6ywf")

@@ -1,0 +1,234 @@
+[gd_scene format=4 uid="uid://csi1wy7idb0ww"]
+
+[ext_resource type="Script" uid="uid://ds0p8injfh87h" path="res://general/title_screen/title_screen.gd" id="1_di16x"]
+[ext_resource type="PackedScene" uid="uid://knafjlxi7bli" path="res://levels/00_forest/white_tree.tscn" id="3_di16x"]
+[ext_resource type="TileSet" uid="uid://bm0ncdnh6p2wi" path="res://levels/00_forest/tilesets/autumn_forest.tres" id="3_u8lje"]
+[ext_resource type="Shader" uid="uid://brwh70wa4evsg" path="res://levels/00_forest/white_tree.gdshader" id="4_tatgd"]
+[ext_resource type="Script" uid="uid://dkq8a6unh4igm" path="res://00_global/audio/music/music_auto_trigger.gd" id="5_wwsdg"]
+[ext_resource type="AudioStream" uid="uid://dg0ean6vfjvm6" path="res://general/title_screen/leberch-history-music-355590.mp3" id="6_ejasc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_di16x"]
+resource_local_to_scene = true
+shader = ExtResource("4_tatgd")
+shader_parameter/wind_start_threshold = 0.1200000057
+shader_parameter/wind_end_threshold = 2.0
+shader_parameter/wind_end_threshold_2 = 0.2000000095
+shader_parameter/wind_strength = 0.050000002375
+shader_parameter/wind_speed = 0.25000000535523
+shader_parameter/scale = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tatgd"]
+resource_local_to_scene = true
+shader = ExtResource("4_tatgd")
+shader_parameter/wind_start_threshold = 0.1200000057
+shader_parameter/wind_end_threshold = 2.0
+shader_parameter/wind_end_threshold_2 = 0.2000000095
+shader_parameter/wind_strength = 0.050000002375
+shader_parameter/wind_speed = 0.25000000535523
+shader_parameter/scale = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_ew78y"]
+paragraph_spacing = 5.0
+font_size = 32
+font_color = Color(0.78431374, 0, 0, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_52cv0"]
+light_mode = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_6r6c0"]
+font_color = Color(0.78431374, 0, 0, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="TitleScreen" type="CanvasLayer" unique_id=812678041]
+layer = 5
+script = ExtResource("1_di16x")
+
+[node name="Control" type="Control" parent="." unique_id=146536223]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 480.0
+offset_bottom = 288.0
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=2067441530]
+z_index = -10
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 288.0
+color = Color(0.23137255, 0.81960785, 0.8901961, 1)
+
+[node name="TileMapContainer" type="Control" parent="Control" unique_id=1327630237]
+anchors_preset = 0
+offset_right = 480.0
+offset_bottom = 288.0
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Control/TileMapContainer" unique_id=1189846090]
+tile_map_data = PackedByteArray("AAAMAAcAAQAEAAkAAAACAAcAAQAFAAkAAAAMAAgAAQAEAA8AAAANAAcAAQABAAEAAAANAAgAAQABAAEAAAAOAAcAAQABAAEAAAAOAAgAAQABAAEAAAABAAcAAQABAAEAAAABAAgAAQABAAEAAAAAAAcAAQABAAEAAAAAAAgAAQABAAEAAAALAAgAAQABAAwAAAAKAAgAAQABAAwAAAAJAAgAAQABAAwAAAAIAAgAAQABAAwAAAAHAAgAAQABAAwAAAAGAAgAAQABAAwAAAAFAAgAAQABAAwAAAAEAAgAAQABAAwAAAADAAgAAQABAAwAAAACAAgAAQAFAA8AAAALAAcAAQAAAAYAAAADAAcAAQACAAYAAAAMAAYAAQAAAAYAAAANAAYAAQABAAYAAAAOAAYAAQABAAYAAAACAAYAAQACAAYAAAABAAYAAQABAAYAAAAAAAYAAQABAAYAAAA=")
+tile_set = ExtResource("3_u8lje")
+
+[node name="White_Tree" parent="Control/TileMapContainer" unique_id=480325694 instance=ExtResource("3_di16x")]
+z_index = -5
+material = SubResource("ShaderMaterial_di16x")
+position = Vector2(414.00003, 99.00001)
+
+[node name="White_Tree2" parent="Control/TileMapContainer" unique_id=1753642232 instance=ExtResource("3_di16x")]
+z_index = -5
+material = SubResource("ShaderMaterial_tatgd")
+position = Vector2(66, 99)
+
+[node name="MainMenue" type="VBoxContainer" parent="Control" unique_id=1560379143]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -112.0
+offset_right = 50.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Logo" type="Control" parent="Control/MainMenue" unique_id=2115552272]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MainMenue/Logo" unique_id=825157749]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -141.0
+offset_top = -47.0
+offset_right = 143.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Ariochs
+         Offenbarung"
+label_settings = SubResource("LabelSettings_ew78y")
+
+[node name="NewGameButton" type="Button" parent="Control/MainMenue" unique_id=1423521541]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_52cv0")
+layout_mode = 2
+text = "Neues Spiel"
+
+[node name="LoadGameButton" type="Button" parent="Control/MainMenue" unique_id=1364452998]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Laden"
+
+[node name="QuitGameButton" type="Button" parent="Control/MainMenue" unique_id=763751719]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Beenden"
+
+[node name="NewGameMenue" type="VBoxContainer" parent="Control" unique_id=1843535429]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.5
+offset_top = -27.0
+offset_right = 46.5
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/NewGameMenue" unique_id=898082791]
+layout_mode = 2
+text = "Neues Spiel starten..."
+label_settings = SubResource("LabelSettings_6r6c0")
+
+[node name="Control" type="Control" parent="Control/NewGameMenue" unique_id=506436902]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="NewSlot01" type="Button" parent="Control/NewGameMenue" unique_id=1270165980]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_52cv0")
+layout_mode = 2
+text = "Speicherplatz 01"
+
+[node name="NewSlot02" type="Button" parent="Control/NewGameMenue" unique_id=1374906830]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_52cv0")
+layout_mode = 2
+text = "Speicherplatz 02"
+
+[node name="NewSlot03" type="Button" parent="Control/NewGameMenue" unique_id=481663244]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_52cv0")
+layout_mode = 2
+text = "Speicherplatz 03"
+
+[node name="CancelNewGame" type="Button" parent="Control/NewGameMenue" unique_id=35000323]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Zurück"
+
+[node name="LoadGameMenue" type="VBoxContainer" parent="Control" unique_id=1550164436]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.5
+offset_top = -27.0
+offset_right = 46.5
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/LoadGameMenue" unique_id=1546283228]
+layout_mode = 2
+text = "Spiel fortsetzen..."
+label_settings = SubResource("LabelSettings_6r6c0")
+
+[node name="Control" type="Control" parent="Control/LoadGameMenue" unique_id=1977657113]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="LoadSlot01" type="Button" parent="Control/LoadGameMenue" unique_id=557441715]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_52cv0")
+layout_mode = 2
+text = "Spielstand 01"
+
+[node name="LoadSlot02" type="Button" parent="Control/LoadGameMenue" unique_id=103237816]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_52cv0")
+layout_mode = 2
+text = "Spielstand 02"
+
+[node name="LoadSlot03" type="Button" parent="Control/LoadGameMenue" unique_id=1858689250]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_52cv0")
+layout_mode = 2
+text = "Spielstand 03"
+
+[node name="CancelLoad" type="Button" parent="Control/LoadGameMenue" unique_id=877168592]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Zurück"
+
+[node name="MusicAutoTrigger" type="Node" parent="." unique_id=1978062138]
+script = ExtResource("5_wwsdg")
+track = ExtResource("6_ejasc")
+metadata/_custom_type_script = "uid://dkq8a6unh4igm"

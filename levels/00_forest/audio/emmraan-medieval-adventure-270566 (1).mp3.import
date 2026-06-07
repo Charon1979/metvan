@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://mugm3nownnsd"
+path="res://.godot/imported/emmraan-medieval-adventure-270566 (1).mp3-6c72c464e4e64c662fffd13f102a849b.mp3str"
+
+[deps]
+
+source_file="res://levels/00_forest/audio/emmraan-medieval-adventure-270566 (1).mp3"
+dest_files=["res://.godot/imported/emmraan-medieval-adventure-270566 (1).mp3-6c72c464e4e64c662fffd13f102a849b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

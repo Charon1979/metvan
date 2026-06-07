@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EffectParticleSettings" format=3 uid="uid://wkqgbfbe8tly"]
+
+[ext_resource type="Script" uid="uid://dhvp0ngchjh8j" path="res://00_global/visual_effects/effect_particle_settings.gd" id="1_mdmch"]
+
+[resource]
+script = ExtResource("1_mdmch")
+count = 128
+color = Color(1, 0.18039216, 1, 1)
+lifetime = 3.0
+preprocess = 1.0
+explosiveness = 0.5
+randomness = 0.25
+metadata/_custom_type_script = "uid://dhvp0ngchjh8j"

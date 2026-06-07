@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://csahdros4j2tc"
+path="res://.godot/imported/slime_death.wav-a814904ce625c3dd8e014ea2a9082121.sample"
+
+[deps]
+
+source_file="res://Michaels Stuff/slime_death.wav"
+dest_files=["res://.godot/imported/slime_death.wav-a814904ce625c3dd8e014ea2a9082121.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
