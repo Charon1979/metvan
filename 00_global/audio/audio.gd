@@ -17,9 +17,11 @@ var ui_audio_player : AudioStreamPlaybackPolyphonic
 var audio_pool : Array[ AudioStreamPlayer2D ]
 var audio_index : int = 0
 
+
 @onready var music_1: AudioStreamPlayer = %Music1
 @onready var music_2: AudioStreamPlayer = %Music2
 @onready var ui: AudioStreamPlayer = %UI
+
 
 
 func _ready() -> void:
