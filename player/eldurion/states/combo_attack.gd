@@ -67,7 +67,7 @@ func attacking() -> void:
 	anim_name = "attack_" + str(combo)
 	timer = 0
 	player.animation_player.play( anim_name )
-	Audio.play_spatial_sound( attack_sound() , player.global_position )
+	Audio.play_spatial_sound( attack_sound() , player.global_position,false, true, 0.5 )
 	
 	pass
 

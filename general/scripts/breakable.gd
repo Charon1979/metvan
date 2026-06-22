@@ -42,12 +42,12 @@ func _on_damage_taken( attack_area : AttackArea ) -> void:
 		
 	if hp > 0:
 		damage_taken.emit()
-		Audio.play_spatial_sound( hit_audio, pos )
+		Audio.play_spatial_sound( hit_audio, pos, false, true, 0.75 )
 		for p in hit_particles:
 			VisualEffects.hit_particles( pos, dir, p )
 	else:
 		destroyed.emit()
-		Audio.play_spatial_sound( destroy_audio, pos )
+		Audio.play_spatial_sound( destroy_audio, pos, false, true, 1 )
 		clear_collision()
 		for p in destroy_particles:
 			VisualEffects.hit_particles( pos, dir, p )

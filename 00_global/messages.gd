@@ -21,6 +21,7 @@ signal player_mana_changed( mp : int, max_mp : int )
 @warning_ignore( "unused_signal")
 signal player_gold_changed( amount : int )
 
+
 @warning_ignore( "unused_signal")
 signal back_to_title_screen ( )
 

@@ -1,34 +1,75 @@
 @icon( "uid://cltev4ia8x75q" )
 
-extends RigidBody2D
-class_name Gold
+class_name GoldPickup
+extends CharacterBody2D
 
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+const COIN_AUDIO = preload("uid://lk8px256n5bm")
 
-@export var value : int = 1
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var area_2d: Area2D = $Area2D
+
+enum Currency {
+	COIN = 1,
+	RED_GEM = 10,
+	BLUE_GEM = 20,
+	GREEN_GEM = 50,
+	DIAMOND = 100
+}
+
+const ANIMATION := {
+	Currency.COIN: "coin",
+	Currency.RED_GEM: "red_gem",
+	Currency.BLUE_GEM: "blue_gem",
+	Currency.GREEN_GEM: "green_gem",
+	Currency.DIAMOND: "diamond",
+}
+
+@export var value: Currency = Currency.COIN
+
+var bounce_count: int = 6
+var friction: float = 6.0
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _ready() -> void:
-	var frame_count = animated_sprite_2d.sprite_frames.get_frame_count(animated_sprite_2d.animation)
-	animated_sprite_2d.frame = randi_range(0, frame_count)
-	if value == 1:
-		mass = 0.25
-		animated_sprite_2d.play("coin")
-	elif value == 10:
-		mass = 0.35
-		animated_sprite_2d.play("red_gem")
-	elif value == 20:
-		mass = 0.5
-		animated_sprite_2d.play("blue_gem")
-	elif value == 50:
-		mass = 0.5
-		animated_sprite_2d.play("green_gem")
-	elif value == 100:
-		mass = 0.5
-		animated_sprite_2d.play("diamond")
+	
+	# correct animation selection
+	if ANIMATION.has(value):
+		anim.play(ANIMATION[value])
+
+	# slight variation = less robotic feel
+	anim.frame = randi() % anim.sprite_frames.get_frame_count(anim.animation)
+	anim.speed_scale = randf_range(0.95, 1.1)
+
+	area_2d.body_entered.connect(_on_player_entered)
 
 
-func _on_area_2d_body_entered(_body: Player) -> void:
-	_body.gold += value
-	queue_free()
-	pass
+func _physics_process(delta: float) -> void:
+	if bounce_count > 0:
+		velocity.y += gravity * delta
+
+		var collision: KinematicCollision2D = move_and_collide(velocity * delta)
+
+		if collision:
+			bounce_count -= 1
+
+			# realistic bounce loss
+			velocity = velocity.bounce(collision.get_normal()) * 0.7
+
+			# soften horizontal jitter
+			velocity.x *= 0.85
+	else:
+		# settle on ground naturally
+		velocity.x = lerp(velocity.x, 0.0, friction * delta)
+		velocity.y += gravity * delta
+		move_and_slide()
+
+
+func _on_player_entered(n: Node2D) -> void:
+	if n is Player:
+		n.gold += value
+		
+		area_2d.body_entered.disconnect( _on_player_entered )
+		Audio.play_spatial_sound(COIN_AUDIO, global_position, false, true, 0.0)
+		
+		queue_free()

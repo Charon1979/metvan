@@ -5,9 +5,9 @@
 [ext_resource type="TileSet" uid="uid://bm0ncdnh6p2wi" path="res://levels/00_forest/tilesets/autumn_forest.tres" id="3_u8lje"]
 [ext_resource type="Shader" uid="uid://brwh70wa4evsg" path="res://levels/00_forest/white_tree.gdshader" id="4_tatgd"]
 [ext_resource type="Script" uid="uid://dkq8a6unh4igm" path="res://00_global/audio/music/music_auto_trigger.gd" id="5_wwsdg"]
-[ext_resource type="AudioStream" uid="uid://dg0ean6vfjvm6" path="res://general/title_screen/leberch-history-music-355590.mp3" id="6_ejasc"]
+[ext_resource type="AudioStream" uid="uid://bov2f5ja1kmwa" path="res://general/title_screen/Title_Screen.ogg" id="6_wwsdg"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_di16x"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwsdg"]
 resource_local_to_scene = true
 shader = ExtResource("4_tatgd")
 shader_parameter/wind_start_threshold = 0.1200000057
@@ -17,7 +17,7 @@ shader_parameter/wind_strength = 0.050000002375
 shader_parameter/wind_speed = 0.25000000535523
 shader_parameter/scale = 2.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tatgd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ejasc"]
 resource_local_to_scene = true
 shader = ExtResource("4_tatgd")
 shader_parameter/wind_start_threshold = 0.1200000057
@@ -71,16 +71,17 @@ tile_set = ExtResource("3_u8lje")
 
 [node name="White_Tree" parent="Control/TileMapContainer" unique_id=480325694 instance=ExtResource("3_di16x")]
 z_index = -5
-material = SubResource("ShaderMaterial_di16x")
+material = SubResource("ShaderMaterial_wwsdg")
 position = Vector2(414.00003, 99.00001)
 
 [node name="White_Tree2" parent="Control/TileMapContainer" unique_id=1753642232 instance=ExtResource("3_di16x")]
 z_index = -5
-material = SubResource("ShaderMaterial_tatgd")
+material = SubResource("ShaderMaterial_ejasc")
 position = Vector2(66, 99)
 
 [node name="MainMenue" type="VBoxContainer" parent="Control" unique_id=1560379143]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -126,6 +127,11 @@ text = "Neues Spiel"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Laden"
+
+[node name="SettingsButton" type="Button" parent="Control/MainMenue" unique_id=876596645]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Einstellungen"
 
 [node name="QuitGameButton" type="Button" parent="Control/MainMenue" unique_id=763751719]
 unique_name_in_owner = true
@@ -228,7 +234,99 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Zurück"
 
+[node name="Settings" type="VBoxContainer" parent="Control" unique_id=1947955985]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -61.0
+offset_right = 100.0
+offset_bottom = 61.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/Settings" unique_id=1008831896]
+layout_mode = 2
+text = "System"
+label_settings = SubResource("LabelSettings_6r6c0")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Control/Settings" unique_id=344790290]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Settings" unique_id=1392280467]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Settings/HBoxContainer2" unique_id=172451466]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "Musik"
+
+[node name="MusicSlider" type="HSlider" parent="Control/Settings/HBoxContainer2" unique_id=146713883]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/Settings" unique_id=518419837]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Settings/HBoxContainer4" unique_id=918331481]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "SFX"
+
+[node name="SFXSlider" type="HSlider" parent="Control/Settings/HBoxContainer4" unique_id=1689368312]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/Settings" unique_id=640838601]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Settings/HBoxContainer3" unique_id=1000278794]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "UI"
+
+[node name="UISlider" type="HSlider" parent="Control/Settings/HBoxContainer3" unique_id=946049366]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="Control2" type="Control" parent="Control/Settings" unique_id=1625001629]
+layout_mode = 2
+
+[node name="CancelSettings" type="Button" parent="Control/Settings/Control2" unique_id=780756472]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "Zurück"
+
 [node name="MusicAutoTrigger" type="Node" parent="." unique_id=1978062138]
 script = ExtResource("5_wwsdg")
-track = ExtResource("6_ejasc")
+track = ExtResource("6_wwsdg")
 metadata/_custom_type_script = "uid://dkq8a6unh4igm"

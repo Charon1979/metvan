@@ -3,12 +3,11 @@
 class_name AttackArea
 extends Area2D
 
-enum DmgType { LIGHT, HEAVY, LIGHTNING, FIRE, ICE }
-
 
 @export var damage : int = 1
-@export var dmg_type : DmgType = DmgType.LIGHT
-@export var force : float = 1
+@export var dmg_element: DamageType.DamageElement = DamageType.DamageElement.PHYSICAL
+@export var dmg_type: DamageType.DamageType = DamageType.DamageType.LIGHT
+@export var force : float = 1.0
 
 
 
@@ -24,6 +23,7 @@ func _ready() -> void:
 func _on_body_entered( body : Node2D ) -> void:
 	if body is DamageArea:
 		body.take_damage( self )
+		
 		
 		var pos: Vector2 = global_position
 		

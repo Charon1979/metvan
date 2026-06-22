@@ -7,7 +7,7 @@ const EFFECT_PARTICLES = preload("uid://b27gt6qfdp5yk")
 
 signal camera_shook( strength : float )
 
-
+var hit_settings_db: Array[HitParticleSettings] = []
 
 # Create dust effects
 # Create new instance of a dust effect
@@ -50,6 +50,28 @@ func effect_particles( pos: Vector2, dir: Vector2, settings : EffectParticleSett
 	e.global_position = pos
 	e.start( dir, settings )
 	pass
+
+func get_hit_settings(attack: DamageType.DamageElement, target: DamageType.DamageElement) -> HitParticleSettings:
+	for s in hit_settings_db:
+		if s.attack_element == attack and s.target_element == target:
+			return s
+	return null
+	
+func spawn_hit(
+	attack: AttackArea,
+	target_element: DamageType.DamageElement,
+	pos: Vector2,
+	dir: Vector2
+) -> void:
+
+	var settings := get_hit_settings(attack.dmg_element, target_element)
+
+	if settings == null:
+		hit_dust(pos)
+		return
+
+	hit_particles(pos, dir, settings)
+
 
 func camera_shake( strength : float = 1.0 ) -> void:
 	camera_shook.emit( strength )

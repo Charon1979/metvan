@@ -4,10 +4,10 @@ class_name DamageArea
 extends Area2D
 
 signal damage_taken( attack_area )
-signal damage_effect( type )
+signal damage_effect(attack: AttackArea, target_element: DamageType.DamageElement)
 @export var audio : AudioStream
 
-var type: String = "light"
+@export var element: DamageType.DamageElement = DamageType.DamageElement.PHYSICAL
 
 func _ready() -> void:
 	pass
@@ -15,10 +15,10 @@ func _ready() -> void:
 
 func take_damage ( attack_area : AttackArea ) -> void:
 	damage_taken.emit( attack_area )
-	damage_effect.emit()
+	damage_effect.emit(attack_area, element)
 	
 	if audio:
-		Audio.play_spatial_sound( audio, global_position )
+		Audio.play_spatial_sound( audio, global_position, false, false, 0.4 )
 	pass
 
 func make_invulnerable( duration : float = 1.0 ) -> void:

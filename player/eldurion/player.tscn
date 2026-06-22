@@ -32,13 +32,12 @@
 [ext_resource type="Script" uid="uid://coy7wn1wn058s" path="res://general/scripts/attack_area.gd" id="18_wsc6v"]
 [ext_resource type="Script" uid="uid://cwxs3xm3awfci" path="res://general/scripts/damage_area.gd" id="21_7knsd"]
 [ext_resource type="Texture2D" uid="uid://bk0vy37emquty" path="res://player/eldurion/sprites/Eldurion Power_Attack-Spritesheet.png" id="22_3j52h"]
-[ext_resource type="AudioStream" uid="uid://b01mccy06o2bi" path="res://Michaels Stuff/aargh.wav" id="23_0fp73"]
 [ext_resource type="Texture2D" uid="uid://bm2nxu4ywmxwy" path="res://player/eldurion/sprites/Eldurion_down_attack.png" id="24_eeb2s"]
 [ext_resource type="Script" uid="uid://dly4s2kbaloed" path="res://player/eldurion/scripts/player_sprite.gd" id="25_8bftn"]
-[ext_resource type="AudioStream" uid="uid://k14rde8r1sc0" path="res://Michaels Stuff/jump.wav" id="27_owlrh"]
-[ext_resource type="AudioStream" uid="uid://bknw5tqnvbm4h" path="res://Michaels Stuff/land.wav" id="28_cmjvy"]
 [ext_resource type="AudioStream" uid="uid://cdcocmta0g1ap" path="res://00_global/audio/player_audio/Eldurion_weapon_charge.ogg" id="34_lar1f"]
+[ext_resource type="Script" uid="uid://dvm7rsqs2rv8v" path="res://general/scripts/loot_dropper.gd" id="38_lar1f"]
 [ext_resource type="AudioStream" uid="uid://dj5lml65fk77m" path="res://00_global/audio/player_audio/Eldurion_power_rdy.ogg" id="38_t8hmy"]
+[ext_resource type="Script" uid="uid://big8yocu35ft5" path="res://general/scripts/loot_data.gd" id="39_1mo3u"]
 [ext_resource type="AudioStream" uid="uid://diigvgr4uasjy" path="res://00_global/audio/player_audio/Eldurion_power_impact.ogg" id="39_t8hmy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gg20o"]
@@ -194,46 +193,22 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("AttackArea:dmg_type")
+tracks/11/path = NodePath("AttackArea:damage")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["lightning"]
+"values": [5]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("AttackArea:damage")
+tracks/12/path = NodePath("AttackArea:position")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("AttackArea:force")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [5.0]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("AttackArea:position")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -342,30 +317,6 @@ tracks/7/keys = {
 "update": 1,
 "values": [1]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("AttackArea:dmg_type")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["light"]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("AttackArea:force")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7knsd"]
 radius = 26.675001
@@ -471,30 +422,6 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [2]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("AttackArea:dmg_type")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["light"]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("AttackArea:force")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0fp73"]
@@ -614,30 +541,6 @@ tracks/8/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [2]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("AttackArea:dmg_type")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["light"]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("AttackArea:force")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [3.0]
 }
 
 [sub_resource type="Animation" id="Animation_0asr4"]
@@ -1995,6 +1898,11 @@ hue_variation_max = -2.2351742e-08
 turbulence_enabled = true
 turbulence_noise_strength = 3.0
 
+[sub_resource type="Resource" id="Resource_mymxw"]
+script = ExtResource("39_1mo3u")
+item = "uid://brhq40fo43nai"
+metadata/_custom_type_script = "uid://big8yocu35ft5"
+
 [node name="Player" type="CharacterBody2D" unique_id=2031386269 groups=["Player"]]
 z_index = 1
 scale = Vector2(1.5, 1.5)
@@ -2200,7 +2108,8 @@ monitoring = false
 monitorable = false
 script = ExtResource("18_wsc6v")
 damage = 5
-force = 5.0
+dmg_element = 0
+force = 175.0
 metadata/_custom_type_script = "uid://coy7wn1wn058s"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1303068691]
@@ -2226,18 +2135,6 @@ debug_color = Color(0.12612152, 0.70196074, 0, 0.41960785)
 unique_name_in_owner = true
 stream = ExtResource("34_lar1f")
 parameters/looping = true
-
-[node name="HurtAudio" type="AudioStreamPlayer2D" parent="AudioStreams" unique_id=1208261533]
-unique_name_in_owner = true
-stream = ExtResource("23_0fp73")
-
-[node name="JumpAudio" type="AudioStreamPlayer2D" parent="AudioStreams" unique_id=1755343322]
-unique_name_in_owner = true
-stream = ExtResource("27_owlrh")
-
-[node name="LandAudio" type="AudioStreamPlayer2D" parent="AudioStreams" unique_id=1683917775]
-unique_name_in_owner = true
-stream = ExtResource("28_cmjvy")
 
 [node name="PowerRdy" type="AudioStreamPlayer2D" parent="AudioStreams" unique_id=1531857591]
 unique_name_in_owner = true
@@ -2275,3 +2172,10 @@ speed_scale = 1.5
 explosiveness = 1.0
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_1mo3u")
+
+[node name="LootDropper" type="Marker2D" parent="." unique_id=1679551572]
+z_index = 3
+position = Vector2(0, 48)
+script = ExtResource("38_lar1f")
+items = Array[ExtResource("39_1mo3u")]([SubResource("Resource_mymxw")])
+metadata/_custom_type_script = "uid://dvm7rsqs2rv8v"

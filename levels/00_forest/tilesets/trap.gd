@@ -53,8 +53,10 @@ func _on_width_changed(new_width: int) -> void:
 	queue_redraw()
 
 
-func _on_dmg_area_body_entered( _body: Node2D ) -> void:
+func _on_dmg_area_body_entered( body: Node2D ) -> void:
 	dmg_area.monitoring = false
+	if body is PlayerGold:
+		SaveManager.place_gold()
 	SaveManager.restore_checkpoint()
 	Messages.player_healed.emit(-1)
 	

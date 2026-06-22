@@ -10,6 +10,7 @@ func init() -> void:
 
 # What happens when we enter this state?
 func enter() -> void:
+	
 	player.sprite_2d.z_index = 1
 	player.animation_player.play( "idle" )
 	player.jump_count = 0

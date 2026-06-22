@@ -2,6 +2,9 @@
 
 class_name PlayerStateTakeDamage extends PlayerState
 
+const HURT_AUDIO = preload("uid://b01mccy06o2bi")
+
+
 @export var move_speed : float = 100
 @export var move_height : float = 16
 @export var invulnerable_duration : float = 1.0
@@ -11,7 +14,8 @@ var force : float = 1
 
 
 @onready var damage_area: DamageArea = %DamageArea
-@onready var hurt_audio: AudioStreamPlayer2D = %HurtAudio
+
+
 
 
 
@@ -32,7 +36,7 @@ func enter() -> void:
 		
 		time = player.animation_player.current_animation_length
 	damage_area.make_invulnerable( invulnerable_duration )
-	hurt_audio.play()
+	Audio.play_spatial_sound( HURT_AUDIO, player.global_position, false, true, 0.5 )
 	VisualEffects.camera_shake( force * 2.0 )
 	pass
 

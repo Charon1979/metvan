@@ -98,6 +98,20 @@ func load_game( slot : int ) -> void:
 	discovered_areas = save_data.get( "discovered_areas", [] )
 	var scene_path : String = save_data.get( "scene_path", "uid://qrtkvued7hjv" )
 	SceneManager.transition_scene( scene_path, "", Vector2.ZERO, "up" )
+	if persistent_data.has("player_gold_drop"):
+		var data = persistent_data["player_gold_drop"]
+		if data["scene"] == SceneManager.current_scene_uid:
+			var gold_scene = preload("uid://brhq40fo43nai")
+			var gold = gold_scene.instantiate()
+
+			get_tree().current_scene.add_child(gold)
+
+			gold.global_position = Vector2(
+				data["x"],
+				data["y"]
+			)
+
+			gold.gold_value = data.get("value", 0)
 	await SceneManager.new_scene_ready
 	setup_player()
 	await setup_player()
@@ -147,8 +161,20 @@ func restore_checkpoint() -> void:
 	await SceneManager.fade_screen( Vector2.ZERO, -fade_pos )
 	
 	SceneManager.fade.visible = false
+	pass
 	
+func place_gold() -> void:
+	var gold_drop := get_tree().get_first_node_in_group("PlayerGold")
+	gold_drop.global_position = Vector2(
+		save_data.get( "check_x", 0 ),
+		save_data.get( "check_y", 0 ),
+	)
+	persistent_data["player_gold_drop"] = {
+			"scene": SceneManager.current_scene_uid,
+			"x": gold_drop.global_position.x,
+			"y": gold_drop.global_position.y,
 
+	}
 	pass
 	
 func game_over() -> void:
@@ -162,6 +188,19 @@ func game_over() -> void:
 		save_data.get( "x", 0 ),
 		save_data.get( "y", 0 ),
 	)
+	var gold_drop := get_tree().get_first_node_in_group("PlayerGold")
+
+	if gold_drop:
+		persistent_data["player_gold_drop"] = {
+			"scene": SceneManager.current_scene_uid,
+			"x": gold_drop.global_position.x,
+			"y": gold_drop.global_position.y,
+			"value": gold_drop.gold_value
+		}
+		
+	else:
+		persistent_data.erase("player_gold_drop")
+	
 	player.direction = Vector2.ZERO
 	player.hp = player.max_hp
 	player.mp = player.max_mp
@@ -173,6 +212,7 @@ func game_over() -> void:
 	PlayerHud.show_hud()
 	save_game()
 	player.sprite_2d.modulate = Color(1, 1, 1, 1)
+	SceneManager.load_scene_finished.emit()
 	SceneManager.fade.visible = false
 	
 

@@ -2,16 +2,21 @@
 
 class_name PlayerStateDeath extends PlayerState
 
+
 const DEATH_AUDIO = preload("uid://b8vlx271tc7ip")
+
 @onready var death_rec: ColorRect = $Death_rec
 
 
 
 # What happens when we enter this state?
 func enter() -> void:
+	
+	player.dead.emit()
 	death_rec.visible = true
 	player.animation_player.play( "death" )
-	Audio.play_spatial_sound( DEATH_AUDIO, player.global_position )
+	Audio.play_spatial_sound( DEATH_AUDIO, player.global_position, true )
+	player.dead.emit()
 	Audio.play_music( null )
 	PlayerHud.hide_hud()
 	await player.animation_player.animation_finished
@@ -41,3 +46,4 @@ func physics_process( _delta: float ) -> PlayerState:
 	if player.hp >= 1:
 		return idle
 	return null
+	

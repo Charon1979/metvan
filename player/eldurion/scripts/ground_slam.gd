@@ -39,7 +39,7 @@ func enter() -> void:
 	#vfx_sprite.visible = true
 	#vfx_player_01.play( "lightning_down" )
 	player.sprite_2d.tween_color()
-	Audio.play_spatial_sound( DASH_AUDIO, player.global_position )
+	Audio.play_spatial_sound( DASH_AUDIO, player.global_position, false, true, 0.5 )
 	damage_area.start_invulnerable()
 	pass
 
@@ -78,14 +78,14 @@ func check_collisions( _delta : float ) -> bool:
 			if c.get_parent() is Breakable:
 				var b : Breakable = c.get_parent()
 				b.queue_free()
-				Audio.play_spatial_sound( b.destroy_audio, pos )
+				Audio.play_spatial_sound( b.destroy_audio, pos, false, true, 0.75 )
 				for p in b.destroy_particles:
 					VisualEffects.hit_particles( pos, Vector2.DOWN, p )
 			else:
 			
 				c.queue_free()
 				#VisualEffects.hit_particles( pos, Vector2.DOWN, HitParticles )
-				Audio.play_spatial_sound( BREAK_WOOD_AUDIO, pos )
+				Audio.play_spatial_sound( BREAK_WOOD_AUDIO, pos, false, true, 1 )
 				
 		return true
 	return false
@@ -94,7 +94,7 @@ func check_collisions( _delta : float ) -> bool:
 func exit() -> void:
 	VisualEffects.camera_shake( 10.0 )
 	VisualEffects.land_dust( player.global_position )
-	Audio.play_spatial_sound( BOOM_AUDIO, player.global_position )
+	Audio.play_spatial_sound( BOOM_AUDIO, player.global_position, false, true, 1 )
 	dash_part.emitting = false
 #	vfx_player_02.play( "down_attack_aoe" )
 	damage_area.make_invulnerable()

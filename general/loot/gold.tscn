@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dunfl1qr3c38"]
+[gd_scene format=3 uid="uid://dunfl1qr3c38"]
 
 [ext_resource type="Script" uid="uid://bhhwod2o41hj2" path="res://general/loot/gold.gd" id="1_6dgx3"]
 [ext_resource type="Texture2D" uid="uid://cfk37j86at7ik" path="res://general/loot/Blue_Gem.png" id="2_53g2c"]
@@ -6,10 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://fkip67pd1ipo" path="res://general/loot/Diamond.png" id="4_co8pi"]
 [ext_resource type="Texture2D" uid="uid://ctt34ynmofjv5" path="res://general/loot/Green_Gem.png" id="5_cxfwa"]
 [ext_resource type="Texture2D" uid="uid://cegf22j7jdfar" path="res://general/loot/Red_Gem.png" id="6_cxfwa"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6dgx3"]
-resource_local_to_scene = true
-bounce = 0.5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yokny"]
 atlas = ExtResource("2_53g2c")
@@ -263,32 +259,27 @@ radius = 3.3413584
 [sub_resource type="CircleShape2D" id="CircleShape2D_yadb3"]
 radius = 5.539284
 
-[node name="Gold" type="RigidBody2D"]
+[node name="Gold" type="CharacterBody2D" unique_id=1138431333]
 process_mode = 3
 z_index = 1
-collision_layer = 32
-collision_mask = 33
-mass = 0.25
-physics_material_override = SubResource("PhysicsMaterial_6dgx3")
-can_sleep = false
+collision_layer = 0
+collision_mask = 19
 script = ExtResource("1_6dgx3")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=699202411]
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_jxlt4")
 animation = &"diamond"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2114903582]
 position = Vector2(-0.38818932, 1.905777)
 shape = SubResource("CircleShape2D_6dgx3")
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 16
+[node name="Area2D" type="Area2D" parent="." unique_id=699389157]
+collision_layer = 0
 collision_mask = 16
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1231684285]
 position = Vector2(-0.4205389, 1.9381247)
 shape = SubResource("CircleShape2D_yadb3")
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

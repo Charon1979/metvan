@@ -27,7 +27,7 @@ func _on_player_entered( _n : Node2D ) -> void:
 	pass
 
 func _on_player_interacted( _player : Player ) -> void:
-	Audio.play_spatial_sound( DOOR_SWITCH_AUDIO, global_position )
+	Audio.play_spatial_sound( DOOR_SWITCH_AUDIO, global_position, false, false, 0.75 )
 	SaveManager.persistent_data[ unique_name() ] = "open"
 	SaveManager.write_to_disc()
 	activated.emit()

@@ -1,5 +1,7 @@
-res://
+res://general/loot/
+res://general/health_pickup/
 res://00_global/visual_effects/
+res://
 res://player/eldurion/states/
 res://00_global/player_hud/
 res://Michaels Stuff/TestDummy/
@@ -10,7 +12,6 @@ res://levels/01_prison/
 res://levels/00_forest/tilesets/
 res://general/checkpoint/
 res://general/title_screen/
-res://general/loot/
 res://00_global/audio/
 res://levels/00_forest/tilesets/sprites/
 res://pause_menue/scripts/
@@ -19,4 +20,3 @@ res://general/
 res://general/player_spawn/
 res://general/secret_area/
 res://00_global/materials_and_shaders/
-res://levels/01_prison/tilesets/
