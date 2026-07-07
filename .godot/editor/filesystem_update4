@@ -1,1 +1,2 @@
 res://default_bus_layout.tres
+res://levels/00_forest/enemies/Bandits/Bow/scripts/decision_engine_bow_bandit.gd

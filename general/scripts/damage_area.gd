@@ -37,3 +37,12 @@ func end_invulnerable() -> void:
 	
 	process_mode = Node.PROCESS_MODE_INHERIT
 	pass
+
+func flip_damage_area( direction_x : float ) -> void:
+	if direction_x > 0:
+		scale.x = 1
+		position.x = abs(position.x)
+	elif direction_x < 0:
+		scale.x = -1
+		position.x = -abs(position.x)
+	pass

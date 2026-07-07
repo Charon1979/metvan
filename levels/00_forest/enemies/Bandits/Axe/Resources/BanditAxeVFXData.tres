@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BanditAxeVFXData" format=3 uid="uid://cl7p2mt8om0we"]
+
+[ext_resource type="Texture2D" uid="uid://10pdhr5oea86" path="res://levels/00_forest/enemies/Bandits/Axe/Resources/Axe_Bandit_Air.png" id="1_6ifk6"]
+[ext_resource type="Script" uid="uid://bqj8fbu30gc" path="res://levels/00_forest/enemies/Bandits/Axe/bandit_axe_vfx_data.gd" id="1_71yg3"]
+[ext_resource type="Texture2D" uid="uid://dcbf2e16jiq1q" path="res://levels/00_forest/enemies/Bandits/Axe/Resources/Axe_Bandit_Fire.png" id="1_wxmsp"]
+[ext_resource type="Resource" uid="uid://c3nje4jml8hfq" path="res://levels/00_forest/enemies/Bandits/Axe/VFX/AxeBandit_AirPart.tres" id="2_ke1w1"]
+[ext_resource type="Resource" uid="uid://dx0gx42abielu" path="res://levels/00_forest/enemies/Bandits/Axe/VFX/AxeBandit_FirePart.tres" id="2_smu7f"]
+
+[resource]
+script = ExtResource("1_71yg3")
+fire = ExtResource("1_wxmsp")
+air = ExtResource("1_6ifk6")
+fire_part = ExtResource("2_smu7f")
+air_part = ExtResource("2_ke1w1")
+metadata/_custom_type_script = "uid://bqj8fbu30gc"

@@ -2,8 +2,8 @@ extends Node
 
 enum DamageElement {
 	FIRE,
-	LIGHTNING,
-	ICE,
+	AIR,
+	WATER,
 	EARTH,
 	SHADOW,
 	BLOOD,

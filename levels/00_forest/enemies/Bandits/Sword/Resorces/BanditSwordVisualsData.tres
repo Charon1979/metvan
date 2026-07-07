@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="BanditAxeVisualsData" format=3 uid="uid://dxxc477yvhx6r"]
+
+[ext_resource type="Texture2D" uid="uid://bve26jn1l3v38" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Armor_Heavy.png" id="1_r332g"]
+[ext_resource type="Texture2D" uid="uid://0qcd13jbtom5" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Armor_Light.png" id="2_ybo7o"]
+[ext_resource type="Texture2D" uid="uid://b03aprg01kr2k" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Armor_Medium.png" id="3_iwj0v"]
+[ext_resource type="Texture2D" uid="uid://cv1dkd3k4dgx6" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Armor_None.png" id="4_re0e0"]
+[ext_resource type="Texture2D" uid="uid://chonuq3e2scr3" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Hair_Blonde.png" id="5_al8eu"]
+[ext_resource type="Texture2D" uid="uid://djwef5bd7e7kl" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Hair_Helmet.png" id="6_qkwbo"]
+[ext_resource type="Texture2D" uid="uid://mhrf826sgl1i" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Hair_Mohawk.png" id="7_fscuh"]
+[ext_resource type="Texture2D" uid="uid://c5cjwdlk0kixh" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Hair_Red.png" id="8_6mj1r"]
+[ext_resource type="Script" uid="uid://d28rnytafpa7m" path="res://levels/00_forest/enemies/Bandits/Axe/bandit_axe_visuals_data.gd" id="9_gofuk"]
+
+[resource]
+script = ExtResource("9_gofuk")
+show_hair = true
+hair_blonde = ExtResource("5_al8eu")
+hair_mohawk = ExtResource("7_fscuh")
+hair_red = ExtResource("8_6mj1r")
+hair_helmet = ExtResource("6_qkwbo")
+armor_none = ExtResource("4_re0e0")
+armor_light = ExtResource("2_ybo7o")
+armor_medium = ExtResource("3_iwj0v")
+armor_heavy = ExtResource("1_r332g")
+metadata/_custom_type_script = "uid://d28rnytafpa7m"

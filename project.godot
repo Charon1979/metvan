@@ -33,6 +33,8 @@ PlayerHud="*res://00_global/player_hud/PlayerHud.tscn"
 Audio="*res://00_global/audio/audio.tscn"
 VisualEffects="*uid://ctxkgvv5tpt6l"
 DamageType="*uid://b6xj640nf57vu"
+SpawnManager="*uid://b6vv5ssp1s8f0"
+DeathVignette="*uid://jq7ik8sbsgv0"
 
 [display]
 

@@ -1,4 +1,3 @@
-
 #SaveManager Script
 extends Node
 
@@ -57,19 +56,19 @@ func create_new_game_save( slot : int ) -> void:
 	save_file.close()
 	load_game( slot )
 
-func save_game() -> void:
-	
-	var player : Player = get_tree().get_first_node_in_group( "Player" )
+
+## Captures the given player's current state into save_data and writes it to disk.
+## Does NOT transition scenes — callers that need a scene reload/fade handle that themselves.
+func _capture_save_data( player : Player ) -> void:
 	save_data = {
-		
 		"scene_path" : SceneManager.current_scene_uid,
 		"x" : player.global_position.x,
-		"y" :  player.global_position.y,
+		"y" : player.global_position.y,
 		"hp" : player.hp,
 		"max_hp" : player.max_hp,
 		"mp" : player.mp,
 		"max_mp" : player.max_mp,
-		"gold" : player.gold, 
+		"gold" : player.gold,
 		"dash" : player.dash,
 		"double_jump" : player.double_jump,
 		"ground_slam" : player.ground_slam,
@@ -78,12 +77,29 @@ func save_game() -> void:
 		"persistent_data" : persistent_data,
 		"check_scene" : SceneManager.current_scene_uid,
 		"check_x" : player.global_position.x,
-		"check_y" :  player.global_position.y,
+		"check_y" : player.global_position.y,
 		"check_dir" : Vector2.ZERO
 	}
-	
 	write_to_disc()
+
+
+## Manual save (e.g. from a pause menu / checkpoint). Plays out as a full
+## fade-out/reload-current-scene/fade-in transition, which also resets all
+## enemies to alive (SpawnManager.reset_all() clears the dead list before
+## the reload, so each enemy's _ready() sees a clean slate).
+func save_game() -> void:
+	var player : Player = get_tree().get_first_node_in_group( "Player" )
+	_capture_save_data( player )
+
+	SpawnManager.reset_all()
+
+	# TODO: once a character-select scene exists, this is where we'd
+	# transition_scene() to it instead of reloading the current scene.
+	SceneManager.transition_scene( SceneManager.current_scene_uid, "", Vector2.ZERO, "up" )
+	await SceneManager.new_scene_ready
+	await setup_player()
 	pass
+
 
 func load_game( slot : int ) -> void:
 	
@@ -97,25 +113,14 @@ func load_game( slot : int ) -> void:
 	persistent_data = save_data.get( "persistent_data", {} )
 	discovered_areas = save_data.get( "discovered_areas", [] )
 	var scene_path : String = save_data.get( "scene_path", "uid://qrtkvued7hjv" )
+
+	SpawnManager.reset_all()
 	SceneManager.transition_scene( scene_path, "", Vector2.ZERO, "up" )
-	if persistent_data.has("player_gold_drop"):
-		var data = persistent_data["player_gold_drop"]
-		if data["scene"] == SceneManager.current_scene_uid:
-			var gold_scene = preload("uid://brhq40fo43nai")
-			var gold = gold_scene.instantiate()
-
-			get_tree().current_scene.add_child(gold)
-
-			gold.global_position = Vector2(
-				data["x"],
-				data["y"]
-			)
-
-			gold.gold_value = data.get("value", 0)
 	await SceneManager.new_scene_ready
-	setup_player()
 	await setup_player()
-	save_game()
+
+	var player : Player = get_tree().get_first_node_in_group( "Player" )
+	_capture_save_data( player )
 	pass
 
 
@@ -140,6 +145,15 @@ func setup_player() -> void:
 		save_data.get( "x", 0 ),
 		save_data.get( "y", 0 ),
 	)
+
+	# The scene reload already triggered PlayerCamera's own reset_smoothing()
+	# via SceneManager.new_scene_ready — but that fired BEFORE the teleport
+	# above, so it locked in the pre-teleport position as the smoothing
+	# baseline and the camera drifts to the checkpoint instead of snapping.
+	# Reset again now that the position is final.
+	var cam : Camera2D = player.get_viewport().get_camera_2d()
+	if cam:
+		cam.reset_smoothing()
 	
 	pass
 
@@ -155,6 +169,13 @@ func restore_checkpoint() -> void:
 		save_data.get( "check_y", 0 ),
 	)
 	player.direction = Vector2.ZERO
+
+	# No scene reload happens on this path, so nothing else resets camera
+	# smoothing — without this the camera would drift to the checkpoint
+	# after the screen fades back in.
+	var cam : Camera2D = player.get_viewport().get_camera_2d()
+	if cam:
+		cam.reset_smoothing()
 	
 	get_tree().paused = false
 	await get_tree().process_frame
@@ -162,60 +183,41 @@ func restore_checkpoint() -> void:
 	
 	SceneManager.fade.visible = false
 	pass
-	
-func place_gold() -> void:
-	var gold_drop := get_tree().get_first_node_in_group("PlayerGold")
-	gold_drop.global_position = Vector2(
-		save_data.get( "check_x", 0 ),
-		save_data.get( "check_y", 0 ),
-	)
-	persistent_data["player_gold_drop"] = {
-			"scene": SceneManager.current_scene_uid,
-			"x": gold_drop.global_position.x,
-			"y": gold_drop.global_position.y,
 
-	}
+## Quiet persist — writes current gold/discovered_areas/persistent_data to
+## disk without moving the player, transitioning scenes, resetting enemies,
+## or touching the "respawn here" position. Use for incidental pickups.
+func persist_data() -> void:
+	var player : Player = get_tree().get_first_node_in_group( "Player" )
+	save_data["gold"] = player.gold
+	save_data["discovered_areas"] = discovered_areas
+	save_data["persistent_data"] = persistent_data
+	write_to_disc()
 	pass
 	
+## Reuses setup_player() to return the player to their last save (correcting
+## a previous bug where dying in a different scene than the last save left
+## the player in the wrong scene), then applies game-over-specific overrides:
+## full hp/mp restore, and lost gold.
 func game_over() -> void:
-	var player : Player = get_tree().get_first_node_in_group( "Player" )
-	var fade_pos : Vector2 = SceneManager.get_fade_pos( "down" )
-	get_tree().paused = true
-	SceneManager.fade.visible = true
-	await SceneManager.fade_screen( fade_pos, Vector2.ZERO )
-	
-	player.global_position = Vector2(
-		save_data.get( "x", 0 ),
-		save_data.get( "y", 0 ),
-	)
-	var gold_drop := get_tree().get_first_node_in_group("PlayerGold")
+	SpawnManager.reset_all()
 
-	if gold_drop:
-		persistent_data["player_gold_drop"] = {
-			"scene": SceneManager.current_scene_uid,
-			"x": gold_drop.global_position.x,
-			"y": gold_drop.global_position.y,
-			"value": gold_drop.gold_value
-		}
-		
-	else:
-		persistent_data.erase("player_gold_drop")
-	
-	player.direction = Vector2.ZERO
+	var scene_path : String = save_data.get( "scene_path", SceneManager.current_scene_uid )
+	SceneManager.transition_scene( scene_path, "", Vector2.ZERO, "up" )
+	await SceneManager.new_scene_ready
+	await setup_player()
+
+	var player : Player = get_tree().get_first_node_in_group( "Player" )
 	player.hp = player.max_hp
 	player.mp = player.max_mp
 	player.gold = 0
-	get_tree().paused = false
-	await get_tree().process_frame
-	await SceneManager.fade_screen( Vector2.ZERO, -fade_pos )
-	player.death_rec.visible = false
-	PlayerHud.show_hud()
-	save_game()
+	player.direction = Vector2.ZERO
 	player.sprite_2d.modulate = Color(1, 1, 1, 1)
-	SceneManager.load_scene_finished.emit()
-	SceneManager.fade.visible = false
-	
 
+	PlayerHud.show_hud()
+	_capture_save_data( player )
+
+	await DeathVignette.reveal()
 	pass
 
 func write_to_disc() -> void:

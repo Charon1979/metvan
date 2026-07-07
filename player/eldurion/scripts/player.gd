@@ -18,7 +18,8 @@ signal dead
 @onready var attack_area: AttackArea = %AttackArea
 @onready var damage_area: DamageArea = %DamageArea
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var death_rec: ColorRect = $States/Death/Death_rec
+
+
 
 
 
@@ -78,6 +79,11 @@ var attack_held := false
 var direction_locked : bool = false
 #endregion
 
+#region /// water
+var water_current : Vector2 = Vector2.ZERO   # set by WaterArea while overlapping; Vector2.ZERO otherwise
+var water_max_speed : float = -1.0           # -1 = no clamp; set by WaterArea alongside water_current
+#endregion
+
 
 
 func _ready() -> void:
@@ -130,6 +136,13 @@ func _physics_process( _delta: float ) -> void:
 	velocity.y = clampf( velocity.y, -1000.0, max_fall_velocity )
 	move_and_slide()
 	change_state( current_state.physics_process( _delta ) )
+
+	# Applied after state logic has set this frame's base velocity, so it
+	# layers on top of movement/state changes instead of racing them.
+	if water_current != Vector2.ZERO:
+		velocity += water_current * _delta
+		if water_max_speed >= 0.0:
+			velocity.x = clampf( velocity.x, -water_max_speed, water_max_speed )
 	
 	pass
 
@@ -204,7 +217,7 @@ func _on_player_casted( amount : int ) -> void:
 
 
 func _on_damage_taken( a : AttackArea ) -> void:
-	if current_state == PlayerStateDeath:
+	if current_state is PlayerStateDeath:
 		return
 		
 	hp -= a.damage

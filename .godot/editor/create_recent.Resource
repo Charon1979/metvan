@@ -1,3 +1,12 @@
+BanditVisualsData
+EnemyVisualData
+CanvasItemMaterial
+HitParticleSettings
+BanditAxeVFXData
+VFXParticleConfig
+Resource
+EnemyVFXData
+SpriteFrames
 EffectParticleSettings
 ParticleProcessMaterial
 Shader

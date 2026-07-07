@@ -14,28 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://dh8gnw4k3irpo" path="res://general/ability_pickup/ability_pickup.tscn" id="12_tjxxx"]
 [ext_resource type="Script" uid="uid://dkq8a6unh4igm" path="res://00_global/audio/music/music_auto_trigger.gd" id="13_su5by"]
 [ext_resource type="AudioStream" uid="uid://c8o77kulgiylj" path="res://levels/00_forest/audio/Forest_Music.ogg" id="14_5ux2f"]
-[ext_resource type="PackedScene" uid="uid://cwg5eb3jolhfo" path="res://levels/00_forest/enemies/Bandits/Axe/Bandit_Axe.tscn" id="15_sfyts"]
 [ext_resource type="PackedScene" uid="uid://bxeysfilydt0q" path="res://general/health_pickup/health_pickup.tscn" id="16_1f504"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vynpa"]
-resource_local_to_scene = true
-shader = ExtResource("6_tu8ed")
-shader_parameter/wind_start_threshold = 0.1200000057
-shader_parameter/wind_end_threshold = 2.0
-shader_parameter/wind_end_threshold_2 = 0.2000000095
-shader_parameter/wind_strength = 0.050000002375
-shader_parameter/wind_speed = 0.25000000535523
-shader_parameter/scale = 2.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ocss"]
-resource_local_to_scene = true
-shader = ExtResource("6_tu8ed")
-shader_parameter/wind_start_threshold = 0.1200000057
-shader_parameter/wind_end_threshold = 2.0
-shader_parameter/wind_end_threshold_2 = 0.2000000095
-shader_parameter/wind_strength = 0.050000002375
-shader_parameter/wind_speed = 0.25000000535523
-shader_parameter/scale = 2.0
+[ext_resource type="PackedScene" uid="uid://cwg5eb3jolhfo" path="res://levels/00_forest/enemies/Bandits/Axe/Bandit_Axe.tscn" id="16_vynpa"]
+[ext_resource type="PackedScene" uid="uid://cu1hxmfivw1b6" path="res://levels/00_forest/enemies/Bandits/Sword/bandit_sword.tscn" id="17_vynpa"]
+[ext_resource type="PackedScene" uid="uid://bqnl0p21rbbx4" path="res://levels/00_forest/enemies/Bandits/Bow/Bandit_Bow.tscn" id="18_2ocss"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3u76j"]
 resource_local_to_scene = true
@@ -57,17 +39,25 @@ shader_parameter/wind_strength = 0.050000002375
 shader_parameter/wind_speed = 0.25000000535523
 shader_parameter/scale = 2.0
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d6ses"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d6ses"]
 resource_local_to_scene = true
-bounce = 0.5
+shader = ExtResource("6_tu8ed")
+shader_parameter/wind_start_threshold = 0.1200000057
+shader_parameter/wind_end_threshold = 2.0
+shader_parameter/wind_end_threshold_2 = 0.2000000095
+shader_parameter/wind_strength = 0.050000002375
+shader_parameter/wind_speed = 0.25000000535523
+shader_parameter/scale = 2.0
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8gogw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8gogw"]
 resource_local_to_scene = true
-bounce = 0.5
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_klhc3"]
-resource_local_to_scene = true
-bounce = 0.5
+shader = ExtResource("6_tu8ed")
+shader_parameter/wind_start_threshold = 0.1200000057
+shader_parameter/wind_end_threshold = 2.0
+shader_parameter/wind_end_threshold_2 = 0.2000000095
+shader_parameter/wind_strength = 0.050000002375
+shader_parameter/wind_speed = 0.25000000535523
+shader_parameter/scale = 2.0
 
 [node name="Forest_01" type="Node2D" unique_id=1505071753]
 
@@ -95,22 +85,22 @@ position = Vector2(34, -45)
 
 [node name="White_Tree" parent="." unique_id=451290136 instance=ExtResource("5_bgobj")]
 z_index = 2
-material = SubResource("ShaderMaterial_vynpa")
+material = SubResource("ShaderMaterial_3u76j")
 position = Vector2(1122, 99.00001)
 
 [node name="White_Tree2" parent="." unique_id=1861026090 instance=ExtResource("5_bgobj")]
 z_index = -1
-material = SubResource("ShaderMaterial_2ocss")
+material = SubResource("ShaderMaterial_cl8n6")
 position = Vector2(1071, -125)
 
 [node name="Red_Tree" parent="." unique_id=480325694 instance=ExtResource("7_srl5d")]
 z_index = -2
-material = SubResource("ShaderMaterial_3u76j")
+material = SubResource("ShaderMaterial_d6ses")
 position = Vector2(830.00006, 99)
 
 [node name="Red_Tree2" parent="." unique_id=623318348 instance=ExtResource("7_srl5d")]
 z_index = -2
-material = SubResource("ShaderMaterial_cl8n6")
+material = SubResource("ShaderMaterial_8gogw")
 position = Vector2(1215, -317)
 
 [node name="Forest_01B" parent="." unique_id=663659368 instance=ExtResource("2_32pkm")]
@@ -125,16 +115,13 @@ position = Vector2(207, -25)
 
 [node name="Gold" parent="." unique_id=1683721723 instance=ExtResource("9_pvrle")]
 position = Vector2(319, -126)
-physics_material_override = SubResource("PhysicsMaterial_d6ses")
 
 [node name="Gold2" parent="." unique_id=1297475595 instance=ExtResource("9_pvrle")]
 position = Vector2(411, -87)
-physics_material_override = SubResource("PhysicsMaterial_8gogw")
 value = 10
 
 [node name="Gold3" parent="." unique_id=888463039 instance=ExtResource("9_pvrle")]
 position = Vector2(122, -144)
-physics_material_override = SubResource("PhysicsMaterial_klhc3")
 value = 50
 
 [node name="TestDummy" parent="." unique_id=948961802 instance=ExtResource("10_rr6rm")]
@@ -159,8 +146,39 @@ script = ExtResource("13_su5by")
 track = ExtResource("14_5ux2f")
 metadata/_custom_type_script = "uid://dkq8a6unh4igm"
 
-[node name="BanditAxe" parent="." unique_id=47608580 instance=ExtResource("15_sfyts")]
-position = Vector2(449, 4)
-
 [node name="HealthPickup" parent="." unique_id=1293342241 instance=ExtResource("16_1f504")]
 position = Vector2(250, -152)
+
+[node name="BanditAxe" parent="." unique_id=47608580 instance=ExtResource("16_vynpa")]
+position = Vector2(581, 3)
+hair_type = 5
+armor_type = 1
+health = 3.0
+face_left_on_start = true
+
+[node name="BanditAxe2" parent="." unique_id=1543545631 instance=ExtResource("16_vynpa")]
+position = Vector2(967, 195)
+hair_type = 5
+armor_type = 2
+health = 5.0
+face_left_on_start = true
+
+[node name="Bandit_Sword" parent="." unique_id=950779114 instance=ExtResource("17_vynpa")]
+position = Vector2(306, 3)
+hair_type = 1
+armor_type = 2
+health = 5.0
+face_left_on_start = true
+
+[node name="Bandit_Bow" parent="." unique_id=244896683 instance=ExtResource("18_2ocss")]
+position = Vector2(984, -30)
+hair_type = 5
+armor_type = 1
+health = 3.0
+face_left_on_start = true
+
+[node name="Bandit_Bow2" parent="." unique_id=1353301928 instance=ExtResource("18_2ocss")]
+position = Vector2(535, 196)
+hair_type = 5
+armor_type = 3
+health = 7.0

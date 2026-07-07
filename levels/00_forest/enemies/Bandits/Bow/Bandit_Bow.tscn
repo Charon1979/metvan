@@ -1,0 +1,191 @@
+[gd_scene format=3 uid="uid://bqnl0p21rbbx4"]
+
+[ext_resource type="Script" uid="uid://bx1mp425l6thb" path="res://levels/00_forest/enemies/Bandits/Bow/scripts/enemy_bandit_bow.gd" id="1_of651"]
+[ext_resource type="PackedScene" uid="uid://c2q5paabxeh4m" path="res://levels/00_forest/enemies/Visual_Component/bandit_visuals.tscn" id="2_3f1v1"]
+[ext_resource type="Resource" uid="uid://bfb1birreyovv" path="res://levels/00_forest/enemies/Bandits/Bow/Resources/BanditBowVisualData.tres" id="3_3f1v1"]
+[ext_resource type="AnimationLibrary" uid="uid://c3jyt6eis4k5j" path="res://levels/00_forest/enemies/Bandits/Bow/Resources/bandit_bow_anims.tres" id="4_2jw7j"]
+[ext_resource type="Script" uid="uid://cwxs3xm3awfci" path="res://general/scripts/damage_area.gd" id="4_aw2y1"]
+[ext_resource type="Texture2D" uid="uid://dyfk41htbsy67" path="res://levels/00_forest/enemies/Bandits/Bow/Resources/Bandit_Bow_Armor_None.png" id="4_kkj6b"]
+[ext_resource type="Texture2D" uid="uid://bhjr5644hw2bj" path="res://levels/00_forest/enemies/Bandits/Bow/Resources/Bandit_Bow_Hair_Blonde.png" id="5_2jw7j"]
+[ext_resource type="Script" uid="uid://coy7wn1wn058s" path="res://general/scripts/attack_area.gd" id="5_jv2ml"]
+[ext_resource type="Script" uid="uid://bvueewlownr48" path="res://Michaels Stuff/TestDummy/hazard_area.gd" id="6_7oe4j"]
+[ext_resource type="PackedScene" uid="uid://cjrwl2rjey82b" path="res://levels/00_forest/enemies/VFX_Component/vfx.tscn" id="6_m6ed1"]
+[ext_resource type="Script" uid="uid://dmol72ops4y6o" path="res://levels/00_forest/enemies/scripts/enemy_state_machine.gd" id="7_6offg"]
+[ext_resource type="Script" uid="uid://bg7xvlkpm8vef" path="res://levels/00_forest/enemies/states/es_idle.gd" id="8_3f1v1"]
+[ext_resource type="Script" uid="uid://e1mh5e7grvqs" path="res://levels/00_forest/enemies/states/es_bow_bandit_aim.gd" id="9_aw2y1"]
+[ext_resource type="Script" uid="uid://drdsrrial520e" path="res://levels/00_forest/enemies/states/es_stun.gd" id="9_kkj6b"]
+[ext_resource type="Script" uid="uid://cwigx4iliyt1x" path="res://levels/00_forest/enemies/states/es_death.gd" id="10_2jw7j"]
+[ext_resource type="Script" uid="uid://ths5qtcj11cw" path="res://levels/00_forest/enemies/Bandits/Bow/scripts/decision_engine_bow_bandit.gd" id="11_m6ed1"]
+[ext_resource type="Script" uid="uid://j2annqv6iae5" path="res://levels/00_forest/enemies/scripts/sensors/player_sensor.gd" id="12_e0kb0"]
+[ext_resource type="Script" uid="uid://ce118jjvw1ddu" path="res://levels/00_forest/enemies/states/es_bow_bandit_flee.gd" id="12_jv2ml"]
+[ext_resource type="Script" uid="uid://hhievrxrso7x" path="res://levels/00_forest/enemies/states/es_bow_bandit_attack.gd" id="13_7oe4j"]
+[ext_resource type="Script" uid="uid://dvm7rsqs2rv8v" path="res://general/scripts/loot_dropper.gd" id="13_o6eus"]
+[ext_resource type="Script" uid="uid://rcx6j247ee8a" path="res://levels/00_forest/enemies/states/es_chase.gd" id="14_jv2ml"]
+[ext_resource type="Script" uid="uid://bjwkf66t8igso" path="res://levels/00_forest/enemies/scripts/sensors/edge_detector.gd" id="14_pdu52"]
+[ext_resource type="PackedScene" uid="uid://dribj2i8cn1n5" path="res://levels/00_forest/enemies/Bandits/Bow/arrow.tscn" id="15_6offg"]
+[ext_resource type="AudioStream" uid="uid://cjxp5bfjku7ix" path="res://levels/00_forest/enemies/Bandits/SFX/Death.ogg" id="15_o6eus"]
+[ext_resource type="AudioStream" uid="uid://x4tfxpsvds8j" path="res://levels/00_forest/enemies/Bandits/SFX/Death_Fire.ogg" id="16_pdu52"]
+[ext_resource type="AudioStream" uid="uid://c4ry8fqk4if41" path="res://levels/00_forest/enemies/Bandits/SFX/Death_Air.ogg" id="17_rf027"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rf027"]
+radius = 8.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_taryd"]
+radius = 8.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tnkcn"]
+radius = 8.0
+height = 26.0
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_e0kb0"]
+points = PackedVector2Array(0, 0, 224, -107, 224, 85, 0, 0, -224, 85, -224, -107)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2jw7j"]
+
+[node name="Bandit_Bow" type="CharacterBody2D" unique_id=244896683]
+scale = Vector2(1.5, 1.5)
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_of651")
+health = 2.0
+
+[node name="Visuals" parent="." unique_id=1823437909 instance=ExtResource("2_3f1v1")]
+unique_name_in_owner = true
+visuals_data = ExtResource("3_3f1v1")
+animation_library = ExtResource("4_2jw7j")
+
+[node name="Armor" parent="Visuals/Sprites" parent_id_path=PackedInt32Array(1823437909, 1328233768) index="0" unique_id=509490728]
+texture = ExtResource("4_kkj6b")
+frame = 50
+
+[node name="Hair" parent="Visuals/Sprites" parent_id_path=PackedInt32Array(1823437909, 1328233768) index="1" unique_id=1839320328]
+texture = ExtResource("5_2jw7j")
+frame = 50
+
+[node name="AnimationPlayer" parent="Visuals" index="1" unique_id=1372322108]
+libraries/ = ExtResource("4_2jw7j")
+
+[node name="Marker2D" type="Marker2D" parent="Visuals" unique_id=1428305292]
+position = Vector2(8, -19)
+
+[node name="VFX" parent="." unique_id=1681365339 instance=ExtResource("6_m6ed1")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1598149466]
+position = Vector2(0, -13)
+shape = SubResource("CapsuleShape2D_rf027")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1850620288]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("4_aw2y1")
+metadata/_custom_type_script = "uid://cwxs3xm3awfci"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=708694738]
+position = Vector2(0, -13)
+shape = SubResource("CapsuleShape2D_taryd")
+
+[node name="HazardArea" type="Area2D" parent="." unique_id=965492601]
+position = Vector2(0, -15)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("6_7oe4j")
+metadata/_custom_type_script = "uid://bvueewlownr48"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea" unique_id=533118624]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_tnkcn")
+debug_color = Color(0.70196074, 0.16023281, 0, 0.41960785)
+
+[node name="EnemyStateMachine" type="Node" parent="." unique_id=2111157893]
+script = ExtResource("7_6offg")
+metadata/_custom_type_script = "uid://dmol72ops4y6o"
+
+[node name="ESIdle" type="Node" parent="EnemyStateMachine" unique_id=1168023167]
+script = ExtResource("8_3f1v1")
+animation_name = "idle"
+metadata/_custom_type_script = "uid://bg7xvlkpm8vef"
+
+[node name="ESBowBanditAim" type="Node" parent="EnemyStateMachine" unique_id=949006527]
+script = ExtResource("9_aw2y1")
+animation_name = "aim"
+metadata/_custom_type_script = "uid://e1mh5e7grvqs"
+
+[node name="ESStun" type="Node" parent="EnemyStateMachine" unique_id=791950325]
+script = ExtResource("9_kkj6b")
+animation_name = "stun"
+metadata/_custom_type_script = "uid://drdsrrial520e"
+
+[node name="ESDeath" type="Node" parent="EnemyStateMachine" unique_id=1389891765]
+script = ExtResource("10_2jw7j")
+death_audio_default = ExtResource("15_o6eus")
+death_audio_physical = ExtResource("15_o6eus")
+death_audio_fire = ExtResource("16_pdu52")
+death_audio_air = ExtResource("17_rf027")
+animation_name = "death"
+metadata/_custom_type_script = "uid://cwigx4iliyt1x"
+
+[node name="ESBowBanditFlee" type="Node" parent="EnemyStateMachine" unique_id=1616093174 node_paths=PackedStringArray("attack_state")]
+script = ExtResource("12_jv2ml")
+attack_state = NodePath("../ESBowBanditAttack")
+animation_name = "chase"
+metadata/_custom_type_script = "uid://ce118jjvw1ddu"
+
+[node name="ESBowBanditAttack" type="Node" parent="EnemyStateMachine" unique_id=1297876830 node_paths=PackedStringArray("spawn_point")]
+script = ExtResource("13_7oe4j")
+attack_range = 200.0
+cooldown = 4.0
+projectile_scene = ExtResource("15_6offg")
+spawn_point = NodePath("../../Visuals/Marker2D")
+animation_name = "attack"
+metadata/_custom_type_script = "uid://hhievrxrso7x"
+
+[node name="ESChase" type="Node" parent="EnemyStateMachine" unique_id=737432940]
+script = ExtResource("14_jv2ml")
+animation_name = "chase"
+metadata/_custom_type_script = "uid://rcx6j247ee8a"
+
+[node name="DecisionEngineBowBandit" type="Node" parent="." unique_id=599822426 node_paths=PackedStringArray("idle_state", "stun_state", "death_state", "aim_state", "attack_state", "flee_state", "chase_state")]
+script = ExtResource("11_m6ed1")
+idle_state = NodePath("../EnemyStateMachine/ESIdle")
+stun_state = NodePath("../EnemyStateMachine/ESStun")
+death_state = NodePath("../EnemyStateMachine/ESDeath")
+aim_state = NodePath("../EnemyStateMachine/ESBowBanditAim")
+attack_state = NodePath("../EnemyStateMachine/ESBowBanditAttack")
+flee_state = NodePath("../EnemyStateMachine/ESBowBanditFlee")
+chase_state = NodePath("../EnemyStateMachine/ESChase")
+
+[node name="PlayerSensor" type="Area2D" parent="." unique_id=904284247]
+script = ExtResource("12_e0kb0")
+metadata/_custom_type_script = "uid://j2annqv6iae5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSensor" unique_id=1916425654]
+position = Vector2(0, -13)
+shape = SubResource("ConvexPolygonShape2D_e0kb0")
+
+[node name="LootDropper" type="Marker2D" parent="." unique_id=320028515]
+script = ExtResource("13_o6eus")
+metadata/_custom_type_script = "uid://dvm7rsqs2rv8v"
+
+[node name="EdgeDetector" type="RayCast2D" parent="." unique_id=2079653490]
+position = Vector2(6, 0)
+target_position = Vector2(0, 10)
+script = ExtResource("14_pdu52")
+metadata/_custom_type_script = "uid://bjwkf66t8igso"
+
+[node name="Arrow" parent="." unique_id=1294998761 instance=ExtResource("15_6offg")]
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=1039146262]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("5_jv2ml")
+metadata/_custom_type_script = "uid://coy7wn1wn058s"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1205705407]
+shape = SubResource("CircleShape2D_2jw7j")
+
+[editable path="Visuals"]

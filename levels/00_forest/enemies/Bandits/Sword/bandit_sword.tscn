@@ -1,0 +1,258 @@
+[gd_scene format=3 uid="uid://cu1hxmfivw1b6"]
+
+[ext_resource type="Script" uid="uid://dpno7ftf0vqja" path="res://levels/00_forest/enemies/Bandits/Sword/script/enemy_bandit_sword.gd" id="1_crssi"]
+[ext_resource type="PackedScene" uid="uid://c2q5paabxeh4m" path="res://levels/00_forest/enemies/Visual_Component/bandit_visuals.tscn" id="1_lovcd"]
+[ext_resource type="PackedScene" uid="uid://cjrwl2rjey82b" path="res://levels/00_forest/enemies/VFX_Component/vfx.tscn" id="2_4demb"]
+[ext_resource type="Resource" uid="uid://dxxc477yvhx6r" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/BanditSwordVisualsData.tres" id="3_iu4mw"]
+[ext_resource type="Script" uid="uid://cwxs3xm3awfci" path="res://general/scripts/damage_area.gd" id="3_xlsl0"]
+[ext_resource type="Script" uid="uid://coy7wn1wn058s" path="res://general/scripts/attack_area.gd" id="4_jfd7v"]
+[ext_resource type="AnimationLibrary" uid="uid://dil8cr8bidsgj" path="res://levels/00_forest/enemies/Visual_Component/bandit_sword_anims.tres" id="4_yo7qb"]
+[ext_resource type="Script" uid="uid://bvueewlownr48" path="res://Michaels Stuff/TestDummy/hazard_area.gd" id="5_e6kec"]
+[ext_resource type="Texture2D" uid="uid://cv1dkd3k4dgx6" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Armor_None.png" id="5_ph8ak"]
+[ext_resource type="Script" uid="uid://dmol72ops4y6o" path="res://levels/00_forest/enemies/scripts/enemy_state_machine.gd" id="6_gd2k6"]
+[ext_resource type="Texture2D" uid="uid://il6yqu4w3j5m" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Shield.png" id="7_8hpbw"]
+[ext_resource type="Script" uid="uid://j2annqv6iae5" path="res://levels/00_forest/enemies/scripts/sensors/player_sensor.gd" id="7_crssi"]
+[ext_resource type="Script" uid="uid://bg7xvlkpm8vef" path="res://levels/00_forest/enemies/states/es_idle.gd" id="7_e6kec"]
+[ext_resource type="Script" uid="uid://cxsw6cg6w4w2g" path="res://levels/00_forest/enemies/Bandits/Axe/scripts/enemy_hit_particles.gd" id="8_4kw0w"]
+[ext_resource type="Script" uid="uid://drdsrrial520e" path="res://levels/00_forest/enemies/states/es_stun.gd" id="9_crssi"]
+[ext_resource type="Script" uid="uid://dvm7rsqs2rv8v" path="res://general/scripts/loot_dropper.gd" id="9_stvqf"]
+[ext_resource type="Script" uid="uid://cwigx4iliyt1x" path="res://levels/00_forest/enemies/states/es_death.gd" id="10_4kw0w"]
+[ext_resource type="Script" uid="uid://bjwkf66t8igso" path="res://levels/00_forest/enemies/scripts/sensors/edge_detector.gd" id="11_yo7qb"]
+[ext_resource type="Script" uid="uid://dk12h8wljq87l" path="res://levels/00_forest/enemies/states/es_bandit_sword_attack.gd" id="12_4kw0w"]
+[ext_resource type="Script" path="res://levels/00_forest/enemies/Bandits/Sword/script/decision_engine_sword_bandit.gd" id="12_lovcd"]
+[ext_resource type="Script" uid="uid://4ca6i643nh1g" path="res://levels/00_forest/enemies/states/es_bandit_sword_advance.gd" id="12_stvqf"]
+[ext_resource type="Script" uid="uid://c2hf7pc8vqrdi" path="res://levels/00_forest/enemies/states/es_shield_breaker.gd" id="13_iu4mw"]
+[ext_resource type="AudioStream" uid="uid://cjxp5bfjku7ix" path="res://levels/00_forest/enemies/Bandits/SFX/Death.ogg" id="18_ph8ak"]
+[ext_resource type="AudioStream" uid="uid://x4tfxpsvds8j" path="res://levels/00_forest/enemies/Bandits/SFX/Death_Fire.ogg" id="19_4bc4b"]
+[ext_resource type="AudioStream" uid="uid://c4ry8fqk4if41" path="res://levels/00_forest/enemies/Bandits/SFX/Death_Air.ogg" id="20_uw83b"]
+[ext_resource type="Script" uid="uid://byncx1jjq5vur" path="res://00_global/visual_effects/hit_particle_settings.gd" id="24_qxohe"]
+[ext_resource type="Texture2D" uid="uid://qhghw17d187x" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Shatter_1.png" id="25_whguy"]
+[ext_resource type="Texture2D" uid="uid://dbom4qs6mprxi" path="res://levels/00_forest/enemies/Bandits/Sword/Resorces/Bandit_Sword_Shatter.png" id="26_uvbkl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s2ogf"]
+radius = 8.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qxohe"]
+radius = 8.0
+height = 26.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8hpbw"]
+size = Vector2(22, 5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uvbkl"]
+radius = 8.0
+height = 26.0
+
+[sub_resource type="Curve" id="Curve_iu4mw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ph8ak"]
+size = Vector2(192, 24)
+
+[sub_resource type="Resource" id="Resource_ph8ak"]
+script = ExtResource("24_qxohe")
+count = 15
+texture = ExtResource("25_whguy")
+attack_element = 6
+target_element = 6
+metadata/_custom_type_script = "uid://byncx1jjq5vur"
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4bc4b"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uw83b"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+inherit_velocity_ratio = 1.0
+direction = Vector3(1, -1, 0)
+spread = 90.0
+initial_velocity_max = 91.84
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = 271.83997
+gravity = Vector3(0, 98, 0)
+linear_accel_min = 67.35
+linear_accel_max = 99.99999
+radial_accel_min = -2.2351742e-06
+radial_accel_max = 30.609997
+tangential_accel_min = 49.999996
+tangential_accel_max = 49.999996
+scale_min = 0.79999995
+scale_max = 1.1999999
+anim_offset_max = 1.0
+collision_mode = 1
+collision_friction = 0.47
+collision_bounce = 0.2
+
+[node name="Bandit_Sword" type="CharacterBody2D" unique_id=950779114]
+scale = Vector2(1.5, 1.5)
+collision_layer = 0
+collision_mask = 3
+platform_floor_layers = 4294901763
+platform_wall_layers = 1
+script = ExtResource("1_crssi")
+health = 2.0
+
+[node name="Visuals" parent="." unique_id=1823437909 instance=ExtResource("1_lovcd")]
+unique_name_in_owner = true
+visuals_data = ExtResource("3_iu4mw")
+animation_library = ExtResource("4_yo7qb")
+
+[node name="Armor" parent="Visuals/Sprites" parent_id_path=PackedInt32Array(1823437909, 1328233768) index="0" unique_id=509490728]
+texture = ExtResource("5_ph8ak")
+frame = 50
+
+[node name="Hair" parent="Visuals/Sprites" parent_id_path=PackedInt32Array(1823437909, 1328233768) index="1" unique_id=1839320328]
+visible = true
+frame = 50
+
+[node name="VFX" parent="." unique_id=1681365339 instance=ExtResource("2_4demb")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=634138987]
+position = Vector2(0, -13.333334)
+shape = SubResource("CapsuleShape2D_s2ogf")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=2029477127]
+collision_layer = 96
+collision_mask = 0
+script = ExtResource("3_xlsl0")
+metadata/_custom_type_script = "uid://cwxs3xm3awfci"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=1142121942]
+position = Vector2(0, -13)
+shape = SubResource("CapsuleShape2D_qxohe")
+debug_color = Color(0.071831875, 0.70196074, 0, 0.41960785)
+
+[node name="Shield" type="Sprite2D" parent="." unique_id=683630865]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -32)
+texture = ExtResource("7_8hpbw")
+hframes = 25
+vframes = 7
+frame = 50
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=2127505873]
+position = Vector2(28.666668, -12)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("4_jfd7v")
+metadata/_custom_type_script = "uid://coy7wn1wn058s"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=280622120]
+position = Vector2(-2, -0.5)
+shape = SubResource("RectangleShape2D_8hpbw")
+debug_color = Color(0.70196074, 0, 0.062307637, 0.41960785)
+
+[node name="HazardArea" type="Area2D" parent="." unique_id=1067114493]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("5_e6kec")
+metadata/_custom_type_script = "uid://bvueewlownr48"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea" unique_id=1553414563]
+position = Vector2(0, -13.333334)
+shape = SubResource("CapsuleShape2D_uvbkl")
+debug_color = Color(0.70196074, 0.24373677, 0, 0.41960785)
+
+[node name="EnemyStateMachine" type="Node" parent="." unique_id=56696916]
+script = ExtResource("6_gd2k6")
+metadata/_custom_type_script = "uid://dmol72ops4y6o"
+
+[node name="ESIdle" type="Node" parent="EnemyStateMachine" unique_id=891498190]
+unique_name_in_owner = true
+script = ExtResource("7_e6kec")
+animation_name = "idle"
+metadata/_custom_type_script = "uid://bg7xvlkpm8vef"
+
+[node name="ESBanditSwordAdvance" type="Node" parent="EnemyStateMachine" unique_id=1578147094 node_paths=PackedStringArray("attack_state")]
+unique_name_in_owner = true
+script = ExtResource("12_stvqf")
+retreat_distance = 80.0
+move_speed = 80.0
+retreat_speed = 120.0
+attack_state = NodePath("../ESBanditSwordAttack")
+animation_name = "advance"
+metadata/_custom_type_script = "uid://4ca6i643nh1g"
+
+[node name="ESBanditSwordAttack" type="Node" parent="EnemyStateMachine" unique_id=1951135502 node_paths=PackedStringArray("attack_area")]
+unique_name_in_owner = true
+script = ExtResource("12_4kw0w")
+cooldown = 4.0
+attack_area = NodePath("../../AttackArea")
+move_speed = 20.0
+move_speed_curve = SubResource("Curve_iu4mw")
+metadata/_custom_type_script = "uid://dk12h8wljq87l"
+
+[node name="ESShieldBreaker" type="Node" parent="EnemyStateMachine" unique_id=987976430 node_paths=PackedStringArray("stun_state")]
+unique_name_in_owner = true
+script = ExtResource("13_iu4mw")
+knockback_resist = 1.0
+stun_state = NodePath("../ESStun")
+animation_name = "stun"
+metadata/_custom_type_script = "uid://c2hf7pc8vqrdi"
+
+[node name="ESStun" type="Node" parent="EnemyStateMachine" unique_id=1845734088]
+unique_name_in_owner = true
+script = ExtResource("9_crssi")
+animation_name = "stun"
+metadata/_custom_type_script = "uid://drdsrrial520e"
+
+[node name="ESDeath" type="Node" parent="EnemyStateMachine" unique_id=225412709]
+unique_name_in_owner = true
+script = ExtResource("10_4kw0w")
+death_audio_default = ExtResource("18_ph8ak")
+death_audio_physical = ExtResource("18_ph8ak")
+death_audio_fire = ExtResource("19_4bc4b")
+death_audio_air = ExtResource("20_uw83b")
+animation_name = "death"
+metadata/_custom_type_script = "uid://cwigx4iliyt1x"
+
+[node name="DecisionEngineSwordBandit" type="Node" parent="." unique_id=1238748070 node_paths=PackedStringArray("attack_state", "advance_state")]
+script = ExtResource("12_lovcd")
+attack_state = NodePath("../EnemyStateMachine/ESBanditSwordAttack")
+advance_state = NodePath("../EnemyStateMachine/ESBanditSwordAdvance")
+
+[node name="PlayerSensor" type="Area2D" parent="." unique_id=692760470]
+visible = false
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("7_crssi")
+search_duration = 2.0
+metadata/_custom_type_script = "uid://j2annqv6iae5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSensor" unique_id=1188299559]
+position = Vector2(0, -12.666667)
+shape = SubResource("RectangleShape2D_ph8ak")
+
+[node name="LootDropper" type="Marker2D" parent="." unique_id=905730016]
+script = ExtResource("9_stvqf")
+metadata/_custom_type_script = "uid://dvm7rsqs2rv8v"
+
+[node name="EdgeDetector" type="RayCast2D" parent="." unique_id=106234415]
+position = Vector2(5.3333335, -0.6666667)
+target_position = Vector2(0, 6)
+script = ExtResource("11_yo7qb")
+metadata/_custom_type_script = "uid://bjwkf66t8igso"
+
+[node name="EnemyHitParticles" type="Marker2D" parent="." unique_id=563609575]
+position = Vector2(0, -12.666667)
+script = ExtResource("8_4kw0w")
+hit_particles = Array[ExtResource("24_qxohe")]([SubResource("Resource_ph8ak")])
+auto_trigger_on_hit = false
+metadata/_custom_type_script = "uid://cxsw6cg6w4w2g"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=488098107]
+material = SubResource("CanvasItemMaterial_4bc4b")
+emitting = false
+amount = 10
+texture = ExtResource("26_uvbkl")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_uw83b")
+
+[editable path="Visuals"]

@@ -14,6 +14,7 @@ var force : float = 1
 
 
 @onready var damage_area: DamageArea = %DamageArea
+@onready var attack_area: AttackArea = %AttackArea
 
 
 
@@ -27,7 +28,7 @@ func init() -> void:
 
 # What happens when we enter this state?
 func enter() -> void:
-	
+	attack_area.set_active( false )
 	if player.is_on_floor():
 		player.animation_player.play( "hurt" )
 		time = player.animation_player.current_animation_length

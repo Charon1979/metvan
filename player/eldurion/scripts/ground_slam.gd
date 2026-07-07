@@ -37,7 +37,7 @@ func enter() -> void:
 	player.animation_player.play( "ground_slam_impact" )
 	dash_part.restart()
 	#vfx_sprite.visible = true
-	#vfx_player_01.play( "lightning_down" )
+	#vfx_player_01.play( "air_down" )
 	player.sprite_2d.tween_color()
 	Audio.play_spatial_sound( DASH_AUDIO, player.global_position, false, true, 0.5 )
 	damage_area.start_invulnerable()

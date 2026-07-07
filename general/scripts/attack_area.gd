@@ -8,6 +8,8 @@ extends Area2D
 @export var dmg_element: DamageType.DamageElement = DamageType.DamageElement.PHYSICAL
 @export var dmg_type: DamageType.DamageType = DamageType.DamageType.LIGHT
 @export var force : float = 1.0
+@export var duration : float = 0.1
+
 
 
 
@@ -25,16 +27,16 @@ func _on_body_entered( body : Node2D ) -> void:
 		body.take_damage( self )
 		
 		
-		var pos: Vector2 = global_position
-		
-		pos.x = body.global_position.x
-		VisualEffects.hit_dust( pos )
+		#var pos: Vector2 = global_position
+		#
+		#pos.x = body.global_position.x
+		#VisualEffects.hit_dust( pos )
 		pass
 	pass
 
-func activate( duration : float = 0.1 ) -> void:
+func activate( duration : float ) -> void:
 	
-	set_active()
+	set_active( true )
 	await get_tree().create_timer( duration ).timeout
 	set_active( false )
 	pass
@@ -49,9 +51,9 @@ func set_active ( value : bool = true ) -> void:
 func flip( direction_x : float ) -> void:
 	if direction_x > 0:
 		scale.x = 1
-
+		position.x = abs(position.x)
 	elif direction_x < 0:
 		scale.x = -1
-
+		position.x = -abs(position.x)
 	pass
 	

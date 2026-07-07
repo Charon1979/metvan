@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://jq7ik8sbsgv0"]
+
+[ext_resource type="Script" uid="uid://dl60pweo8it80" path="res://00_global/DeathVignette/DeathVignette.gd" id="1_sx0ep"]
+
+[node name="DeathVignetteLayer" type="Node2D" unique_id=210508571]
+z_index = 100
+script = ExtResource("1_sx0ep")
+fade_black_duration = 0.5
+hold_duration = 3.0
+fade_reveal_duration = 2.0

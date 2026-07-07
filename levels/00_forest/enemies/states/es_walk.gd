@@ -5,8 +5,7 @@ extends EnemyState
 
 
 func enter() -> void:
-	var anim : String = animation_name if animation_name else "walk"
-	enemy.play_animation( anim )
+	enemy.play_animation( animation_name if animation_name else "walk" )
 	pass
 
 

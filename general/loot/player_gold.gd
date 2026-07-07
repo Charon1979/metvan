@@ -36,9 +36,9 @@ func _on_player_entered( n : Node2D ) -> void:
 		area_2d.body_entered.disconnect( _on_player_entered )
 		Audio.play_spatial_sound( GOLD_AUDIO, global_position, false, true, 0.0 )
 		SaveManager.persistent_data.erase("player_gold_drop")
-		SaveManager.save_game()
-		SceneManager.load_scene_finished.disconnect( _on_scene_finished )
 		n.gold += gold_value
+		SaveManager.persist_data()
+		SceneManager.load_scene_finished.disconnect( _on_scene_finished )
 		
 		queue_free()
 	pass

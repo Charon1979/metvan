@@ -20,6 +20,7 @@ func _ready() -> void:
 
 
 func drop_loot() -> void:
+	
 	for i in items:
 		if i.drop_chance <= randf():
 			continue
@@ -62,17 +63,15 @@ func drop_player_loot() -> void:
 	else:
 		
 		for i in items:
-			if i.drop_chance <= randf():
-				continue
+	
 			var drop_scene = load(i.item)
-			var count: int = randi_range(i.minimum, i.maximum)
-
-			for j in count:
-				var drop = drop_scene.instantiate()
-				owner.add_sibling.call_deferred(drop)
-				drop.gold_value = owner.gold
+			var drop = drop_scene.instantiate()
+			drop.gold_value = owner.gold
+			owner.add_sibling.call_deferred(drop)
+			
 				
 
-				drop.global_position.x = owner.global_position.x
-				drop.global_position.y = owner.global_position.y - 64
+			drop.global_position.x = owner.global_position.x
+			drop.global_position.y = owner.global_position.y - 64
+			
 				

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="VFXParticleConfig" format=3 uid="uid://c3nje4jml8hfq"]
+
+[ext_resource type="Material" uid="uid://c20iin7k45xpu" path="res://levels/00_forest/enemies/Bandits/Axe/VFX/BanditAxeAir_Part.tres" id="1_6yu0s"]
+[ext_resource type="Script" uid="uid://dsrka4tyhaxgr" path="res://levels/00_forest/enemies/Bandits/Axe/VFX/VFXParticleConfig.gd" id="2_rpq4x"]
+
+[resource]
+script = ExtResource("2_rpq4x")
+process_material = ExtResource("1_6yu0s")
+amount = 10
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+randomness = 0.25
+trail_enabled = true
+metadata/_custom_type_script = "uid://dsrka4tyhaxgr"
