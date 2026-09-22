@@ -1,4 +1,4 @@
-@icon( "uid://d2faluxs1eudu" )
+@icon( "uid://bdyfbpjv7vfx0" )
 
 class_name EdgeDetector 
 extends RayCast2D

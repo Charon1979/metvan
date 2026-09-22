@@ -1,4 +1,4 @@
-@icon( "uid://byacoub15iwlt" )
+@icon( "uid://bdyfbpjv7vfx0" )
 
 class_name PlayerSensor
 extends Area2D
@@ -38,7 +38,9 @@ func _ready() -> void:
 	pass
 
 func _physics_process( delta: float ) -> void:
-	if timer > 0 and not can_see_player:
+	if can_see_player:
+		enemy.blackboard.target_position = enemy.blackboard.target.global_position
+	elif timer > 0:
 		timer -= delta
 		if timer <= 0:
 			player_exited.emit()
@@ -69,18 +71,13 @@ func _on_direction_changed( dir: float ) -> void:
 		scale.x = 1
 	pass
 
-func  _on_player_sound( pos: Vector2, volume : float ) -> void:
-
+func _on_player_sound( pos: Vector2, volume : float ) -> void:
 	var sound_dist: float = global_position.distance_to(pos)
-
 	var t: float = clampf(1.0 - sound_dist / audio_detect_dist, 0.0, 1.0)
-
 	var perceived_vol: float = volume * pow(t, 0.5)
-
 	perceived_vol *= lerp(1.0, 2.0, t)
-
 	if perceived_vol >= min_audio_sense:
 		timer = listening_duration
 		enemy.blackboard.target = get_tree().get_first_node_in_group("Player")
-		
+		enemy.blackboard.target_position = pos
 	pass

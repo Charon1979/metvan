@@ -4,6 +4,11 @@ const DUST_EFFECT = preload("uid://b6jnyetugbf44")
 const HIT_PARTICLES = preload("uid://qn6kk66g71u")
 const EFFECT_PARTICLES = preload("uid://b27gt6qfdp5yk")
 
+# NEW — see README: create CeilingDustWarning.tscn (root GPUParticles2D,
+# script ceiling_dust_warning.gd) and replace this preload path with its
+# real uid:// once it exists in the project.
+const CEILING_DUST_WARNING = preload("uid://day6lon335enm")
+
 
 signal camera_shook( strength : float )
 
@@ -56,7 +61,7 @@ func get_hit_settings(attack: DamageType.DamageElement, target: DamageType.Damag
 		if s.attack_element == attack and s.target_element == target:
 			return s
 	return null
-	
+
 func spawn_hit(
 	attack: AttackArea,
 	target_element: DamageType.DamageElement,
@@ -75,4 +80,15 @@ func spawn_hit(
 
 func camera_shake( strength : float = 1.0 ) -> void:
 	camera_shook.emit( strength )
+	pass
+
+
+## NEW — spawns a one-shot "something's about to fall here" telegraph at
+## `pos` (a ceiling-height position) for `duration` seconds. Used by the
+## ogre boss's Charge and Frenzy attacks ahead of a falling Rock.
+func ceiling_dust_warning( pos : Vector2, duration : float ) -> void:
+	var w : CeilingDustWarning = CEILING_DUST_WARNING.instantiate()
+	add_child( w )
+	w.global_position = pos
+	w.start( duration )
 	pass

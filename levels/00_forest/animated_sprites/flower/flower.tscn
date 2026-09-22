@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://c64urco8ei3qi"]
+
+[ext_resource type="Script" uid="uid://beabqhgjildr1" path="res://levels/00_forest/animated_sprites/flower/flower.gd" id="1_3ea1d"]
+[ext_resource type="Resource" uid="uid://dyt1y0c3skwbs" path="res://levels/00_forest/animated_sprites/flower/plant_data.tres" id="2_3ea1d"]
+[ext_resource type="Shader" uid="uid://besvdfnubtf3q" path="res://levels/00_forest/animated_sprites/flower/flower.gdshader" id="3_55kck"]
+[ext_resource type="Script" uid="uid://cwxs3xm3awfci" path="res://general/scripts/damage_area.gd" id="3_m3e8f"]
+[ext_resource type="Texture2D" uid="uid://bsqcl4v4of4f0" path="res://levels/00_forest/animated_sprites/flower/Grass_Cut.png" id="4_iji43"]
+[ext_resource type="Texture2D" uid="uid://b306qjaty77ag" path="res://levels/00_forest/animated_sprites/flower/flower_yellow.png" id="4_m3e8f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iji43"]
+shader = ExtResource("3_55kck")
+shader_parameter/sway_strength = 6.000000285
+shader_parameter/sway_speed = 2.00000007125
+shader_parameter/trigger_x = 0.0
+shader_parameter/trigger_y = 0.0
+shader_parameter/trigger_range = 32.000001139999995
+shader_parameter/plant_x = 0.0
+shader_parameter/plant_y = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3e5oy"]
+size = Vector2(15, 22)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c8sum"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_qx33w"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ea1d"]
+gradient = SubResource("Gradient_qx33w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uaawx"]
+lifetime_randomness = 0.25
+particle_flag_disable_z = true
+angle_min = -179.99998
+angle_max = 180.00002
+velocity_pivot = Vector3(0, -1, 0)
+direction = Vector3(1, -20, 0)
+spread = 90.0
+initial_velocity_min = 120.0
+initial_velocity_max = 180.0
+gravity = Vector3(0, 60, 0)
+damping_min = 20.0
+damping_max = 50.000004
+scale_min = 0.79999995
+scale_max = 1.22
+color_ramp = SubResource("GradientTexture1D_3ea1d")
+anim_offset_max = 1.0
+turbulence_enabled = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8sum"]
+size = Vector2(12, 20)
+
+[node name="Flower" type="Node2D" unique_id=1800005900]
+script = ExtResource("1_3ea1d")
+plant_data = ExtResource("2_3ea1d")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2111801063]
+material = SubResource("ShaderMaterial_iji43")
+position = Vector2(-1, -11)
+texture = ExtResource("4_m3e8f")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=498418398]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("3_m3e8f")
+metadata/_custom_type_script = "uid://cwxs3xm3awfci"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=531686991]
+position = Vector2(0.5, -11)
+shape = SubResource("RectangleShape2D_3e5oy")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=44823499]
+material = SubResource("CanvasItemMaterial_c8sum")
+position = Vector2(1, -14)
+emitting = false
+amount = 12
+texture = ExtResource("4_iji43")
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_uaawx")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1769885505]
+collision_layer = 0
+collision_mask = 48
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=441973920]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_c8sum")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

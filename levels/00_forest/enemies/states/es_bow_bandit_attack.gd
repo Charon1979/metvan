@@ -23,6 +23,13 @@ var timer : float = 0
 var duration : float = 0
 var on_cooldown : bool = false
 
+const AUDIO_ARROW_SWOOSH = preload("uid://cki485sqbvt12")
+
+func _ready() -> void:
+	# Getting hit while loosing the shot shouldn't cancel it — see
+	# EnemyState.interruptible_by_hit / Enemy.on_damage_taken().
+	interruptible_by_hit = false
+
 
 func enter() -> void:
 	blackboard.can_decide = false
@@ -30,6 +37,7 @@ func enter() -> void:
 
 	enemy.visuals.play_animation( animation_name if animation_name else "shoot" )
 	duration = enemy.visuals.get_animation_length( animation_name if animation_name else "shoot" )
+	Audio.play_spatial_sound( AUDIO_ARROW_SWOOSH, enemy.global_position, false, false, 0.5)
 	if duration <= 0.0:
 		duration = 0.0001 # avoid getting stuck if there's no animation length to go off of
 

@@ -1,3 +1,6 @@
+LightningSpellData
+PlantData
+AtlasTexture
 BanditVisualsData
 EnemyVisualData
 CanvasItemMaterial
@@ -10,4 +13,3 @@ SpriteFrames
 EffectParticleSettings
 ParticleProcessMaterial
 Shader
-TileSet

@@ -99,14 +99,27 @@ func set_reverb( type : REVERB_TYPE ) -> void:
 
 
 
-func play_spatial_sound( 
+## Returns the AudioStreamPlayer2D actually used to play this sound, so a
+## caller that needs to cut a long/sustained one-shot short (e.g. a charge-up
+## loop cancelled early) has a handle to call .stop() on. Most callers can
+## just ignore the return value, same as before this was added.
+##
+## That handle is only ever reliable with ignore_pool = true. With
+## ignore_pool = false the returned player comes from the shared 32-slot
+## round-robin pool and can be handed to a totally unrelated sound the next
+## time its slot comes up — fine for fire-and-forget effects, but don't hold
+## onto it to stop something later. Anything you might need to stop early
+## should be played with ignore_pool = true, which gives it a dedicated
+## instance for as long as you keep the reference.
+func play_spatial_sound(
 		audio : AudioStream, pos : Vector2,
 		ignore_pool : bool = false,
 		was_player : bool = false,
 		volume : float = 0.5
-		) -> void:
+		) -> AudioStreamPlayer2D:
+	var ap : AudioStreamPlayer2D
 	if ignore_pool:
-		var ap : AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+		ap = AudioStreamPlayer2D.new()
 		add_child( ap )
 		ap.bus = "SFX"
 		ap.global_position = pos
@@ -114,16 +127,16 @@ func play_spatial_sound(
 		ap.finished.connect( ap.queue_free )
 		ap.play()
 	else:
-		var ap : AudioStreamPlayer2D = audio_pool[ audio_index ]
+		ap = audio_pool[ audio_index ]
 		ap.global_position = pos
 		ap.stream = audio
 		ap.play()
 		audio_index = wrapi( audio_index + 1, 0, 32 )
 		pass
-	
+
 	if was_player:
 		player_made_sound.emit( pos, volume )
-	pass
+	return ap
 
 
 

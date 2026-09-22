@@ -3,6 +3,7 @@
 class_name AttackArea
 extends Area2D
 
+signal hit_target( damage_area : DamageArea )
 
 @export var damage : int = 1
 @export var dmg_element: DamageType.DamageElement = DamageType.DamageElement.PHYSICAL
@@ -23,8 +24,10 @@ func _ready() -> void:
 
 
 func _on_body_entered( body : Node2D ) -> void:
+	
 	if body is DamageArea:
 		body.take_damage( self )
+		hit_target.emit( body )
 		
 		
 		#var pos: Vector2 = global_position

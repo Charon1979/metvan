@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bw8lmdwa2cf0h"]
+
+[ext_resource type="Texture2D" uid="uid://dpw0d0nfjr0mf" path="res://general/door_and_switch/Trap_rope.png" id="1_ftiui"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3e5oy"]
+size = Vector2(2, 40)
+
+[node name="TrapRope" type="Node2D" unique_id=541587310]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1260623569]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_ftiui")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Area2D" type="Area2D" parent="NinePatchRect" unique_id=1243103373]
+position = Vector2(11, 19)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NinePatchRect/Area2D" unique_id=2035669486]
+position = Vector2(9, 1)
+shape = SubResource("RectangleShape2D_3e5oy")

@@ -23,4 +23,3 @@ void fragment() {
     vec2 border = step(vec2(0.0), uv) * step(uv, vec2(1.0));
     COLOR.a *= border.x * border.y;
 }
-

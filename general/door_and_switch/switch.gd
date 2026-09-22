@@ -10,45 +10,27 @@ signal activated
 var is_open : bool = false
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var area_2d: Area2D = $Area2D
+## Requires "One Use" checked on this child in the Inspector — a switch
+## only ever opens once, and that has to be set there rather than forced
+## here in code (this node's _ready() runs after the child's, too late to
+## affect its one_use check).
+@onready var interaction_trigger : InteractionTrigger = $InteractionTrigger
 
 func _ready() -> void:
-	if SaveManager.persistent_data.get_or_add( unique_name(), "closed" ) == "open":
+	if interaction_trigger.is_used():
 		set_open()
 	else:
-		
-		area_2d.body_entered.connect( _on_player_entered )
-		area_2d.body_exited.connect( _on_player_exited )
+		interaction_trigger.interacted.connect( _on_interacted )
 	pass
 
-func _on_player_entered( _n : Node2D ) -> void:
-	Messages.input_hint_changed.emit( "BENUTZEN" )
-	Messages.player_interacted.connect( _on_player_interacted )
-	pass
-
-func _on_player_interacted( _player : Player ) -> void:
+func _on_interacted( _player : Player ) -> void:
 	Audio.play_spatial_sound( DOOR_SWITCH_AUDIO, global_position, false, false, 0.75 )
-	SaveManager.persistent_data[ unique_name() ] = "open"
-	SaveManager.write_to_disc()
 	activated.emit()
 	set_open()
-	
-	
-	pass
-
-func _on_player_exited( _n : Node2D ) -> void:
-	Messages.input_hint_changed.emit( "" )
-	Messages.player_interacted.disconnect( _on_player_interacted )
 	pass
 
 func set_open() -> void:
 	is_open = true
 	sprite_2d.flip_h = true
 	sprite_2d.modulate = Color.GRAY
-	area_2d.queue_free()
 	pass
-
-func unique_name() -> String:
-	var u_name : String = ResourceUID.path_to_uid( owner.scene_file_path )
-	u_name += "/" + get_parent().name + "/" + name
-	return u_name

@@ -1,4 +1,4 @@
-@icon( "uid://dclq2l1yrpdnq" )
+@icon( "uid://db0ppj3xp6xul" )
 
 class_name LootDropper
 extends Marker2D

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c0f6mxwx8kue2"]
 
 [ext_resource type="Script" uid="uid://dmewe5kcxa3wl" path="res://general/player_spawn/player_spawn.gd" id="1_h1cw5"]
-[ext_resource type="Texture2D" uid="uid://bg667q3yvnu8d" path="res://player/eldurion/sprites/Eldurion_Idle_Spritesheet.png" id="2_h1cw5"]
+[ext_resource type="Texture2D" uid="uid://c088bes17c6rr" path="res://player/eldurion/sprites/Eldurion_Sprite_sheet.png" id="2_h1cw5"]
 
 [node name="PlayerSpawn" type="Node2D" unique_id=1390794315]
 scale = Vector2(1.5, 1.5)
@@ -10,6 +10,7 @@ script = ExtResource("1_h1cw5")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=806589696]
 modulate = Color(0.4152622, 1.4687854, 0, 1)
 z_index = 100
-position = Vector2(10, -16)
+position = Vector2(-0.6666666, -32)
 texture = ExtResource("2_h1cw5")
-hframes = 10
+hframes = 25
+vframes = 8

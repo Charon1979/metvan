@@ -1,5 +1,5 @@
 @tool
-@icon("uid://dy178uirc4rfd")
+@icon("uid://d2sbidjsqe1lq")
 class_name Enemy
 extends CharacterBody2D
 
@@ -9,6 +9,13 @@ signal was_killed()
 
 @export var health: float = 1
 @export var affected_by_gravity: bool = true
+## Failsafe switch for enemy-type decision engines: when true, hits should
+## never be routed to a stun/shield-breaker state (some bosses, like the
+## ogre, have no such state in their scene at all, so a decision engine that
+## kept routing there would get permanently stuck the moment it tried).
+## Defaults true automatically on boss subclasses (see e.g. OgreBoss); leave
+## false for normal enemies that do have a stun reaction.
+@export var is_boss: bool = false
 
 @export var face_left_on_start: bool = false:
 	set(value):
@@ -126,14 +133,18 @@ func change_dir(new_dir: float) -> void:
 	direction_changed.emit(new_dir)
 	if visuals:
 		visuals.set_facing_direction(new_dir)
-	if vfx:                                      
-		vfx.set_facing_direction(new_dir) 
+	if vfx:
+		vfx.set_facing_direction(new_dir)
+	if attack_area:
+		attack_area.flip(new_dir)
+	if hazard_area:
+		hazard_area.flip(new_dir)  # HazardArea extends AttackArea, same method
+	if damage_area:
+		damage_area.flip_damage_area(new_dir)
 
 
 func on_damage_taken(a: AttackArea) -> void:
-	
-	blackboard.can_decide = true
-	attack_area.set_active( false )
+
 	blackboard.damage_source = a
 	blackboard.force = a.force
 	blackboard.damage_element = a.dmg_element
@@ -141,9 +152,36 @@ func on_damage_taken(a: AttackArea) -> void:
 	blackboard.health -= a.damage
 
 	if blackboard.health <= 0:
+		# Death always overrides whatever the enemy is currently doing,
+		# boss or not — force can_decide so decide() runs immediately next
+		# frame (see the health <= 0 check at the top of every decision
+		# engine) instead of waiting for the current move to finish on its
+		# own, e.g. via ESOgreRecover.
+		blackboard.can_decide = true
+		attack_area.set_active( false )
 		damage_area.queue_free()
 		hazard_area.queue_free()
 		was_killed.emit()
+	elif not is_boss:
+		# Normal enemies still get knocked straight into their stun
+		# reaction, interrupting whatever they were doing — UNLESS the
+		# state they're currently in opted out via
+		# interruptible_by_hit = false (attack states: axe/sword swings,
+		# the bow's aim+shot). The hit still registers above (health,
+		# knockback data) so decide() will react to it normally the moment
+		# the attack finishes on its own and can_decide flips back to true
+		# — this just stops it from cancelling the swing/shot in progress.
+		if not state_machine.current_state or state_machine.current_state.interruptible_by_hit:
+			blackboard.can_decide = true
+			attack_area.set_active( false )
+	# else: a still-living boss doesn't react to the hit at all beyond
+	# losing health and flashing red (EnemyVisuals listens for was_hit
+	# below) — can_decide/attack_area are left untouched so the ogre keeps
+	# doing exactly what it was doing. blackboard.damage_source just sits
+	# here inert until the ogre naturally reaches a decide()-eligible state
+	# on its own (ESOgreRecover, per its own comment, is the only place
+	# that happens), at which point OgreDecisionEngine.decide() silently
+	# clears it — see its is_boss branch.
 
 	was_hit.emit(a)
 

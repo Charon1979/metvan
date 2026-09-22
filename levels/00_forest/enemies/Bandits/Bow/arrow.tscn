@@ -12,6 +12,7 @@ size = Vector2(10, 4)
 radius = 2.0
 
 [node name="Arrow" type="Sprite2D" unique_id=1294998761]
+visible = false
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_pyaq3")
 script = ExtResource("1_08xah")
@@ -19,14 +20,17 @@ stuck_texture = ExtResource("3_harbp")
 
 [node name="HazardArea" type="Area2D" parent="." unique_id=870098238]
 collision_layer = 0
-collision_mask = 16
+collision_mask = 80
 script = ExtResource("2_3ne1b")
+force = 3.0
 metadata/_custom_type_script = "uid://bvueewlownr48"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea" unique_id=519024307]
 shape = SubResource("RectangleShape2D_pyaq3")
 
 [node name="WallDetector" type="Area2D" parent="." unique_id=1452325572]
+collision_layer = 0
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallDetector" unique_id=390026535]
 position = Vector2(3, 0)

@@ -1,4 +1,4 @@
-@icon( "uid://bdtuue7gbi0h8" )
+@icon( "uid://clik7pjgto8k4" )
 
 class_name EnemyStateMachine
 extends Node

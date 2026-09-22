@@ -1,4 +1,4 @@
-@icon("uid://bdtuue7gbi0h8")
+@icon("uid://clik7pjgto8k4")
 class_name PlayerStateDeath extends PlayerState
 
 const DEATH_AUDIO = preload("uid://b8vlx271tc7ip")
@@ -10,8 +10,9 @@ func enter() -> void:
 	player.animation_player.play( "death" )
 	Audio.play_spatial_sound( DEATH_AUDIO, player.global_position, true )
 	PlayerHud.hide_hud()
-	#await player.animation_player.animation_finished
+	
 	await DeathVignette.fade_to_black_and_hold( player )
+	await player.animation_player.animation_finished
 	await SaveManager.game_over()
 	
 	
@@ -32,5 +33,5 @@ func process( _delta: float ) -> PlayerState:
 func physics_process( _delta: float ) -> PlayerState:
 	player.velocity.x = 0
 	if player.hp >= 1:
-		return idle
+		return stand_up
 	return null

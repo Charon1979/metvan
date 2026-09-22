@@ -1,3 +1,10 @@
+res://levels/00_forest/
+res://player/Spells/
+res://
+res://levels/00_forest/enemies/boss/ogre/
+res://levels/00_forest/animated_sprites/flower/
+res://levels/00_forest/tilesets/sprites/
+res://levels/00_forest/tilesets/
 res://levels/00_forest/enemies/Bandits/Bow/Resources/
 res://levels/00_forest/enemies/Bandits/Bow/
 res://levels/00_forest/enemies/Bandits/Sword/script/
@@ -6,7 +13,6 @@ res://world/water/
 res://00_global/DeathVignette/
 res://00_global/spawn_manager/
 res://levels/00_forest/enemies/Bandits/Sword/Resorces/
-res://
 res://levels/00_forest/enemies/Bandits/Sword/
 res://levels/00_forest/enemies/Bandits/Axe/VFX/
 res://levels/00_forest/enemies/Bandits/Axe/Resources/
@@ -14,9 +20,3 @@ res://levels/00_forest/enemies/VFX_Component/
 res://levels/00_forest/enemies/
 res://levels/00_forest/enemies/Bandits/Axe/
 res://general/loot/
-res://general/health_pickup/
-res://00_global/visual_effects/
-res://player/eldurion/states/
-res://00_global/player_hud/
-res://Michaels Stuff/TestDummy/
-res://00_global/

@@ -10,7 +10,13 @@ var timer : float = 0
 var duration : float = 0
 var on_cooldown : bool = true
 
+const AUDIO_TWO_SWORD_SLASHES = preload("uid://drwv42xaktqg8")
+const AUDIO_SWORD_SLASH = preload("uid://ddv5g8f5geibq")
+
 func _ready() -> void:
+	# Getting hit mid-swing shouldn't cancel the attack — see
+	# EnemyState.interruptible_by_hit / Enemy.on_damage_taken().
+	interruptible_by_hit = false
 	run_cooldown()
 
 func enter() -> void:
@@ -21,11 +27,12 @@ func enter() -> void:
 		enemy.visuals.play_animation( animation_name if animation_name else "attack_1" )
 		#enemy.animation_player.play( "shield_attack" )
 		duration = enemy.visuals.get_animation_length("attack_1")
+		Audio.play_spatial_sound( AUDIO_SWORD_SLASH, enemy.global_position, false, false, 0.5)
 	else:
 		enemy.visuals.play_animation( animation_name if animation_name else "attack_2" )
 		duration = enemy.visuals.get_animation_length("attack_2")
+		Audio.play_spatial_sound( AUDIO_TWO_SWORD_SLASHES, enemy.global_position, false, false, 0.5)
 	timer = 0
-	blackboard.can_decide = false
 	on_cooldown = true
 	enemy.velocity.x = move_speed * blackboard.dir
 

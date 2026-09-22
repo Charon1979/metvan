@@ -1,5 +1,5 @@
 @tool
-@icon( "uid://0yukkbuwck2y" )
+@icon( "uid://kirua5ws7gg2" )
 
 class_name AbilityPickup extends Node2D
 
@@ -72,7 +72,7 @@ func get_ability_name() -> String:
 		Type.DASH:
 			return "dash"
 		Type.MORPH_ROLL:
-			return "morp_roll"
+			return "morph_roll"
 		Type.GROUND_SLAM:
 			return "ground_slam"
 	

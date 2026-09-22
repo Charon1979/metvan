@@ -6,14 +6,20 @@ extends EnemyState
 @export var knockback_vertical_bias : float = -1.0
 @export var stun_state : ESStun
 @export var light_hit_duration : float = 0.2
+@export var shield_break : AudioStream
 
 var vel_x : float = 0
 var vel_y : float = 0
 var duration : float = 0
 var timer : float = 0
 
-const SHIELD_IMPACT_AUDIO = preload("uid://ruiljscjll23")
-const SHIELD_BREAK_AUDIO = preload("uid://de2w088c7v0q3")
+
+# AUDIO_SHIELD_IMPACT (the old light-hit sound) was removed — EnemyBanditSword.
+# deflect_sound now covers that moment for every blocked hit (light AND
+# heavy), so playing this too was doubling up. AUDIO_SHIELD_BREAK stays —
+# that's the shield actually shattering, on top of the deflect sound, not a
+# duplicate of it.
+
 
 
 func start() -> void:
@@ -21,7 +27,6 @@ func start() -> void:
 	if blackboard.shield_active == true:
 		match blackboard.damage_type:
 			DamageType.DamageType.LIGHT:
-				Audio.play_spatial_sound( SHIELD_IMPACT_AUDIO, enemy.global_position, false, true, 0.5 )
 				timer = 0
 				duration = light_hit_duration
 				_calc_velocity( blackboard.damage_source )
@@ -37,7 +42,7 @@ func start() -> void:
 				_calc_velocity( blackboard.damage_source )
 				enemy.hit_particles.trigger_hit_particle( blackboard.damage_source, 0 )
 				blackboard.damage_source = null
-				Audio.play_spatial_sound( SHIELD_BREAK_AUDIO, enemy.global_position, false, true, 1 )
+				Audio.play_spatial_sound( shield_break, enemy.global_position, false, true, 1 )
 				enemy.shield.visible = false
 				blackboard.shield_active = false
 	else:

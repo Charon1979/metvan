@@ -1,120 +1,63 @@
-[gd_scene format=3 uid="uid://dgq7libgor6j3"]
+[gd_scene format=3 uid="uid://cor8igwxetpgn"]
 
-[ext_resource type="Script" uid="uid://sbfes2v5hblx" path="res://world/water/water_area.gd" id="1_nl8eq"]
-[ext_resource type="Shader" uid="uid://oe6q3rfsu2te" path="res://world/water/water.gdshader" id="1_s33lq"]
-[ext_resource type="Texture2D" uid="uid://brhcmpcjhcdcx" path="res://world/water/water_part.png" id="3_delex"]
+[ext_resource type="Script" uid="uid://dvvjg5sa15jow" path="res://world/water/water.gd" id="1_f6ydb"]
+[ext_resource type="Shader" uid="uid://dpit3bwcgxlw" path="res://world/water/distortion.gdshader" id="2_delex"]
+[ext_resource type="Texture2D" uid="uid://brhcmpcjhcdcx" path="res://world/water/water_part.png" id="2_s33lq"]
+[ext_resource type="Material" uid="uid://fvv3ogbdovp1" path="res://water_splash.tres" id="4_vy5aa"]
+[ext_resource type="Material" uid="uid://xw1qldbmwao" path="res://water_move.tres" id="5_aung5"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s33lq"]
-size = Vector2(1344, 20)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_delex"]
+shader = ExtResource("2_delex")
+shader_parameter/distortion_strength = 0.0050000002375
+shader_parameter/distortion_speed = 1.0000000475
+shader_parameter/distortion_scale = 12.0000005225
+shader_parameter/refraction_amount = 0.25
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s33lq"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_delex"]
+size = Vector2(542.7273, 30.545456)
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_delex"]
+[node name="Water" type="Node2D" unique_id=1066824094 node_paths=PackedStringArray("top_left_marker", "bottom_right_marker", "splash_particles", "movement_particles")]
+material = SubResource("ShaderMaterial_delex")
+script = ExtResource("1_f6ydb")
+top_left_marker = NodePath("TopLeft")
+bottom_right_marker = NodePath("BottomRight")
+surface_color = Color(0.72538966, 0.7490225, 0.9844546, 0.6)
+water_color = Color(0.72538966, 0.7490225, 0.9844546, 0.4)
+splash_particles = NodePath("splash_particles")
+movement_particles = NodePath("movement_particles")
+distortion_material = SubResource("ShaderMaterial_delex")
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ho7eo"]
+[node name="TopLeft" type="Marker2D" parent="." unique_id=789861140]
+position = Vector2(0, 64)
+gizmo_extents = 32.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s33lq"]
-shader = ExtResource("1_s33lq")
-shader_parameter/water_color = Color(0.2, 0.6, 1, 0.39215687)
-shader_parameter/base_y = 0.2
-shader_parameter/wave_frequency = 15.0
-shader_parameter/wave_amplitude = 0.035
-shader_parameter/wave_speed = 3.0
-shader_parameter/water_noise = SubResource("NoiseTexture2D_ho7eo")
-shader_parameter/water_distortion_noise = SubResource("NoiseTexture2D_delex")
-shader_parameter/distortion_force = 0.026
-shader_parameter/shimmer_brightness = 0.386
-shader_parameter/shimmer_freq = 0.39
-shader_parameter/shimmer_size = 2.0
-shader_parameter/shimmer_speed = 3.658
-shader_parameter/tiling = Vector2(1.164, 1)
-shader_parameter/offset_speed = Vector2(0.035, 0.01)
-shader_parameter/refraction_map = SubResource("NoiseTexture2D_s33lq")
-shader_parameter/refraction_stretch = Vector2(1, 1)
-shader_parameter/refraction_strength = 0.02
-shader_parameter/refraction_speed = 0.1
-shader_parameter/refraction_world_scale = 512.0
-shader_parameter/flow_direction = Vector2(-1, 0)
+[node name="BottomRight" type="Marker2D" parent="." unique_id=1053113472]
+position = Vector2(480, 272)
+gizmo_extents = 32.0
 
-[sub_resource type="Image" id="Image_ho7eo"]
-data = {
-"data": PackedByteArray(255, 255, 255, 255),
-"format": "RGBA8",
-"height": 1,
-"mipmaps": false,
-"width": 1
-}
-
-[sub_resource type="ImageTexture" id="ImageTexture_vy5aa"]
-image = SubResource("Image_ho7eo")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nl8eq"]
-particle_flag_disable_z = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 0.0
-emission_ring_radius = 2.0
-emission_ring_inner_radius = 5.0
-emission_ring_cone_angle = 90.0
-angle_min = 90.000015
-angle_max = 180.00002
-inherit_velocity_ratio = 10.0
-velocity_pivot = Vector3(0, -1, 0)
-direction = Vector3(0, -1, 0)
-spread = 90.0
-initial_velocity_min = 60.0
-initial_velocity_max = 80.0
-angular_velocity_min = 14.999984
-angular_velocity_max = 29.999983
-gravity = Vector3(0, 200, 0)
-scale_min = 0.5
-scale_max = 1.1999999
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s33lq"]
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 6.69
-angle_min = 1.0728835e-05
-angle_max = 180.00002
-velocity_pivot = Vector3(0, -1, 0)
-direction = Vector3(-1, -1, 0)
-spread = 90.0
-initial_velocity_min = 30.0
-initial_velocity_max = 60.0
-gravity = Vector3(0, 98, 0)
-
-[node name="Water_Area" type="Area2D" unique_id=1120194920]
+[node name="WaterArea" type="Area2D" parent="." unique_id=525767484]
 collision_layer = 0
 collision_mask = 16
-script = ExtResource("1_nl8eq")
-movement_particles_offset = null
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=443199505]
-position = Vector2(64, 32)
-shape = SubResource("RectangleShape2D_s33lq")
-metadata/_edit_group_ = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea" unique_id=378598337]
+position = Vector2(240, 168)
+shape = SubResource("RectangleShape2D_delex")
 
-[node name="Visual" type="Sprite2D" parent="." unique_id=1892006902]
-z_index = 1
-material = SubResource("ShaderMaterial_s33lq")
-scale = Vector2(128, 64)
-texture = SubResource("ImageTexture_vy5aa")
-centered = false
-metadata/_edit_group_ = true
-
-[node name="SplashParticles" type="GPUParticles2D" parent="." unique_id=1413991090]
+[node name="splash_particles" type="GPUParticles2D" parent="." unique_id=960969955]
 emitting = false
 amount = 16
-texture = ExtResource("3_delex")
-lifetime = 0.5
+texture = ExtResource("2_s33lq")
+lifetime = 1.5
 one_shot = true
-explosiveness = 0.8
-randomness = 0.33
-process_material = SubResource("ParticleProcessMaterial_nl8eq")
-
-[node name="MovementParticles" type="GPUParticles2D" parent="." unique_id=177658810]
-texture = ExtResource("3_delex")
-lifetime = 0.3
-explosiveness = 0.6
+explosiveness = 0.9
 randomness = 0.5
-process_material = SubResource("ParticleProcessMaterial_s33lq")
+process_material = ExtResource("4_vy5aa")
+
+[node name="movement_particles" type="GPUParticles2D" parent="." unique_id=1513749985]
+z_index = -5
+amount = 14
+texture = ExtResource("2_s33lq")
+lifetime = 0.5
+explosiveness = 0.25
+randomness = 0.5
+process_material = ExtResource("5_aung5")

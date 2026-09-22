@@ -49,7 +49,10 @@ func re_enter() -> void:
 	pass
 func exit() -> void:
 	blackboard.can_decide = true
-	owner.vfx.stop_vfx()
+	# Was `owner.vfx` — `owner` is the node's scene owner, not the Enemy, so
+	# this silently failed to stop the stun VFX. Every other line in this
+	# file correctly uses `enemy.*`.
+	enemy.vfx.stop_vfx()
 	pass
 func physics_update( delta : float ) -> void:
 	

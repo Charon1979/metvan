@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dlarkdvukdoso"]
 
 [ext_resource type="Shader" uid="uid://brwh70wa4evsg" path="res://levels/00_forest/white_tree.gdshader" id="1_e1glw"]
-[ext_resource type="Texture2D" uid="uid://dk4je7my0i565" path="res://levels/00_forest/tilesets/sprites/Dark_Tree1.png" id="2_e1glw"]
+[ext_resource type="Texture2D" uid="uid://ceajoeemnl0j0" path="res://levels/00_forest/tilesets/sprites/dark_tree.png" id="2_e1glw"]
 [ext_resource type="Texture2D" uid="uid://d2rtk8k7jbu3v" path="res://levels/00_forest/tilesets/sprites/Autnum_Leaves_Dark.png" id="3_ophlg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4p8i4"]
@@ -38,9 +38,9 @@ hue_variation_max = -2.2351742e-08
 anim_offset_max = 1.0
 turbulence_enabled = true
 
-[node name="White_Tree" type="Sprite2D" unique_id=480325694]
+[node name="Dark_Tree" type="Sprite2D" unique_id=480325694]
 material = SubResource("ShaderMaterial_4p8i4")
-scale = Vector2(0.75, 0.75)
+use_parent_material = true
 texture = ExtResource("2_e1glw")
 
 [node name="Falling_Leaves" type="GPUParticles2D" parent="." unique_id=1039305341]

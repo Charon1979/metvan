@@ -1,5 +1,5 @@
 @tool
-@icon( "uid://fjtvqoraiyas" )
+@icon( "uid://55elxn174d5" )
 
 class_name Breakable extends Node2D
 
@@ -16,9 +16,19 @@ signal damage_taken
 
 @export_category( "Audio" )
 @export var hit_audio : AudioStream = preload( "uid://vdkyaacynaa" )
-@export var destroy_audio : AudioStream = preload( "uid://b24b4p00phvup" )
+@export var destroy_audio : AudioStream = preload( "uid://0c0prwmpduhj" )
 
 
+@onready var damage_area: DamageArea = $DamageArea
+
+## Set the instant `destroyed` fires, so a hit landing after that point (the
+## collision body is freed by then, but the DamageArea itself isn't — see
+## clear_collision()'s own comment) can't push hp further negative and fire
+## `destroyed` all over again. Without this, anything still hittable after
+## "destruction" kept re-emitting destroyed on every subsequent hit forever
+## — harmless to Breakable itself, but very confusing for a listener like
+## OneShotBreakable that counts hits off this signal.
+var _is_destroyed : bool = false
 
 
 func _ready() -> void:
@@ -30,6 +40,8 @@ func _ready() -> void:
 	pass
 
 func _on_damage_taken( attack_area : AttackArea ) -> void:
+	if _is_destroyed:
+		return
 	if fixed_hit_count:
 		hp -= 1
 	else:
@@ -46,12 +58,13 @@ func _on_damage_taken( attack_area : AttackArea ) -> void:
 		for p in hit_particles:
 			VisualEffects.hit_particles( pos, dir, p )
 	else:
+		_is_destroyed = true
 		destroyed.emit()
 		Audio.play_spatial_sound( destroy_audio, pos, false, true, 1 )
 		clear_collision()
 		for p in destroy_particles:
 			VisualEffects.hit_particles( pos, dir, p )
-		#Animation player destroyed goes here
+
 		
 	pass
 
@@ -68,7 +81,12 @@ func _check_for_damage_area() -> bool:
 	return false
 
 func clear_collision() -> void:
+	# Was calling queue_free() on `self` (the Breakable) instead of `c` (the
+	# StaticBody2D child) — the collision body itself was never actually
+	# freed, and this Breakable node got queued for deletion instead (once
+	# per matching child), which could cut off anything still relying on it
+	# after destruction (e.g. destroy particles/animations on this node).
 	for c in get_children():
 		if c is StaticBody2D:
-			queue_free()
+			c.queue_free()
 	pass

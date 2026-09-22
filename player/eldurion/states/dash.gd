@@ -1,4 +1,4 @@
-@icon("uid://bdtuue7gbi0h8")
+@icon("uid://clik7pjgto8k4")
 
 class_name PlayerStateDash extends PlayerState
 
@@ -65,8 +65,13 @@ func process( _delta: float ) -> PlayerState:
 		else:
 			return fall
 			
-	effect_time -= -_delta
-	if effect_time > 0:
+	# Was `effect_time -= -_delta`, which INCREMENTS effect_time instead of
+	# counting it down — so once it first exceeded 0 it got reset to
+	# effect_delay and re-triggered player.sprite_2d.ghost() almost every
+	# single frame for the rest of the dash, instead of once every
+	# effect_delay seconds.
+	effect_time -= _delta
+	if effect_time <= 0:
 		effect_time = effect_delay
 		player.sprite_2d.ghost()
 	return null

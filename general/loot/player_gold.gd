@@ -21,10 +21,14 @@ func _ready() -> void:
 
 
 func _physics_process( delta: float ) -> void:
-	
-	move_and_slide()
+
+	# Gravity must be applied BEFORE move_and_slide() uses `velocity` for the
+	# move, same order as player.gd/gold.gd. Doing it after meant gravity was
+	# always a frame late, so these coins fell slightly differently than
+	# every other bouncing pickup.
 	velocity.y += gravity * delta
-	
+	move_and_slide()
+
 	pass
 
 func _on_player_entered( n : Node2D ) -> void:

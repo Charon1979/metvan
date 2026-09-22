@@ -1,10 +1,10 @@
-@icon("uid://bdtuue7gbi0h8")
+@icon("uid://clik7pjgto8k4")
 
 class_name PlayerStateGroundSlam extends PlayerState
 
 const DASH_AUDIO = preload("uid://d4k4f4ysr10fc")
 const BOOM_AUDIO = preload("uid://diigvgr4uasjy")
-const BREAK_WOOD_AUDIO = preload("uid://b24b4p00phvup")
+const BREAK_WOOD_AUDIO = preload("uid://0c0prwmpduhj")
 
 
 

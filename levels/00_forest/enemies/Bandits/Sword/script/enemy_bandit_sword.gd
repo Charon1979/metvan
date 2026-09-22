@@ -18,6 +18,17 @@ extends Enemy
 		_update_enemy_visuals()
 @onready var bandit_visuals: BanditVisuals = $Visuals
 
+## Played the instant a hit lands on the shield and is deflected instead of
+## taken (see _on_shield_blocked() below) — both LIGHT and HEAVY blocked
+## hits count, since both skip the normal damage pipeline entirely (only
+## MAGIC bypasses the shield and takes the normal on_damage_taken() path).
+## Distinct from ESShieldBreaker's own AUDIO_SHIELD_IMPACT/AUDIO_SHIELD_BREAK
+## sounds, which still play right after this from whichever reaction state
+## the block routes into (light flinch vs. shield actually breaking) — this
+## one is just the immediate "something hit the shield" cue, independent of
+## which of those follows. Optional — leave unset for no extra sound.
+@export var deflect_sound : AudioStream
+
 func _ready() -> void:
 	_update_health_from_armor()
 	super()
@@ -49,6 +60,8 @@ func _on_shield_blocked(a: AttackArea) -> void:
 	blackboard.damage_type = a.dmg_type        # FIX: was never assigned
 	blackboard.force = a.force
 	# no health subtraction, no death check — shield fully absorbs light/heavy hits
+	if deflect_sound:
+		Audio.play_spatial_sound( deflect_sound, global_position, false, false, 0.5 )
 	was_hit.emit(a)
 	
 func _update_health_from_armor() -> void:

@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://05jfu4ik6uhx" path="res://00_global/player_hud/ManaFlaskLiquid.png" id="4_qnhk3"]
 [ext_resource type="PackedScene" uid="uid://60gtry87ecr6" path="res://00_global/player_hud/life_gem.tscn" id="5_ifptl"]
 [ext_resource type="PackedScene" uid="uid://3fiwr31f4q4q" path="res://00_global/player_hud/currency.tscn" id="6_yx1pk"]
+[ext_resource type="FontFile" uid="uid://dfj3hb40kcjlk" path="res://general/alagard.ttf" id="7_qnhk3"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c8sum"]
+light_mode = 1
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6ouu3"]
 light_mode = 1
@@ -13,12 +17,193 @@ light_mode = 1
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ifptl"]
 light_mode = 1
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_uaawx"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oo5qn"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wucmv"]
+light_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vpi2m"]
+bg_color = Color(0, 0, 0, 0.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blh64"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qnhk3"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ouu3"]
+bg_color = Color(0.8745098, 0.24313726, 0.13725491, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3e5oy"]
+font = ExtResource("7_qnhk3")
+font_color = Color(0.85490197, 0.8784314, 0.91764706, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.54509807, 0.5764706, 0.6862745, 1)
+
+[sub_resource type="Animation" id="Animation_qnhk3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 256)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%BossName:label_settings:font_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%BossName:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7, -25)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("%BossName:size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(480, 15)]
+}
+
+[sub_resource type="Animation" id="Animation_6ouu3"]
+resource_name = "hide"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 256), Vector2(0, 320)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_vpi2m"]
+resource_name = "show"
+length = 3.0000000000000004
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 256)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%BossName:label_settings:font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [24, 24, 16]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%BossName:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(124, -207.5), Vector2(124, -207.5), Vector2(7, -24)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%BossName:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(480, 30), Vector2(480, 30), Vector2(480, 15)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_blh64"]
+_data = {
+&"RESET": SubResource("Animation_qnhk3"),
+&"hide": SubResource("Animation_6ouu3"),
+&"show": SubResource("Animation_vpi2m")
+}
+
 [node name="PlayerHud" type="CanvasLayer" unique_id=304501498]
 process_mode = 3
-layer = 2
+layer = 10
 script = ExtResource("1_pfcfe")
+boss_bar = true
 
 [node name="Mana" type="Control" parent="." unique_id=888359461]
+material = SubResource("CanvasItemMaterial_c8sum")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,6 +220,7 @@ mouse_filter = 2
 [node name="ManaBar" type="TextureProgressBar" parent="Mana" unique_id=1743146592]
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_6ouu3")
+use_parent_material = true
 layout_mode = 1
 offset_top = -2.0
 offset_right = 48.0
@@ -61,6 +247,7 @@ scale = Vector2(1.25, 1.25)
 mouse_filter = 1
 
 [node name="GemContainer" type="HFlowContainer" parent="HP" unique_id=1220189830]
+use_parent_material = true
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 0
 offset_left = -8.0
@@ -70,36 +257,47 @@ offset_bottom = 34.0
 scale = Vector2(0.5, 0.5)
 
 [node name="LifeGem" parent="HP/GemContainer" unique_id=1957875190 instance=ExtResource("5_ifptl")]
+use_parent_material = true
 layout_mode = 2
 
 [node name="LifeGem2" parent="HP/GemContainer" unique_id=17999682 instance=ExtResource("5_ifptl")]
+use_parent_material = true
 layout_mode = 2
 
 [node name="LifeGem3" parent="HP/GemContainer" unique_id=1407893472 instance=ExtResource("5_ifptl")]
+use_parent_material = true
 layout_mode = 2
 
 [node name="LifeGem4" parent="HP/GemContainer" unique_id=941527338 instance=ExtResource("5_ifptl")]
+use_parent_material = true
 layout_mode = 2
 
 [node name="LifeGem5" parent="HP/GemContainer" unique_id=1140191799 instance=ExtResource("5_ifptl")]
+use_parent_material = true
 layout_mode = 2
 
 [node name="LifeGem6" parent="HP/GemContainer" unique_id=216206480 instance=ExtResource("5_ifptl")]
+use_parent_material = true
 layout_mode = 2
 
 [node name="LifeGem7" parent="HP/GemContainer" unique_id=954296019 instance=ExtResource("5_ifptl")]
+use_parent_material = true
 layout_mode = 2
 
 [node name="LifeGem8" parent="HP/GemContainer" unique_id=1258292591 instance=ExtResource("5_ifptl")]
+use_parent_material = true
 layout_mode = 2
 
 [node name="LifeGem9" parent="HP/GemContainer" unique_id=277754498 instance=ExtResource("5_ifptl")]
+use_parent_material = true
 layout_mode = 2
 
 [node name="LifeGem10" parent="HP/GemContainer" unique_id=1901895703 instance=ExtResource("5_ifptl")]
+use_parent_material = true
 layout_mode = 2
 
 [node name="Money" type="Control" parent="." unique_id=557077310]
+material = SubResource("CanvasItemMaterial_uaawx")
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 3
 anchors_preset = 0
@@ -112,8 +310,85 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Currency" parent="Money" unique_id=838263141 instance=ExtResource("6_yx1pk")]
+use_parent_material = true
 layout_mode = 1
 offset_left = 52.0
 offset_top = 40.0
 offset_right = 52.0
 offset_bottom = 40.0
+
+[node name="BossHP" type="Control" parent="." unique_id=134172399]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_oo5qn")
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BossHPBar2" type="ProgressBar" parent="BossHP" unique_id=1683316599]
+unique_name_in_owner = true
+visible = false
+material = SubResource("CanvasItemMaterial_wucmv")
+use_parent_material = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -7.0
+offset_right = 247.0
+offset_bottom = 9.0
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_vpi2m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_blh64")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="BossHPBar" type="ProgressBar" parent="BossHP" unique_id=1526668924]
+unique_name_in_owner = true
+visible = false
+use_parent_material = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -7.0
+offset_right = 247.0
+offset_bottom = 9.0
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_qnhk3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6ouu3")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="BossName" type="Label" parent="BossHP" unique_id=1960442818]
+unique_name_in_owner = true
+visible = false
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 7.0
+offset_top = -29.5
+offset_right = 7.0
+offset_bottom = -14.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Name goes here"
+label_settings = SubResource("LabelSettings_3e5oy")
+vertical_alignment = 1
+
+[node name="BossHPAnimationPlayer" type="AnimationPlayer" parent="BossHP" unique_id=681924719]
+libraries/ = SubResource("AnimationLibrary_blh64")

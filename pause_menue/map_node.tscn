@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cf3pgbomo7aks"]
+[gd_scene format=3 uid="uid://cf3pgbomo7aks"]
 
 [ext_resource type="Script" uid="uid://dhsbsma3abm8x" path="res://pause_menue/scripts/map_node.gd" id="1_ynvh6"]
 
-[node name="MapNode" type="Control"]
+[node name="MapNode" type="Control" unique_id=414777688]
 custom_minimum_size = Vector2(12, 6)
 layout_mode = 3
 anchors_preset = 0
@@ -10,14 +10,14 @@ offset_right = 12.0
 offset_bottom = 8.0
 script = ExtResource("1_ynvh6")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1647617056]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 
-[node name="ColorRect2" type="ColorRect" parent="."]
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1794308010]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 1
 anchors_preset = 12
@@ -27,14 +27,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="ColorRect3" type="ColorRect" parent="."]
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=909425965]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
 
-[node name="ColorRect4" type="ColorRect" parent="."]
+[node name="ColorRect4" type="ColorRect" parent="." unique_id=1087497619]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 1
 anchors_preset = 11
@@ -44,7 +44,7 @@ anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1609973086]
 modulate = Color(1, 1, 1, 0.49019608)
 layout_mode = 0
 offset_left = 1.9999999
@@ -54,7 +54,16 @@ offset_bottom = 18.0
 scale = Vector2(0.1, 0.1)
 text = "level name"
 
-[node name="TransitionBlocks" type="Control" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=830482347]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TransitionBlocks" type="Control" parent="." unique_id=796517869]
 unique_name_in_owner = true
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1

@@ -12,6 +12,16 @@ extends EnemyState
 
 var timer : float = 0
 
+const AUDIO_BOW_DRAW = preload("uid://chgrcow4lx1vw")
+
+
+func _ready() -> void:
+	# Getting hit while drawing the bow shouldn't cancel the shot — see
+	# EnemyState.interruptible_by_hit / Enemy.on_damage_taken(). Covers the
+	# aim/wind-up half of "bow shooting"; ESBowBanditAttack covers the
+	# release half.
+	interruptible_by_hit = false
+
 
 func enter() -> void:
 	# Lock facing toward the target before committing to the draw — no turning
@@ -22,6 +32,7 @@ func enter() -> void:
 			enemy.change_dir( target_dir )
 
 	enemy.visuals.play_animation( animation_name if animation_name else "aim" )
+	Audio.play_spatial_sound( AUDIO_BOW_DRAW, enemy.global_position, false, false, 0.5)
 
 	timer = 0
 	enemy.velocity.x = 0

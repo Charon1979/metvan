@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PlantData" format=3 uid="uid://dyt1y0c3skwbs"]
+
+[ext_resource type="Script" uid="uid://dm120b2x601s0" path="res://levels/00_forest/animated_sprites/flower/plant_data.gd" id="1_81188"]
+[ext_resource type="Texture2D" uid="uid://cpk77guyhlqba" path="res://levels/00_forest/animated_sprites/flower/plant_destroyed.png" id="1_tdg3y"]
+[ext_resource type="Texture2D" uid="uid://bru6bv0au77qs" path="res://levels/00_forest/animated_sprites/flower/flower_blue.png" id="2_fm5dm"]
+[ext_resource type="Texture2D" uid="uid://cpslq8i6gkekq" path="res://levels/00_forest/animated_sprites/flower/flower_pink.png" id="3_l8lrm"]
+[ext_resource type="Texture2D" uid="uid://c1ranbxskjpss" path="res://levels/00_forest/animated_sprites/flower/flower_white.png" id="4_gfdre"]
+[ext_resource type="Texture2D" uid="uid://b306qjaty77ag" path="res://levels/00_forest/animated_sprites/flower/flower_yellow.png" id="5_i5ek3"]
+[ext_resource type="Texture2D" uid="uid://c43yqj3bjdq04" path="res://levels/00_forest/animated_sprites/flower/Grass.png" id="6_ny5kb"]
+
+[resource]
+script = ExtResource("1_81188")
+flower_textures = Array[Texture2D]([ExtResource("2_fm5dm"), ExtResource("3_l8lrm"), ExtResource("4_gfdre"), ExtResource("5_i5ek3"), ExtResource("6_ny5kb")])
+destroyed_texture = ExtResource("1_tdg3y")
+metadata/_custom_type_script = "uid://dm120b2x601s0"

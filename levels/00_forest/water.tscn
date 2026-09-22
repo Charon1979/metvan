@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://brviilr2o3hjg"]
+
+[ext_resource type="Shader" uid="uid://dpit3bwcgxlw" path="res://world/water/distortion.gdshader" id="1_rn2gt"]
+[ext_resource type="Script" uid="uid://dvvjg5sa15jow" path="res://world/water/water.gd" id="2_djgn8"]
+[ext_resource type="Texture2D" uid="uid://brhcmpcjhcdcx" path="res://world/water/water_part.png" id="3_gkg5q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_delex"]
+shader = ExtResource("1_rn2gt")
+shader_parameter/distortion_strength = 0.0050000002375
+shader_parameter/distortion_speed = 1.0000000475
+shader_parameter/distortion_scale = 12.0000005225
+shader_parameter/tint_mix = 0.6000000285
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3e5oy"]
+
+[sub_resource type="Gradient" id="Gradient_delex"]
+offsets = PackedFloat32Array(0, 0.6230769, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_aung5"]
+gradient = SubResource("Gradient_delex")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c8sum"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 50.0
+initial_velocity_max = 75.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.5
+scale_max = 1.1999999
+color_ramp = SubResource("GradientTexture1D_aung5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3e5oy"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+
+[node name="Water" type="Node2D" unique_id=1092732895 node_paths=PackedStringArray("top_left_marker", "bottom_right_marker", "splash_particles", "movement_particles")]
+modulate = Color(0.12315822, 0.8389701, 0.78031605, 0.8)
+z_index = 5
+material = SubResource("ShaderMaterial_delex")
+script = ExtResource("2_djgn8")
+top_left_marker = NodePath("TopLeft")
+bottom_right_marker = NodePath("BottomRight")
+splash_particles = NodePath("splash_particles")
+movement_particles = NodePath("movement_particles")
+distortion_material = SubResource("ShaderMaterial_delex")
+
+[node name="TopLeft" type="Marker2D" parent="." unique_id=42529019]
+position = Vector2(-33, 241)
+gizmo_extents = 32.0
+
+[node name="BottomRight" type="Marker2D" parent="." unique_id=448712245]
+position = Vector2(511, 272)
+gizmo_extents = 32.0
+
+[node name="WaterArea" type="Area2D" parent="." unique_id=35331980]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea" unique_id=1552401918]
+position = Vector2(7, 250)
+shape = SubResource("RectangleShape2D_3e5oy")
+
+[node name="splash_particles" type="GPUParticles2D" parent="." unique_id=2086334117]
+emitting = false
+amount = 16
+texture = ExtResource("3_gkg5q")
+one_shot = true
+explosiveness = 0.9
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_c8sum")
+
+[node name="movement_particles" type="GPUParticles2D" parent="." unique_id=962230470]
+emitting = false
+texture = ExtResource("3_gkg5q")
+process_material = SubResource("ParticleProcessMaterial_3e5oy")

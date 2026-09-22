@@ -13,6 +13,13 @@ var timer : float = 0
 var duration : float = 0
 var on_cooldown : bool = false
 
+const AUDIO_WHIRLWIND_AXE = preload("uid://c8ciccywsllt8")
+
+
+func _ready() -> void:
+	# Getting hit mid-swing shouldn't cancel the attack — see
+	# EnemyState.interruptible_by_hit / Enemy.on_damage_taken().
+	interruptible_by_hit = false
 
 
 func enter() -> void:
@@ -20,7 +27,7 @@ func enter() -> void:
 	attack_area.flip( blackboard.dir )
 	
 	enemy.visuals.play_animation( animation_name if animation_name else "attack" )
-	
+	Audio.play_spatial_sound( AUDIO_WHIRLWIND_AXE, enemy.global_position, false, false, 0.5 )
 	duration = enemy.visuals.get_animation_length("attack")
 	timer = 0
 	blackboard.can_decide = false

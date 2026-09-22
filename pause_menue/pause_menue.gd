@@ -66,6 +66,13 @@ func show_pause_screen() -> void:
 	map.visible = true
 	skills.visible = false
 	map_button.grab_focus()
+	_center_map_on_current_room()
+	pass
+
+func _center_map_on_current_room() -> void:
+	var map_world : MapPanZoom = %MapWorld
+	if map_world:
+		map_world.center_on_current_room()
 	pass
 
 func show_system_menu() -> void:

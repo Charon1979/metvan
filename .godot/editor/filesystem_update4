@@ -1,2 +1,15 @@
 res://default_bus_layout.tres
-res://levels/00_forest/enemies/Bandits/Bow/scripts/decision_engine_bow_bandit.gd
+res://levels/00_forest/Forest_02.tscn
+res://player/eldurion/flash.gdshader
+res://levels/00_forest/tilesets/forest_tileset.tres
+res://levels/00_forest/blur.gdshader
+res://levels/00_forest/white_tree.gdshader
+res://levels/00_forest/animated_sprites/flower/flower.gdshader
+res://world/water/distortion.gdshader
+res://water_splash.tres
+res://water_move.tres
+res://levels/00_forest/enemies/Visual_Component/bandit_sword_anims.tres
+res://levels/00_forest/enemies/Visual_Component/bandit_axe_anims.tres
+res://levels/00_forest/enemies/Bandits/Axe/VFX/BanditAxeFire_Part.tres
+res://levels/00_forest/enemies/Bandits/Bow/Resources/bandit_bow_anims.tres
+res://levels/00_forest/background_blur.gdshader

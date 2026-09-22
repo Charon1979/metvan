@@ -1,365 +1,434 @@
-[gd_scene load_steps=11 format=3 uid="uid://dwlchvdqqda3x"]
+[gd_scene format=3 uid="uid://dwlchvdqqda3x"]
 
-[ext_resource type="Texture2D" uid="uid://dfjngllan5sml" path="res://levels/00_forest/enemies/boss/ogre/sprites/crystal_mauler_free_288x128_SpriteSheet.png" id="2_733ao"]
+[ext_resource type="Script" uid="uid://cvpcs5or62whl" path="res://levels/00_forest/enemies/boss/ogre/scripts/enemy_ogre.gd" id="1_moiap"]
+[ext_resource type="PackedScene" uid="uid://bywrn12dkc233" path="res://levels/00_forest/enemies/boss/ogre/rock.tscn" id="2_1t4hd"]
+[ext_resource type="AudioStream" uid="uid://bakc156lxkmwd" path="res://levels/00_forest/enemies/boss/ogre/sfx/ogre_roar.ogg" id="2_niyqw"]
+[ext_resource type="Script" uid="uid://pig17fp4xlcb" path="res://levels/00_forest/enemies/boss/ogre/scripts/decision_engine_ogre.gd" id="3_niyqw"]
+[ext_resource type="Script" uid="uid://bmiyb3jtxajtg" path="res://levels/00_forest/enemies/boss/ogre/scripts/ogre_visuals.gd" id="4_kjkqf"]
+[ext_resource type="PackedScene" uid="uid://exqpwr8a24vs" path="res://levels/00_forest/rock_debries_v.tscn" id="5_38bni"]
+[ext_resource type="AnimationLibrary" uid="uid://hybdjiuc0n64" path="res://levels/00_forest/enemies/boss/ogre/Ogre.res" id="6_luaja"]
+[ext_resource type="Texture2D" uid="uid://d0ufvdw8en183" path="res://levels/00_forest/enemies/boss/ogre/sprites/smoke_sheet.png" id="7_gaq1i"]
+[ext_resource type="Texture2D" uid="uid://bepwab3872a3g" path="res://levels/00_forest/enemies/boss/ogre/sprites/boss_scream.png" id="7_luaja"]
+[ext_resource type="Texture2D" uid="uid://baqsteso5wrk1" path="res://levels/00_forest/enemies/boss/ogre/sprites/Rock_debries.png" id="8_0kju3"]
+[ext_resource type="Texture2D" uid="uid://danafhvrp2e74" path="res://levels/00_forest/enemies/boss/ogre/Ogre_complete.png" id="9_fh2jo"]
+[ext_resource type="Script" uid="uid://cwxs3xm3awfci" path="res://general/scripts/damage_area.gd" id="10_vyke2"]
+[ext_resource type="Script" uid="uid://coy7wn1wn058s" path="res://general/scripts/attack_area.gd" id="11_r83h2"]
+[ext_resource type="Script" uid="uid://bvueewlownr48" path="res://Michaels Stuff/TestDummy/hazard_area.gd" id="12_rellu"]
+[ext_resource type="Script" uid="uid://dmol72ops4y6o" path="res://levels/00_forest/enemies/scripts/enemy_state_machine.gd" id="13_tco8q"]
+[ext_resource type="Script" uid="uid://b4yexgahhyxci" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_dormant.gd" id="14_v1ehq"]
+[ext_resource type="Script" uid="uid://cwlp4w5j0sv8" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_charge.gd" id="15_w1ld3"]
+[ext_resource type="Script" uid="uid://c70f5c3ghfs00" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_charge_end.gd" id="16_cchli"]
+[ext_resource type="Script" uid="uid://ch7423v70825g" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_charge_start.gd" id="17_toru6"]
+[ext_resource type="Script" uid="uid://ba7v8en6okj8n" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_intro.gd" id="18_o71ri"]
+[ext_resource type="Script" uid="uid://b4kbg37h2rfug" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_jump.gd" id="19_ri0ss"]
+[ext_resource type="Script" uid="uid://bouc5mqiprfr" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_jump_end.gd" id="20_10ld8"]
+[ext_resource type="Script" uid="uid://d1d3vwi6au5bw" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_jump_start.gd" id="21_68ov1"]
+[ext_resource type="AudioStream" uid="uid://bvcpm3n21wmnc" path="res://levels/00_forest/enemies/boss/ogre/sfx/ogre_scream.ogg" id="22_38bni"]
+[ext_resource type="Script" uid="uid://ck5bpcbqmv84p" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_recover.gd" id="22_gfhya"]
+[ext_resource type="Script" uid="uid://cwugg6ul8qj5b" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_fall.gd" id="23_6etlu"]
+[ext_resource type="Script" uid="uid://cwigx4iliyt1x" path="res://levels/00_forest/enemies/states/es_death.gd" id="24_1yid5"]
+[ext_resource type="Script" uid="uid://dq3ta0dv11ia2" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_frenzy.gd" id="25_3qkur"]
+[ext_resource type="Script" uid="uid://d03u7tsxu50vc" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_frenzy_end.gd" id="26_3vtmw"]
+[ext_resource type="Script" uid="uid://30bfi2vj3he5" path="res://levels/00_forest/enemies/boss/ogre/scripts/es_ogre_frenzy_start.gd" id="27_826iv"]
+[ext_resource type="AudioStream" uid="uid://c68pvco1obqg6" path="res://levels/00_forest/enemies/boss/ogre/sfx/Ogre_short_growl.ogg" id="27_kjkqf"]
+[ext_resource type="Script" uid="uid://j2annqv6iae5" path="res://levels/00_forest/enemies/scripts/sensors/player_sensor.gd" id="28_o67oe"]
+[ext_resource type="PackedScene" uid="uid://cjrwl2rjey82b" path="res://levels/00_forest/enemies/VFX_Component/vfx.tscn" id="29_1t4hd"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bmu8h"]
-height = 38.0
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6inp1"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
 
-[sub_resource type="Animation" id="Animation_ihdgo"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharakterBody2D/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_733ao")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CharakterBody2D/Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [21]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharakterBody2D/Sprite2D:vframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [14]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CharakterBody2D/Sprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
+[sub_resource type="Gradient" id="Gradient_5wh61"]
+offsets = PackedFloat32Array(0, 0.83076924, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="Animation" id="Animation_ifxpv"]
-resource_name = "atk"
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharakterBody2D/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_733ao")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CharakterBody2D/Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [21]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharakterBody2D/Sprite2D:vframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [14]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CharakterBody2D/Sprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [105, 106, 107, 108, 109, 110, 111, 112]
-}
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dd0ff"]
+gradient = SubResource("Gradient_5wh61")
 
-[sub_resource type="Animation" id="Animation_m0dpk"]
-resource_name = "charge"
-length = 0.8
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharakterBody2D/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_733ao")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CharakterBody2D/Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [21]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharakterBody2D/Sprite2D:vframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [14]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CharakterBody2D/Sprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [21, 22, 23, 24, 25, 26, 27, 28]
-}
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s5x2c"]
+lifetime_randomness = 0.6
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+angle_min = 1.0728835e-05
+angle_max = 90.000015
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 60.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_dd0ff")
+anim_offset_max = 1.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.35
 
-[sub_resource type="Animation" id="Animation_vwsva"]
-resource_name = "charge_atk"
-length = 0.7
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharakterBody2D/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_733ao")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CharakterBody2D/Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [21]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharakterBody2D/Sprite2D:vframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [14]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CharakterBody2D/Sprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [147, 148, 149, 150, 151, 152, 153]
-}
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c8sum"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 5
+particles_anim_loop = true
 
-[sub_resource type="Animation" id="Animation_ncynb"]
-resource_name = "idle"
-length = 0.8
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharakterBody2D/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_733ao")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CharakterBody2D/Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [21]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharakterBody2D/Sprite2D:vframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [14]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CharakterBody2D/Sprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7]
-}
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3e5oy"]
+resource_local_to_scene = true
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(16, 4, 1)
+gravity = Vector3(0, -1, 0)
+linear_accel_min = 7.9999976
+linear_accel_max = 19.999998
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_max = 1.0
 
-[sub_resource type="Animation" id="Animation_a7wrw"]
-resource_name = "jump"
-length = 3.1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharakterBody2D/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_733ao")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CharakterBody2D/Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [21]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharakterBody2D/Sprite2D:vframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [14]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CharakterBody2D/Sprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.90000004, 1, 1.1, 1.2, 1.3000001, 1.4, 1.5, 1.6, 1.7, 1.8000001, 1.9, 2, 2.1000001, 2.2, 2.3, 2.4, 2.5, 2.6000001, 2.7, 2.8, 2.9, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [84, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112]
-}
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_uaawx"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_thofh"]
-_data = {
-&"RESET": SubResource("Animation_ihdgo"),
-&"atk": SubResource("Animation_ifxpv"),
-&"charge": SubResource("Animation_m0dpk"),
-&"charge_atk": SubResource("Animation_vwsva"),
-&"idle": SubResource("Animation_ncynb"),
-&"jump": SubResource("Animation_a7wrw")
-}
+[sub_resource type="Gradient" id="Gradient_iikhb"]
+offsets = PackedFloat32Array(0, 0.74615383, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_it4kp"]
-size = Vector2(69, 40)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_r344f"]
+gradient = SubResource("Gradient_iikhb")
 
-[node name="Ogre" type="Node2D"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c8sum"]
+lifetime_randomness = 0.6
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+angle_min = 1.0728835e-05
+angle_max = 90.000015
+direction = Vector3(-1, -1, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 80.0
+angular_velocity_min = 19.999983
+angular_velocity_max = 59.99998
+gravity = Vector3(0, 250, 0)
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_r344f")
+anim_offset_max = 1.0
+collision_mode = 1
+collision_friction = 0.17
+collision_bounce = 0.35
+collision_use_scale = true
+sub_emitter_keep_velocity = true
 
-[node name="CharakterBody2D" type="CharacterBody2D" parent="."]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4mkg6"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
 
-[node name="Sprite2D" type="Sprite2D" parent="CharakterBody2D"]
-position = Vector2(-1, -64)
-texture = ExtResource("2_733ao")
-hframes = 21
-vframes = 14
+[sub_resource type="Gradient" id="Gradient_rpn0i"]
+offsets = PackedFloat32Array(0, 0.83076924, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharakterBody2D"]
-position = Vector2(0, -20)
-shape = SubResource("CapsuleShape2D_bmu8h")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_luaja"]
+gradient = SubResource("Gradient_rpn0i")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_thofh")
-}
-autoplay = "idle"
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qugoh"]
+lifetime_randomness = 0.6
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+angle_min = 1.0728835e-05
+angle_max = 90.000015
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 60.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_luaja")
+anim_offset_max = 1.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.35
 
-[node name="Area2D" type="Area2D" parent="."]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uaawx"]
+size = Vector2(796, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j3pel"]
+size = Vector2(32, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g28q7"]
+size = Vector2(28, 54)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8sum"]
+size = Vector2(40, 20)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c8sum"]
+height = 50.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3e5oy"]
+size = Vector2(64, 64)
+
+[node name="Ogre" type="CharacterBody2D" unique_id=2090919361]
+collision_layer = 0
+script = ExtResource("1_moiap")
+roar_audio = ExtResource("2_niyqw")
+rock_scene = ExtResource("2_1t4hd")
+rock_warning_delay = 1.0
+health = 5.0
+is_boss = true
+
+[node name="OgreVisuals" type="Node2D" parent="." unique_id=1348380617]
+script = ExtResource("4_kjkqf")
+particle_scene = ExtResource("5_38bni")
+animation_library = ExtResource("6_luaja")
+
+[node name="Roar" type="Sprite2D" parent="OgreVisuals" unique_id=26040123]
+visible = false
+z_index = 2
+position = Vector2(4, -50)
+texture = ExtResource("7_luaja")
+hframes = 4
+
+[node name="Rock_debries_v1" parent="OgreVisuals" unique_id=1626053933 instance=ExtResource("5_38bni")]
+material = SubResource("CanvasItemMaterial_6inp1")
+position = Vector2(-32, -8)
+lifetime = 4.0
+speed_scale = 2.0
+process_material = SubResource("ParticleProcessMaterial_s5x2c")
+
+[node name="Dust_Ground" type="GPUParticles2D" parent="OgreVisuals" unique_id=1055169711]
+self_modulate = Color(0.7294118, 0.45882353, 0.41568628, 1)
+z_index = 10
+material = SubResource("CanvasItemMaterial_c8sum")
+position = Vector2(-42, -1)
+emitting = false
+amount = 32
+texture = ExtResource("7_gaq1i")
+lifetime = 1.5
+preprocess = 1.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_3e5oy")
+
+[node name="Rock_Debries_h" type="GPUParticles2D" parent="OgreVisuals" unique_id=2000539738]
+z_index = 10
+material = SubResource("CanvasItemMaterial_uaawx")
+position = Vector2(56, -35)
+emitting = false
+amount = 12
+texture = ExtResource("8_0kju3")
+lifetime = 2.0
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_c8sum")
+
+[node name="Rock_debries_v2" type="GPUParticles2D" parent="OgreVisuals" unique_id=2116597001]
+z_index = 10
+material = SubResource("CanvasItemMaterial_4mkg6")
+emitting = false
+amount = 14
+texture = ExtResource("8_0kju3")
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_qugoh")
+
+[node name="Sprite2D" type="Sprite2D" parent="OgreVisuals" unique_id=885530608]
+position = Vector2(0, -48)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("9_fh2jo")
+hframes = 10
+vframes = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="OgreVisuals" unique_id=813130893]
+libraries/ = ExtResource("6_luaja")
+autoplay = &"idle"
+
+[node name="EnemyStateMachine" type="Node" parent="." unique_id=1323943471]
+script = ExtResource("13_tco8q")
+metadata/_custom_type_script = "uid://dmol72ops4y6o"
+
+[node name="ESOgreDormant" type="Node" parent="EnemyStateMachine" unique_id=1763975084]
+unique_name_in_owner = true
+script = ExtResource("14_v1ehq")
+
+[node name="ESOgreCharge" type="Node" parent="EnemyStateMachine" unique_id=364121777 node_paths=PackedStringArray("next_state")]
+unique_name_in_owner = true
+script = ExtResource("15_w1ld3")
+next_state = NodePath("../ESOgreChargeEnd")
+animation_name = "charge"
+interruptible_by_hit = false
+
+[node name="ESOgreChargeEnd" type="Node" parent="EnemyStateMachine" unique_id=1398992084 node_paths=PackedStringArray("next_state", "attack_area")]
+unique_name_in_owner = true
+script = ExtResource("16_cchli")
+next_state = NodePath("../ESOgreRecover")
+shake_strength = 15.0
+attack_area = NodePath("../../AttackArea")
+animation_name = "charge_end"
+interruptible_by_hit = false
+
+[node name="ESOgreChargeStart" type="Node" parent="EnemyStateMachine" unique_id=29634898 node_paths=PackedStringArray("next_state")]
+unique_name_in_owner = true
+script = ExtResource("17_toru6")
+next_state = NodePath("../ESOgreCharge")
+min_run_distance = 32.0
+animation_name = "charge_start"
+interruptible_by_hit = false
+
+[node name="ESOgreIntro" type="Node" parent="EnemyStateMachine" unique_id=1447607611 node_paths=PackedStringArray("next_state")]
+unique_name_in_owner = true
+script = ExtResource("18_o71ri")
+next_state = NodePath("../ESOgreRecover")
+landing_shake_strength = 15.0
+animation_name = "intro"
+interruptible_by_hit = false
+
+[node name="ESOgreJump" type="Node" parent="EnemyStateMachine" unique_id=1864288469 node_paths=PackedStringArray("next_state")]
+unique_name_in_owner = true
+script = ExtResource("19_ri0ss")
+next_state = NodePath("../ESOgreJumpEnd")
+landing_offset = -24.0
+animation_name = "jump"
+interruptible_by_hit = false
+
+[node name="ESOgreJumpEnd" type="Node" parent="EnemyStateMachine" unique_id=804801298 node_paths=PackedStringArray("next_state", "attack_area")]
+unique_name_in_owner = true
+script = ExtResource("20_10ld8")
+next_state = NodePath("../ESOgreRecover")
+attack_area = NodePath("../../AttackArea")
+animation_name = "jump_end"
+interruptible_by_hit = false
+
+[node name="ESOgreJumpStart" type="Node" parent="EnemyStateMachine" unique_id=107153808 node_paths=PackedStringArray("next_state")]
+unique_name_in_owner = true
+script = ExtResource("21_68ov1")
+next_state = NodePath("../ESOgreJump")
+min_jump_distance = 64.0
+animation_name = "jump_start"
+interruptible_by_hit = false
+
+[node name="ESOgreRecover" type="Node" parent="EnemyStateMachine" unique_id=595659728]
+unique_name_in_owner = true
+script = ExtResource("22_gfhya")
+recover_duration = 1.0
+animation_name = "idle"
+interruptible_by_hit = false
+
+[node name="ESOgreFall" type="Node" parent="EnemyStateMachine" unique_id=1973782983 node_paths=PackedStringArray("next_state")]
+unique_name_in_owner = true
+script = ExtResource("23_6etlu")
+next_state = NodePath("../ESOgreIntro")
+animation_name = "fall"
+interruptible_by_hit = false
+
+[node name="ESDeath" type="Node" parent="EnemyStateMachine" unique_id=1858643838]
+unique_name_in_owner = true
+script = ExtResource("24_1yid5")
+knockback_strength = 0.0
+knockback_duration = 0.0
+death_audio_default = ExtResource("22_38bni")
+animation_name = "death"
+interruptible_by_hit = false
+metadata/_custom_type_script = "uid://cwigx4iliyt1x"
+
+[node name="ESOgreFrenzy" type="Node" parent="EnemyStateMachine" unique_id=600065694 node_paths=PackedStringArray("next_state")]
+unique_name_in_owner = true
+script = ExtResource("25_3qkur")
+next_state = NodePath("../ESOgreFrenzyEnd")
+animation_name = "frenzy"
+interruptible_by_hit = false
+
+[node name="ESOgreFrenzyEnd" type="Node" parent="EnemyStateMachine" unique_id=2011117671 node_paths=PackedStringArray("next_state")]
+unique_name_in_owner = true
+script = ExtResource("26_3vtmw")
+next_state = NodePath("../ESOgreRecover")
+animation_name = "frenzy_end"
+interruptible_by_hit = false
+
+[node name="ESOgreFrenzyStart" type="Node" parent="EnemyStateMachine" unique_id=644077445 node_paths=PackedStringArray("next_state")]
+unique_name_in_owner = true
+script = ExtResource("27_826iv")
+next_state = NodePath("../ESOgreFrenzy")
+animation_name = "frenzy_start"
+interruptible_by_hit = false
+
+[node name="PlayerSensor" type="Area2D" parent="." unique_id=1333373077]
+position = Vector2(0, -80)
 collision_layer = 0
 collision_mask = 16
+script = ExtResource("28_o67oe")
+metadata/_custom_type_script = "uid://j2annqv6iae5"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -20)
-shape = SubResource("RectangleShape2D_it4kp")
-debug_color = Color(0.5981511, 0.54364324, 0.084676154, 0.41960785)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSensor" unique_id=1883940370]
+shape = SubResource("RectangleShape2D_uaawx")
+debug_color = Color(0.70196074, 0.69452673, 0, 0.41960785)
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1145886860]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("10_vyke2")
+audio = ExtResource("27_kjkqf")
+metadata/_custom_type_script = "uid://cwxs3xm3awfci"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=463544811]
+position = Vector2(4, -32)
+shape = SubResource("RectangleShape2D_j3pel")
+debug_color = Color(0, 0.70196074, 0.038314003, 0.41960785)
+
+[node name="HazardArea" type="Area2D" parent="." unique_id=1387805801]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("12_rellu")
+force = 3.0
+metadata/_custom_type_script = "uid://bvueewlownr48"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea" unique_id=264641697]
+position = Vector2(3, -18)
+shape = SubResource("RectangleShape2D_g28q7")
+debug_color = Color(0.70196074, 0.31339183, 0, 0.41960785)
+
+[node name="OgreDecisionEngine" type="Node" parent="." unique_id=394250230 node_paths=PackedStringArray("charge_start", "jump_start", "frenzy_start")]
+script = ExtResource("3_niyqw")
+charge_start = NodePath("../EnemyStateMachine/ESOgreChargeStart")
+jump_start = NodePath("../EnemyStateMachine/ESOgreJumpStart")
+frenzy_start = NodePath("../EnemyStateMachine/ESOgreFrenzyStart")
+metadata/_custom_type_script = "uid://pig17fp4xlcb"
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=132675196]
+collision_layer = 0
+collision_mask = 80
+script = ExtResource("11_r83h2")
+force = 10.0
+duration = 5.0
+metadata/_custom_type_script = "uid://coy7wn1wn058s"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=593497657]
+position = Vector2(-35, -35)
+shape = SubResource("RectangleShape2D_c8sum")
+debug_color = Color(0.70196074, 0, 0, 0.41960785)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=869490550]
+position = Vector2(-1, -25)
+shape = SubResource("CapsuleShape2D_c8sum")
+
+[node name="VFX" parent="." unique_id=1681365339 instance=ExtResource("29_1t4hd")]
+
+[node name="HazardArea2" type="Area2D" parent="." unique_id=473949846]
+collision_layer = 0
+collision_mask = 64
+script = ExtResource("12_rellu")
+metadata/_custom_type_script = "uid://bvueewlownr48"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HazardArea2" unique_id=1508704643]
+position = Vector2(0, -30)
+shape = SubResource("RectangleShape2D_3e5oy")
+debug_color = Color(0.70196074, 0, 0.5430185, 0.41960785)

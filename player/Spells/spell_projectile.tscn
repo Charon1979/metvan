@@ -1,0 +1,259 @@
+[gd_scene format=3 uid="uid://qrxkfet8f67n"]
+
+[ext_resource type="Script" uid="uid://caot1ivvarndd" path="res://player/Spells/scripts/spell_projectile.gd" id="1_04uj5"]
+[ext_resource type="AudioStream" uid="uid://dd2ppkm1infry" path="res://player/Spells/audio/Lightning_Bolt.ogg" id="2_2dsd8"]
+[ext_resource type="Texture2D" uid="uid://pr7ttr22p4on" path="res://player/Spells/sprites/Lightning_Bolt-Sheet.png" id="2_38p3r"]
+[ext_resource type="Script" uid="uid://bvueewlownr48" path="res://Michaels Stuff/TestDummy/hazard_area.gd" id="3_2dsd8"]
+[ext_resource type="AudioStream" uid="uid://btacrl5cgwi77" path="res://player/Spells/audio/lightning_test.ogg" id="3_65va0"]
+[ext_resource type="AudioStream" uid="uid://w1wprdkctvx8" path="res://player/Spells/audio/lightning_hit.ogg" id="3_euwqp"]
+
+[sub_resource type="Animation" id="Animation_65va0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpellPart:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_euwqp"]
+resource_name = "lightning_bolt"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpellPart:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_2dsd8"]
+resource_name = "spell_hit"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpellPart:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3va1v"]
+_data = {
+&"RESET": SubResource("Animation_65va0"),
+&"lightning_bolt": SubResource("Animation_euwqp"),
+&"spell_hit": SubResource("Animation_2dsd8")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uaawx"]
+radius = 8.0
+
+[sub_resource type="Gradient" id="Gradient_dttvj"]
+colors = PackedColorArray(1.0039686, 1.0039686, 1.0039686, 1, 0, 0, 0, 0.78431374)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3e5oy"]
+gradient = SubResource("Gradient_dttvj")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_38p3r"]
+colors = PackedColorArray(0.14117648, 0.62352943, 0.87058824, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5ubm4"]
+gradient = SubResource("Gradient_38p3r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2dsd8"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 120.0
+initial_velocity_max = 180.0
+gravity = Vector3(0, 30, 0)
+damping_min = 5.0
+damping_max = 10.0
+color_ramp = SubResource("GradientTexture1D_5ubm4")
+turbulence_enabled = true
+turbulence_noise_strength = 0.25
+turbulence_noise_scale = 5.0
+
+[node name="SpellProjectile" type="Node2D" unique_id=1584976365]
+script = ExtResource("1_04uj5")
+speed = 375.0
+flight_animation = &"lightning_bolt"
+empowered_resource_cost = 30.0
+cast_sfx = ExtResource("2_2dsd8")
+hit_sfx = ExtResource("3_euwqp")
+origin_offset = Vector2(8, -32)
+caster_animation = &"lightning_bolt"
+caster_sfx = ExtResource("3_65va0")
+lifetime = 5.0
+metadata/_custom_type_script = "uid://caot1ivvarndd"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1068412734]
+texture = ExtResource("2_38p3r")
+hframes = 4
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1956730841]
+libraries/ = SubResource("AnimationLibrary_3va1v")
+
+[node name="HazardArea" type="Area2D" parent="." unique_id=2076387448]
+collision_layer = 0
+collision_mask = 97
+script = ExtResource("3_2dsd8")
+dmg_element = 1
+dmg_type = 2
+force = 10.0
+metadata/_custom_type_script = "uid://bvueewlownr48"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea" unique_id=263640149]
+shape = SubResource("CircleShape2D_uaawx")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1865470157]
+position = Vector2(0.092292786, 0.0922966)
+color = Color(0.14117648, 0.62352943, 0.87058824, 1)
+energy = 3.0
+range_z_min = -10
+range_z_max = 10
+range_layer_min = -1
+range_layer_max = 1
+texture = SubResource("GradientTexture2D_3e5oy")
+
+[node name="SpellPart" type="GPUParticles2D" parent="." unique_id=973482577]
+position = Vector2(-0.040085793, -6.219617)
+scale = Vector2(0.6666667, 0.6666667)
+amount = 32
+lifetime = 2.0
+preprocess = 1.0
+speed_scale = 2.0
+explosiveness = 0.15
+process_material = SubResource("ParticleProcessMaterial_2dsd8")

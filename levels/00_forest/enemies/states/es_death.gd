@@ -1,3 +1,4 @@
+@icon("uid://clik7pjgto8k4")
 class_name ESDeath
 extends EnemyState
 # EnemyState class will inherit the following variables:
@@ -5,7 +6,6 @@ extends EnemyState
 # var state_machine : EnemyStateMachine
 # var enemy : Enemy
 # var blackboard : Blackboard
-
 @export var knockback_strength : float = 100
 @export var knockback_duration : float = 0.25
 
@@ -47,16 +47,24 @@ func _ready() -> void:
 	}
 
 func enter() -> void:
+	
 	enemy.attack_area.activate( false )
 	enemy.hazard_area.queue_free()
 	enemy.attack_area.queue_free()
 	enemy.damage_area.queue_free()
 	
 	SpawnManager.mark_dead( enemy.spawn_id, blackboard.damage_element, blackboard.dir, enemy.get_death_visual_data() )
-	var anim_name = death_anims.get(blackboard.damage_element, "death")
+	var anim_name : String = death_anims.get(blackboard.damage_element, "death")
+	# Failsafe: not every enemy has every elemental death animation authored
+	# (e.g. the ogre might have no "death_air"/"death_water"/etc. at all) —
+	# fall back to the plain "death" anim instead of crashing
+	# play_animation()/get_animation_length() on a missing one.
+	if not enemy.visuals.has_animation( anim_name ):
+		anim_name = "death"
 
 	enemy.visuals.play_animation(anim_name)
-	enemy.vfx.emit_vfx_part(anim_name)
+	if enemy.vfx:
+		enemy.vfx.emit_vfx_part(anim_name)
 
 	var audio : AudioStream = death_audio_by_element.get( blackboard.damage_element, death_audio_default )
 	if not audio:
@@ -69,6 +77,10 @@ func enter() -> void:
 	_calc_velocity(blackboard.damage_source)
 	blackboard.damage_source = null
 	blackboard.can_decide = false
+	if enemy.visuals.animation_player:
+		await enemy.visuals.animation_player.animation_finished
+	Messages.battle_ended.emit()
+	
 func re_enter() -> void:
 	pass
 func exit() -> void:
@@ -82,7 +94,7 @@ func physics_update(delta: float) -> void:
 		enemy.velocity.x = vel_x * t
 	if timer >= duration:
 		blackboard.can_decide = true
-	if timer >= 0.6:
+	if timer >= 0.6 and enemy.vfx:
 		enemy.vfx.stop_vfx_part()
 func _calc_velocity(a: AttackArea) -> void:
 	vel_x = 1

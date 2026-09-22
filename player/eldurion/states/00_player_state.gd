@@ -9,16 +9,23 @@ var next_state : PlayerState
 @onready var run: PlayerStateRun = %Run
 @onready var jump: PlayerStateJump = %Jump
 @onready var fall: PlayerStateFall = %Fall
-@onready var crouch: PlayerStateCrouch = %Crouch
 @onready var attack: PlayerStateAttack = %Attack
+@onready var attack_up: PlayerStateAttackUp = %AttackUp
+@onready var attack_air: PlayerStateAttackAir = %AttackAir
+@onready var spell: PlayerStateSpell = %Spell
+#@onready var power_spell_charge: PlayerStatePowerSpellCharge = %PowerSpellCharge
+#@onready var power_spell_release: PlayerStatePowerSpellRelease = %PowerSpellRelease
+#@onready var power_spell_fail: PlayerStatePowerSpellFail = %PowerSpellFail
 @onready var take_damage: PlayerStateTakeDamage = %TakeDamage
 @onready var death: PlayerStateDeath = %Death
+@onready var stand_up: PlayerStateStandUp = %StandUp
 @onready var dash: PlayerStateDash = %Dash
 @onready var combo_attack: PlayerStateComboAttack = %ComboAttack
 @onready var power_charge: PlayerStatePowerCharge = %PowerCharge
 @onready var power_attack: PlayerStatePowerAttack = %PowerAttack
 @onready var power_cancel: PlayerStatePowerCancel = %PowerCancel
 @onready var ground_slam: PlayerStateGroundSlam = %GroundSlam
+@onready var pogo: PlayerStatePogo = %Pogo
 
 
 

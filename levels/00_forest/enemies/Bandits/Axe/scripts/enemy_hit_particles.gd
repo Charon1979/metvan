@@ -1,4 +1,4 @@
-@icon( "uid://de3l2kqneg3hl" )
+@icon( "uid://d2sbidjsqe1lq" )
 
 class_name EnemyHitParticles
 extends Marker2D

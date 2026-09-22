@@ -9,6 +9,15 @@ const SCALE_FACTOR : float = 40
 @export_file( "*.tscn" ) var linked_scene : String : set = _on_scene_set
 @export_tool_button( "Update" ) var update_node_action = update_node
 
+## A simplified silhouette image of this room, shown behind the entrance
+## markers. Doesn't need to be pixel-accurate — just readable at map scale,
+## the way Hollow Knight's hand-inked room shapes are. Auto-populated by
+## update_node() if a "<scene_name>_map.png" file exists next to the level.
+@export var room_texture : Texture2D :
+	set( value ):
+		room_texture = value
+		_apply_texture()
+
 @export var entrances_top : Array[ float ] = []
 @export var entrances_right : Array[ float ] = []
 @export var entrances_bottom : Array[ float ] = []
@@ -18,17 +27,19 @@ var indicator_offset : Vector2 = Vector2.ZERO
 
 @onready var label: Label = $Label
 @onready var transition_blocks: Control = %TransitionBlocks
+@onready var texture_rect: TextureRect = %TextureRect
 
 
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		pass
+		_apply_texture()
 	else:
 		label.queue_free()
 		create_transition_blocks()
+		_apply_texture()
 		
-		if not SaveManager.is_area_discovered( linked_scene ):
+		if not SaveManager.is_area_revealed_on_map( linked_scene ):
 			visible = false
 		elif SceneManager.current_scene_uid == linked_scene:
 			display_player_location()
@@ -56,6 +67,14 @@ func update_node() -> void:
 			var instance = packed_scene.instantiate()
 			if instance:
 				update_node_label( instance )
+				# NOTE: a scene can now hold more than one LevelBounds
+				# (PlayerCamera auto-switches between them at runtime — see
+				# player_camera.gd/level_bounds.gd), so a room can have
+				# several "shapes" in one file. The minimap still assumes
+				# one thumbnail per scene file, deliberately left as-is for
+				# now: whichever LevelBounds is LAST among this scene's
+				# children wins here, arbitrarily. Revisit if a scene's
+				# minimap thumbnail ever looks wrong because of this.
 				for c in instance.get_children():
 					if c is LevelBounds:
 						new_size = Vector2( c.width, c.height )
@@ -68,6 +87,8 @@ func update_node() -> void:
 	size = size.round()
 	create_entrance_data( transitions )
 	create_transition_blocks()
+	_try_autoload_room_texture()
+	_apply_texture()
 	pass
 
 
@@ -168,4 +189,27 @@ func display_player_location() -> void:
 	var bracket : Vector2 = Vector2( 2, 2 )
 	pos = pos.clamp( position + bracket, position + size - bracket )
 	i.position = pos
+	pass
+
+
+func _apply_texture() -> void:
+	if not texture_rect:
+		return
+	texture_rect.texture = room_texture
+	texture_rect.visible = room_texture != null
+	texture_rect.size = size
+	pass
+
+
+## Looks for a hand-authored map thumbnail next to the level scene, named
+## "<scene_name>_map.png" (e.g. levels/forest_01.tscn -> levels/forest_01_map.png).
+## Draw this yourself as a simplified silhouette of the room's terrain —
+## doesn't need to be pixel-accurate, just readable at map scale.
+func _try_autoload_room_texture() -> void:
+	var resolved_path : String = linked_scene
+	if linked_scene.begins_with( "uid://" ):
+		resolved_path = ResourceUID.get_id_path( ResourceUID.text_to_id( linked_scene ) )
+	var texture_path : String = resolved_path.get_basename() + "_map.png"
+	if ResourceLoader.exists( texture_path ):
+		room_texture = load( texture_path )
 	pass

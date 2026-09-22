@@ -41,13 +41,25 @@ func _on_player_entered( _n : Node2D ) -> void:
 func _on_new_scene_ready( target_name : String, offset : Vector2 ) -> void:
 	if target_name == name:
 		var player : Node = get_tree().get_first_node_in_group( "Player" )
+		if not player:
+			return
 		player.global_position = global_position + offset
 	pass
 
 
 func _on_load_scene_finished() -> void:
 	area_2d.monitoring = false
-	area_2d.body_entered.connect( _on_player_entered )
+	# load_scene_finished fires once at SceneManager boot AND once at the end
+	# of every transition_scene() call — and this same LevelTransition
+	# instance can still be alive (and already connected) the next time it
+	# fires, e.g. if this transition's own target_level isn't set up yet and
+	# the scene swap doesn't actually replace this node, or the player takes
+	# a different transition back through a room without this one ever being
+	# freed. Guard with is_connected() (same idiom used elsewhere in this
+	# codebase — see pogo.gd, dash.gd, power_charge.gd, combo_attack.gd)
+	# instead of assuming a fresh connection every time.
+	if not area_2d.body_entered.is_connected( _on_player_entered ):
+		area_2d.body_entered.connect( _on_player_entered )
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	area_2d.monitoring = true

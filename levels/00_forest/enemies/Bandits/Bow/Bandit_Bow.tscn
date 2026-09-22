@@ -39,10 +39,10 @@ height = 26.0
 radius = 8.0
 height = 26.0
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_e0kb0"]
-points = PackedVector2Array(0, 0, 224, -107, 224, 85, 0, 0, -224, 85, -224, -107)
+[sub_resource type="CircleShape2D" id="CircleShape2D_kkcst"]
+radius = 192.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2jw7j"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_3e5oy"]
 
 [node name="Bandit_Bow" type="CharacterBody2D" unique_id=244896683]
 scale = Vector2(1.5, 1.5)
@@ -58,20 +58,28 @@ animation_library = ExtResource("4_2jw7j")
 
 [node name="Armor" parent="Visuals/Sprites" parent_id_path=PackedInt32Array(1823437909, 1328233768) index="0" unique_id=509490728]
 texture = ExtResource("4_kkj6b")
-frame = 50
 
 [node name="Hair" parent="Visuals/Sprites" parent_id_path=PackedInt32Array(1823437909, 1328233768) index="1" unique_id=1839320328]
 texture = ExtResource("5_2jw7j")
-frame = 50
 
 [node name="AnimationPlayer" parent="Visuals" index="1" unique_id=1372322108]
 libraries/ = ExtResource("4_2jw7j")
 
 [node name="Marker2D" type="Marker2D" parent="Visuals" unique_id=1428305292]
+visible = false
 position = Vector2(8, -19)
 
 [node name="VFX" parent="." unique_id=1681365339 instance=ExtResource("6_m6ed1")]
 unique_name_in_owner = true
+
+[node name="VFXSprite" parent="VFX" index="0" unique_id=320731217]
+visible = false
+
+[node name="PointLight2D" parent="VFX/VFXSprite" index="0" unique_id=550946271]
+visible = false
+
+[node name="GPUParticles2D" parent="VFX" index="2" unique_id=1375105185]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1598149466]
 position = Vector2(0, -13)
@@ -110,6 +118,7 @@ metadata/_custom_type_script = "uid://bg7xvlkpm8vef"
 
 [node name="ESBowBanditAim" type="Node" parent="EnemyStateMachine" unique_id=949006527]
 script = ExtResource("9_aw2y1")
+wind_up_duration = 0.5
 animation_name = "aim"
 metadata/_custom_type_script = "uid://e1mh5e7grvqs"
 
@@ -135,9 +144,10 @@ metadata/_custom_type_script = "uid://ce118jjvw1ddu"
 
 [node name="ESBowBanditAttack" type="Node" parent="EnemyStateMachine" unique_id=1297876830 node_paths=PackedStringArray("spawn_point")]
 script = ExtResource("13_7oe4j")
-attack_range = 200.0
+attack_range = 400.0
 cooldown = 4.0
 projectile_scene = ExtResource("15_6offg")
+landing_overshoot = 16.0
 spawn_point = NodePath("../../Visuals/Marker2D")
 animation_name = "attack"
 metadata/_custom_type_script = "uid://hhievrxrso7x"
@@ -163,29 +173,32 @@ metadata/_custom_type_script = "uid://j2annqv6iae5"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSensor" unique_id=1916425654]
 position = Vector2(0, -13)
-shape = SubResource("ConvexPolygonShape2D_e0kb0")
+shape = SubResource("CircleShape2D_kkcst")
 
 [node name="LootDropper" type="Marker2D" parent="." unique_id=320028515]
 script = ExtResource("13_o6eus")
 metadata/_custom_type_script = "uid://dvm7rsqs2rv8v"
 
 [node name="EdgeDetector" type="RayCast2D" parent="." unique_id=2079653490]
+visible = false
 position = Vector2(6, 0)
 target_position = Vector2(0, 10)
 script = ExtResource("14_pdu52")
 metadata/_custom_type_script = "uid://bjwkf66t8igso"
 
 [node name="Arrow" parent="." unique_id=1294998761 instance=ExtResource("15_6offg")]
+arc_height = 32.0
+despawn_delay = 4.0
 
-[node name="AttackArea" type="Area2D" parent="." unique_id=1039146262]
-collision_layer = 0
-collision_mask = 0
+[node name="AttackArea" type="Area2D" parent="." unique_id=1323497094]
 monitoring = false
 monitorable = false
 script = ExtResource("5_jv2ml")
 metadata/_custom_type_script = "uid://coy7wn1wn058s"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1205705407]
-shape = SubResource("CircleShape2D_2jw7j")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1443057557]
+shape = SubResource("CircleShape2D_3e5oy")
+disabled = true
 
 [editable path="Visuals"]
+[editable path="VFX"]

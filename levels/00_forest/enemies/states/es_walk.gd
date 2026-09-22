@@ -5,7 +5,11 @@ extends EnemyState
 
 
 func enter() -> void:
-	enemy.play_animation( animation_name if animation_name else "walk" )
+	# enemy.play_animation() doesn't exist on Enemy — every other state routes
+	# through enemy.visuals.play_animation(). Calling it directly here threw
+	# a "function not found" runtime error the instant a basic-decision-engine
+	# enemy entered Walk.
+	enemy.visuals.play_animation( animation_name if animation_name else "walk" )
 	pass
 
 

@@ -1,18 +1,759 @@
 [gd_scene format=4 uid="uid://dyvo4wtnhl2uy"]
 
-[ext_resource type="TileSet" uid="uid://bm0ncdnh6p2wi" path="res://levels/00_forest/tilesets/autumn_forest.tres" id="1_knp4n"]
+[ext_resource type="TileSet" uid="uid://b2aq6gvkac2h" path="res://levels/00_forest/tilesets/forest_tileset.tres" id="1_tmrgn"]
 [ext_resource type="Script" uid="uid://dknswg5tayvv4" path="res://general/scripts/level_bounds.gd" id="2_6uyb7"]
 [ext_resource type="PackedScene" uid="uid://qpe4sqh7ml5t" path="res://general/level_transistion/level_transistion.tscn" id="3_6uyb7"]
 [ext_resource type="PackedScene" uid="uid://c0f6mxwx8kue2" path="res://general/player_spawn/player_spawn.tscn" id="4_l1jjo"]
+[ext_resource type="Script" uid="uid://b815nxrhojgs2" path="res://levels/00_forest/enemies/boss/ogre/scripts/ladder.gd" id="5_h0363"]
 [ext_resource type="Texture2D" uid="uid://du7fclwohkc57" path="res://levels/00_forest/tilesets/sprites/Ladder.png" id="5_tmrgn"]
+[ext_resource type="Script" uid="uid://b0k0qmg06rfnt" path="res://00_global/interaction_trigger.gd" id="8_x2r06"]
+[ext_resource type="Script" uid="uid://fmn1x4fvgvjv" path="res://00_global/interaction_action.gd" id="9_x2r06"]
+[ext_resource type="Script" uid="uid://25imki8qwr1s" path="res://00_global/interaction_action_transition.gd" id="10_4mkg6"]
+[ext_resource type="Script" uid="uid://dkq8a6unh4igm" path="res://00_global/audio/music/music_auto_trigger.gd" id="10_c3r7e"]
+[ext_resource type="AudioStream" uid="uid://c8o77kulgiylj" path="res://levels/00_forest/audio/Forest_Music.ogg" id="11_x5wqr"]
+[ext_resource type="Script" uid="uid://da0v5gigy5uy7" path="res://levels/00_forest/enemies/boss/scripts/boss_battle_orchestrator.gd" id="13_evinr"]
+[ext_resource type="AudioStream" uid="uid://dxxp465vffjuh" path="res://levels/00_forest/enemies/boss/ogre/music/ogre_battle_music.ogg" id="14_4cpyi"]
+[ext_resource type="Texture2D" uid="uid://b0dllclxs0iu5" path="res://levels/00_forest/enemies/boss/ogre/sprites/rock_fall.png" id="14_yu4ox"]
+[ext_resource type="PackedScene" uid="uid://dwlchvdqqda3x" path="res://levels/00_forest/enemies/boss/ogre/ogre.tscn" id="15_yu4ox"]
+[ext_resource type="PackedScene" uid="uid://exqpwr8a24vs" path="res://levels/00_forest/rock_debries_v.tscn" id="16_csind"]
+[ext_resource type="PackedScene" uid="uid://bfusjwe8bvbl4" path="res://levels/00_forest/rock_debries_grey.tscn" id="17_h0363"]
+[ext_resource type="PackedScene" uid="uid://day6lon335enm" path="res://levels/00_forest/enemies/boss/ogre/CeilingDustWarning.tscn" id="18_x2r06"]
+[ext_resource type="Texture2D" uid="uid://ck6021v5lu2by" path="res://levels/00_forest/tilesets/sprites/BG_Rocks.png" id="19_csind"]
+[ext_resource type="Script" uid="uid://c3ji3w5nutqjl" path="res://levels/00_forest/enemies/boss/ogre/scripts/falling_rock.gd" id="19_rpn0i"]
+[ext_resource type="Script" uid="uid://cwxs3xm3awfci" path="res://general/scripts/damage_area.gd" id="20_6inp1"]
+[ext_resource type="Texture2D" uid="uid://coiyj82p8adxl" path="res://levels/00_forest/enemies/boss/ogre/sprites/Rock.png" id="22_rpn0i"]
+[ext_resource type="PackedScene" uid="uid://ug3vdn70bbi2" path="res://levels/00_forest/save_point.tscn" id="23_6inp1"]
+[ext_resource type="Script" uid="uid://3i2gvmrrcmwb" path="res://00_global/interaction_action_save.gd" id="24_6inp1"]
+
+[sub_resource type="Animation" id="Animation_x2r06"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_tmrgn")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 32)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rock_debries_v1:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_4mkg6"]
+resource_name = "ladder_down"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("5_tmrgn"), ExtResource("5_tmrgn")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.4, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(32, 32), Vector2(32, 32), Vector2(32, 256)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rock_debries_v1:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.9),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_6inp1"]
+resource_name = "ladder_ground"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_tmrgn")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 260)]
+}
+
+[sub_resource type="Animation" id="Animation_rpn0i"]
+resource_name = "ladder_up"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_tmrgn")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 32)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5nudp"]
+_data = {
+&"RESET": SubResource("Animation_x2r06"),
+&"ladder_down": SubResource("Animation_4mkg6"),
+&"ladder_ground": SubResource("Animation_6inp1"),
+&"ladder_up": SubResource("Animation_rpn0i")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6inp1"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_5wh61"]
+offsets = PackedFloat32Array(0, 0.83076924, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dd0ff"]
+gradient = SubResource("Gradient_5wh61")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qugoh"]
+resource_local_to_scene = true
+lifetime_randomness = 0.6
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 3
+emission_box_extents = Vector3(16, 6, 1)
+angle_min = 1.0728835e-05
+angle_max = 90.000015
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.099999994
+scale_max = 0.29999998
+color_ramp = SubResource("GradientTexture1D_dd0ff")
+anim_offset_max = 1.0
+
+[sub_resource type="Resource" id="Resource_x2r06"]
+script = ExtResource("10_4mkg6")
+scene_uid = "uid://pqlmaphvsr6c"
+target_area_name = "Forest_09A"
+offset = Vector2(32, -30)
+metadata/_custom_type_script = "uid://25imki8qwr1s"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8sum"]
+size = Vector2(20, 52.00006)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h0363"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3e5oy"]
+size = Vector2(32, 160)
+
+[sub_resource type="Animation" id="Animation_4cpyi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_yu4ox")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EntrancePlayer/Rock_debries_v2:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_iikhb"]
+resource_name = "rock_damage"
+length = 0.2
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_yu4ox")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.175),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(638, -286), Vector2(639, -286), Vector2(640, -286), Vector2(639, -286)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.025, 0.075, 0.125, 0.175),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.017453292, 0.0, 0.01745329251994329, 0.0]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("EntrancePlayer/FallingRock")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_particles"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_r0a5o"]
+resource_name = "rock_destroyed"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_yu4ox")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [19]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EntrancePlayer/Rock_destroyed:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_7kuqa"]
+resource_name = "rock_down"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_yu4ox")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EntrancePlayer/FallingRock/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_t7lbt"]
+resource_name = "rocks_fall"
+length = 1.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_yu4ox")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EntrancePlayer/FallingRock/Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.90000004, 1, 1.1, 1.2, 1.3000001, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EntrancePlayer/FallingRock/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("EntrancePlayer/Rock_debries_v1:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("EntrancePlayer/Rock_debries_v2:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.9, 1.3000001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("EntrancePlayer/FallingRock")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_audio"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_36oin"]
+_data = {
+&"RESET": SubResource("Animation_4cpyi"),
+&"rock_damage": SubResource("Animation_iikhb"),
+&"rock_destroyed": SubResource("Animation_r0a5o"),
+&"rock_down": SubResource("Animation_7kuqa"),
+&"rocks_fall": SubResource("Animation_t7lbt")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uyyxd"]
+radius = 19.646883
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uaawx"]
+size = Vector2(48, 48)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_s5x2c"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iikhb"]
+resource_local_to_scene = true
+lifetime_randomness = 0.6
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 3
+emission_box_extents = Vector3(32, 6, 1)
+angle_min = 1.0728835e-05
+angle_max = 90.000015
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 60.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.099999994
+scale_max = 0.29999998
+color_ramp = SubResource("GradientTexture1D_dd0ff")
+anim_offset_max = 1.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r0a5o"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_qugoh"]
+offsets = PackedFloat32Array(0, 0.83076924, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_s5x2c"]
+gradient = SubResource("Gradient_qugoh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7kuqa"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 3
+emission_box_extents = Vector3(32, 8, 1)
+angle_min = 1.0728835e-05
+angle_max = 90.000015
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 60.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.5
+scale_max = 0.7
+color_ramp = SubResource("GradientTexture1D_s5x2c")
+anim_offset_max = 1.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.35
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p7l0g"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_ncne8"]
+offsets = PackedFloat32Array(0, 0.83076924, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nh3c4"]
+gradient = SubResource("Gradient_ncne8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ubdv6"]
+resource_local_to_scene = true
+lifetime_randomness = 0.6
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+angle_min = 1.0728835e-05
+angle_max = 90.000015
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 60.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.19999999
+scale_max = 0.39999998
+color_ramp = SubResource("GradientTexture1D_nh3c4")
+anim_offset_max = 1.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.35
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oxkmk"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i41nb"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 1
+emission_sphere_radius = 48.0
+angle_min = 1.0728835e-05
+angle_max = 90.000015
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 60.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.7
+scale_max = 1.5
+color_ramp = SubResource("GradientTexture1D_nh3c4")
+anim_offset_max = 1.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.35
+
+[sub_resource type="Resource" id="Resource_3e5oy"]
+script = ExtResource("24_6inp1")
+metadata/_custom_type_script = "uid://3i2gvmrrcmwb"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oo5qn"]
+size = Vector2(36, 71)
 
 [node name="Forest_08" type="Node2D" unique_id=1084378543]
 
+[node name="BossLevelBounds" type="Node2D" parent="." unique_id=877423451]
+z_index = 256
+position = Vector2(596, -448)
+script = ExtResource("2_6uyb7")
+width = 416
+set_on_ready = false
+auto_detect = false
+metadata/_custom_type_script = "uid://dknswg5tayvv4"
+
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1559072344 groups=["Tilemap"]]
-tile_map_data = PackedByteArray("AAD///7/AQABAAwAAAAAAP7/AQABAAwAAAABAP7/AQABAAwAAAACAP7/AQABAAwAAAADAP7/AQABAAwAAAAEAP7/AQABAAwAAAAFAP7/AQABAAwAAAAGAP7/AQABAAwAAAAHAP7/AQAAAAMAABAIAP7/AQABAAAAAAAJAP7/AQABAAAAAAAKAP7/AQABAAAAAAALAP7/AQABAAAAAAAMAP7/AQABAAAAAAANAP7/AQABAAAAAAAOAP7/AQAEAAMAAAAOAP3/AQAAAAEAAAAOAPz/AQAAAAEAAAAOAPv/AQAAAAEAAAAOAPr/AQAIAAAAAAAMAPr/AQAHAAMAAAAMAPv/AQAHAAQAAAANAPr/AQAIAAMAAAANAPv/AQAIAAQAAAAKAPr/AQAHAAMAAAAKAPv/AQAHAAQAAAALAPr/AQAIAAMAAAALAPv/AQAIAAQAAAAJAPr/AQAGAAAAAAAJAPv/AQACAAIAAAAIAPv/AQAAAAIAAAAIAPr/AQAAAAEAAAAAAPr/AQACAAUAAAAIAPn/AQABAA8AAAAAAPn/AQACAAEAAAAAAPj/AQACAAEAAAAAAPf/AQACAAEAAAAAAPb/AQACAAEAAAAAAPX/AQACAAEAAAAAAPT/AQACAAEAAAAAAPP/AQACAAEAAAAAAPL/AQACAAEAAAAAAPH/AQAGAAAAAAAJAPn/AQABAAwAAAAKAPn/AQABAAwAAAALAPn/AQABAAwAAAAMAPn/AQABAAwAAAASAPn/AQABAAwAAAARAPn/AQABAAwAAAAQAPn/AQABAAwAAAAPAPn/AQABAAwAAAAOAPn/AQABAAwAAAANAPn/AQABAAwAAAATAPn/AQAAAAMAABAUAPn/AQABAAAAAAAVAPn/AQABAAAAAAAWAPn/AQABAAAAAAAXAPn/AQABAAAAAAAYAPn/AQABAAAAAAAZAPn/AQABAAAAAAAaAPn/AQABAAAAAAAbAPn/AQABAAAAAAAcAPn/AQABAAAAAAAdAPn/AQABAAAAAAAeAPn/AQABAAAAAAAfAPn/AQABAAAAAAAgAPn/AQABAAAAAAAhAPn/AQABAAAAAAAiAPn/AQABAAAAAAAjAPn/AQABAAAAAAAkAPn/AQAEAAMAAAAkAPj/AQAAAAEAAAAkAPf/AQAAAAEAAAAkAPb/AQAAAAEAAAAkAPX/AQAAAAEAAAAkAPT/AQAAAAEAAAAkAPP/AQAAAAEAAAAkAPL/AQAIAAAAAAAjAPL/AQABAAIAAAAiAPL/AQABAAIAAAAhAPL/AQABAAIAAAAgAPL/AQABAAIAAAAfAPL/AQABAAIAAAAeAPL/AQABAAIAAAAdAPL/AQABAAIAAAAcAPL/AQABAAIAAAAbAPL/AQABAAIAAAAaAPL/AQABAAIAAAAZAPL/AQABAAIAAAAYAPL/AQAAAAIAAAAYAPH/AQAAAAEAAAAZAPH/AQABAAEAAAAaAPH/AQABAAEAAAAbAPH/AQABAAEAAAAcAPH/AQABAAEAAAAdAPH/AQABAAEAAAAeAPH/AQABAAEAAAAfAPH/AQABAAEAAAAgAPH/AQABAAEAAAAhAPH/AQABAAEAAAAiAPH/AQABAAEAAAAjAPH/AQABAAEAAAAkAPH/AQABAAEAAAAlAPH/AQABAAEAAAAlAPL/AQABAAEAAAAlAPP/AQABAAEAAAAlAPT/AQABAAEAAAAlAPX/AQABAAEAAAAlAPb/AQABAAEAAAAlAPf/AQABAAEAAAAlAPj/AQABAAEAAAAlAPn/AQABAAEAAAAlAPr/AQABAAEAAAAmAPH/AQABAAEAAAAmAPL/AQABAAEAAAAmAPP/AQABAAEAAAAmAPT/AQABAAEAAAAmAPX/AQABAAEAAAAmAPb/AQABAAEAAAAmAPf/AQABAAEAAAAmAPj/AQABAAEAAAAmAPn/AQABAAEAAAAmAPr/AQABAAEAAAAPAPr/AQABAAEAAAAPAPv/AQABAAEAAAAPAPz/AQABAAEAAAAPAP3/AQABAAEAAAAPAP7/AQABAAEAAAAPAP//AQABAAEAAAAPAAAAAQABAAEAAAAQAPr/AQABAAEAAAAQAPv/AQABAAEAAAAQAPz/AQABAAEAAAAQAP3/AQABAAEAAAAQAP7/AQABAAEAAAAQAP//AQABAAEAAAAQAAAAAQABAAEAAAARAPr/AQABAAEAAAARAPv/AQABAAEAAAARAPz/AQABAAEAAAARAP3/AQABAAEAAAARAP7/AQABAAEAAAARAP//AQABAAEAAAARAAAAAQABAAEAAAASAPr/AQABAAEAAAASAPv/AQABAAEAAAASAPz/AQABAAEAAAASAP3/AQABAAEAAAASAP7/AQABAAEAAAASAP//AQABAAEAAAASAAAAAQABAAEAAAATAPr/AQABAAEAAAATAPv/AQABAAEAAAATAPz/AQABAAEAAAATAP3/AQABAAEAAAATAP7/AQABAAEAAAATAP//AQABAAEAAAATAAAAAQABAAEAAAAUAPr/AQABAAEAAAAUAPv/AQABAAEAAAAUAPz/AQABAAEAAAAUAP3/AQABAAEAAAAUAP7/AQABAAEAAAAUAP//AQABAAEAAAAUAAAAAQABAAEAAAAVAPr/AQABAAEAAAAVAPv/AQABAAEAAAAVAPz/AQABAAEAAAAVAP3/AQABAAEAAAAVAP7/AQABAAEAAAAVAP//AQABAAEAAAAVAAAAAQABAAEAAAAWAPr/AQABAAEAAAAWAPv/AQABAAEAAAAWAPz/AQABAAEAAAAWAP3/AQABAAEAAAAWAP7/AQABAAEAAAAWAP//AQABAAEAAAAWAAAAAQABAAEAAAAXAPr/AQABAAEAAAAXAPv/AQABAAEAAAAXAPz/AQABAAEAAAAXAP3/AQABAAEAAAAXAP7/AQABAAEAAAAXAP//AQABAAEAAAAXAAAAAQABAAEAAAAYAPr/AQABAAEAAAAYAPv/AQABAAEAAAAYAPz/AQABAAEAAAAYAP3/AQABAAEAAAAYAP7/AQABAAEAAAAYAP//AQABAAEAAAAYAAAAAQABAAEAAAAZAPr/AQABAAEAAAAZAPv/AQABAAEAAAAZAPz/AQABAAEAAAAZAP3/AQABAAEAAAAZAP7/AQABAAEAAAAZAP//AQABAAEAAAAZAAAAAQABAAEAAAAaAPr/AQABAAEAAAAaAPv/AQABAAEAAAAaAPz/AQABAAEAAAAaAP3/AQABAAEAAAAaAP7/AQABAAEAAAAaAP//AQABAAEAAAAaAAAAAQABAAEAAAAbAPr/AQABAAEAAAAbAPv/AQABAAEAAAAbAPz/AQABAAEAAAAbAP3/AQABAAEAAAAbAP7/AQABAAEAAAAbAP//AQABAAEAAAAbAAAAAQABAAEAAAAcAPr/AQABAAEAAAAcAPv/AQABAAEAAAAcAPz/AQABAAEAAAAcAP3/AQABAAEAAAAcAP7/AQABAAEAAAAcAP//AQABAAEAAAAcAAAAAQABAAEAAAAdAPr/AQABAAEAAAAdAPv/AQABAAEAAAAdAPz/AQABAAEAAAAdAP3/AQABAAEAAAAdAP7/AQABAAEAAAAdAP//AQABAAEAAAAdAAAAAQABAAEAAAAeAPr/AQABAAEAAAAeAPv/AQABAAEAAAAeAPz/AQABAAEAAAAeAP3/AQABAAEAAAAeAP7/AQABAAEAAAAeAP//AQABAAEAAAAeAAAAAQABAAEAAAAfAPr/AQABAAEAAAAfAPv/AQABAAEAAAAfAPz/AQABAAEAAAAfAP3/AQABAAEAAAAfAP7/AQABAAEAAAAfAP//AQABAAEAAAAfAAAAAQABAAEAAAAgAPr/AQABAAEAAAAgAPv/AQABAAEAAAAgAPz/AQABAAEAAAAgAP3/AQABAAEAAAAgAP7/AQABAAEAAAAgAP//AQABAAEAAAAgAAAAAQABAAEAAAAhAPr/AQABAAEAAAAhAPv/AQABAAEAAAAhAPz/AQABAAEAAAAhAP3/AQABAAEAAAAhAP7/AQABAAEAAAAhAP//AQABAAEAAAAhAAAAAQABAAEAAAAiAPr/AQABAAEAAAAiAPv/AQABAAEAAAAiAPz/AQABAAEAAAAiAP3/AQABAAEAAAAiAP7/AQABAAEAAAAiAP//AQABAAEAAAAiAAAAAQABAAEAAAAjAPr/AQABAAEAAAAjAPv/AQABAAEAAAAjAPz/AQABAAEAAAAjAP3/AQABAAEAAAAjAP7/AQABAAEAAAAjAP//AQABAAEAAAAjAAAAAQABAAEAAAAkAPr/AQABAAEAAAAkAPv/AQABAAEAAAAkAPz/AQABAAEAAAAkAP3/AQABAAEAAAAkAP7/AQABAAEAAAAkAP//AQABAAEAAAAkAAAAAQABAAEAAAAlAPv/AQABAAEAAAAlAPz/AQABAAEAAAAlAP3/AQABAAEAAAAlAP7/AQABAAEAAAAlAP//AQABAAEAAAAlAAAAAQABAAEAAAAmAPv/AQABAAEAAAAmAPz/AQABAAEAAAAmAP3/AQABAAEAAAAmAP7/AQABAAEAAAAmAP//AQABAAEAAAAmAAAAAQABAAEAAAD/////AQABAAEAAAD//wAAAQABAAEAAAAAAP//AQABAAEAAAAAAAAAAQABAAEAAAABAP//AQABAAEAAAABAAAAAQABAAEAAAACAP//AQABAAEAAAACAAAAAQABAAEAAAADAP//AQABAAEAAAADAAAAAQABAAEAAAAEAP//AQABAAEAAAAEAAAAAQABAAEAAAAFAP//AQABAAEAAAAFAAAAAQABAAEAAAAGAP//AQABAAEAAAAGAAAAAQABAAEAAAAHAP//AQABAAEAAAAHAAAAAQABAAEAAAAIAP//AQABAAEAAAAIAAAAAQABAAEAAAAJAP//AQABAAEAAAAJAAAAAQABAAEAAAAKAP//AQABAAEAAAAKAAAAAQABAAEAAAALAP//AQABAAEAAAALAAAAAQABAAEAAAAMAP//AQABAAEAAAAMAAAAAQABAAEAAAANAP//AQABAAEAAAANAAAAAQABAAEAAAAOAP//AQABAAEAAAAOAAAAAQABAAEAAAD///H/AQABAAEAAAD///L/AQABAAEAAAD///P/AQABAAEAAAD///T/AQABAAEAAAD///X/AQABAAEAAAD///b/AQABAAEAAAD///f/AQABAAEAAAD///j/AQABAAEAAAD///n/AQABAAEAAAD///r/AQABAAIAAAAUAPb/AQACAAIAAAATAPb/AQAAAAIAAAAUAPH/AQACAAEAAAAUAPL/AQACAAEAAAAUAPP/AQACAAEAAAAUAPT/AQACAAEAAAAUAPX/AQACAAEAAAATAPH/AQAIAAAAAAATAPL/AQAAAAEAAAATAPP/AQAAAAEAAAATAPT/AQAAAAEAAAATAPX/AQAAAAEAAAABAPH/AQABAAIAAAACAPH/AQABAAIAAAADAPH/AQABAAIAAAAEAPH/AQABAAIAAAAFAPH/AQABAAIAAAAGAPH/AQABAAIAAAAHAPH/AQABAAIAAAAIAPH/AQABAAIAAAAJAPH/AQABAAIAAAAKAPH/AQABAAIAAAALAPH/AQABAAIAAAAMAPH/AQABAAIAAAANAPH/AQABAAIAAAAOAPH/AQABAAIAAAAPAPH/AQABAAIAAAAQAPH/AQABAAIAAAARAPH/AQABAAIAAAASAPH/AQABAAIAAAAEAPv/AQAHABEAAAAFAPv/AQAIABEAAAADAPv/AQAGABEAAAA=")
-tile_set = ExtResource("1_knp4n")
+tile_map_data = PackedByteArray("AAD///7/AAABAAYAAAAAAP7/AAABAAYAAAABAP7/AAABAAYAAAACAP7/AAAAAAkAABADAP7/AAABAAAAAAAEAP7/AAABAAAAAAAFAP7/AAABAAAAAAAGAP7/AAABAAAAAAAHAP7/AAABAAAAAAAIAP7/AAABAAAAAAAJAP7/AAABAAAAAAAKAP7/AAABAAAAAAALAP7/AAABAAAAAAAMAP7/AAABAAAAAAANAP7/AAABAAAAAAAOAP7/AAAEAAMAAAAOAP3/AAAAAAEAAAAOAPz/AAAAAAEAAAAOAPv/AAAIAAAAAAAOAPr/AAABAAEAAAAMAPr/AAABAAEAAAAMAPv/AAABAAIAAAANAPr/AAABAAEAAAANAPv/AAABAAIAAAAKAPr/AAABAAEAAAAKAPv/AAABAAIAAAALAPr/AAABAAEAAAALAPv/AAABAAIAAAAJAPr/AAABAAEAAAAJAPv/AAABAAIAAAAIAPv/AAAAAAIAAAAIAPr/AAAAAAEAAAAAAPr/AAACAAIAAAAIAPn/AAAAAAAAAAAAAPn/AAACAAEAAAAAAPj/AAACAAEAAAAAAPf/AAACAAEAAAAAAPb/AAACAAEAAAAAAPX/AAACAAEAAAAAAPT/AAACAAEAAAAAAPP/AAACAAEAAAAAAPL/AAACAAEAAAAAAPH/AAAGAAAAAAAJAPn/AAABAAAAAAAKAPn/AAABAAAAAAALAPn/AAABAAAAAAAMAPn/AAABAAAAAAASAPn/AAABAAAAAAARAPn/AAABAAAAAAAQAPn/AAABAAAAAAAPAPn/AAABAAAAAAAOAPn/AAABAAAAAAANAPn/AAABAAAAAAATAPn/AAABAAAAAAAUAPn/AAABAAAAAAAVAPn/AAABAAAAAAAWAPn/AAABAAAAAAAXAPn/AAABAAAAAAAYAPn/AAABAAAAAAAZAPn/AAABAAAAAAAaAPn/AAABAAAAAAAbAPn/AAABAAAAAAAcAPn/AAABAAAAAAAdAPn/AAABAAAAAAAeAPn/AAABAAAAAAAfAPn/AAAEAAMAAAAgAPn/AAABAAEAAAAhAPn/AAABAAEAAAAiAPn/AAABAAEAAAAjAPn/AAABAAEAAAAkAPn/AAABAAEAAAAkAPj/AAABAAEAAAAkAPf/AAABAAEAAAAkAPb/AAABAAEAAAAkAPX/AAABAAEAAAAkAPT/AAABAAEAAAAkAPP/AAABAAEAAAAkAPL/AAABAAEAAAAjAPL/AAABAAEAAAAiAPL/AAABAAEAAAAhAPL/AAABAAEAAAAgAPL/AAABAAEAAAAfAPL/AAAIAAAAAAAeAPL/AAAIAAMAAAAdAPL/AAAHAAMAAAAcAPL/AAAIAAMAAAAbAPL/AAAHAAMAAAAaAPL/AAAIAAMAAAAZAPL/AAAHAAMAAAAYAPL/AAAAAAIAAAAYAPH/AAAAAAEAAAAZAPH/AAABAAEAAAAaAPH/AAABAAEAAAAbAPH/AAABAAEAAAAcAPH/AAABAAEAAAAdAPH/AAABAAEAAAAeAPH/AAABAAEAAAAfAPH/AAABAAEAAAAgAPH/AAABAAEAAAAhAPH/AAABAAEAAAAiAPH/AAABAAEAAAAjAPH/AAABAAEAAAAkAPH/AAABAAEAAAAlAPH/AAABAAEAAAAlAPL/AAABAAEAAAAlAPP/AAABAAEAAAAlAPT/AAABAAEAAAAlAPX/AAABAAEAAAAlAPb/AAABAAEAAAAlAPf/AAABAAEAAAAlAPj/AAABAAEAAAAlAPn/AAABAAEAAAAlAPr/AAABAAEAAAAmAPH/AAABAAEAAAAmAPL/AAABAAEAAAAmAPP/AAABAAEAAAAmAPT/AAABAAEAAAAmAPX/AAABAAEAAAAmAPb/AAABAAEAAAAmAPf/AAABAAEAAAAmAPj/AAABAAEAAAAmAPn/AAABAAEAAAAmAPr/AAABAAEAAAAPAPr/AAABAAEAAAAPAPv/AAABAAEAAAAPAPz/AAABAAEAAAAPAP3/AAABAAEAAAAPAP7/AAABAAEAAAAPAP//AAABAAEAAAAPAAAAAAABAAEAAAAQAPr/AAABAAEAAAAQAPv/AAABAAEAAAAQAPz/AAABAAEAAAAQAP3/AAABAAEAAAAQAP7/AAABAAEAAAAQAP//AAABAAEAAAAQAAAAAAABAAEAAAARAPr/AAABAAEAAAARAPv/AAABAAEAAAARAPz/AAABAAEAAAARAP3/AAABAAEAAAARAP7/AAABAAEAAAARAP//AAABAAEAAAARAAAAAAABAAEAAAASAPr/AAABAAEAAAASAPv/AAABAAEAAAASAPz/AAABAAEAAAASAP3/AAABAAEAAAASAP7/AAABAAEAAAASAP//AAABAAEAAAASAAAAAAABAAEAAAATAPr/AAABAAEAAAATAPv/AAABAAEAAAATAPz/AAABAAEAAAATAP3/AAABAAEAAAATAP7/AAABAAEAAAATAP//AAABAAEAAAATAAAAAAABAAEAAAAUAPr/AAABAAEAAAAUAPv/AAABAAEAAAAUAPz/AAABAAEAAAAUAP3/AAABAAEAAAAUAP7/AAABAAEAAAAUAP//AAABAAEAAAAUAAAAAAABAAEAAAAVAPr/AAABAAEAAAAVAPv/AAABAAEAAAAVAPz/AAABAAEAAAAVAP3/AAABAAEAAAAVAP7/AAABAAEAAAAVAP//AAABAAEAAAAVAAAAAAABAAEAAAAWAPr/AAABAAEAAAAWAPv/AAABAAEAAAAWAPz/AAABAAEAAAAWAP3/AAABAAEAAAAWAP7/AAABAAEAAAAWAP//AAABAAEAAAAWAAAAAAABAAEAAAAXAPr/AAABAAEAAAAXAPv/AAABAAEAAAAXAPz/AAABAAEAAAAXAP3/AAABAAEAAAAXAP7/AAABAAEAAAAXAP//AAABAAEAAAAXAAAAAAABAAEAAAAYAPr/AAABAAEAAAAYAPv/AAABAAEAAAAYAPz/AAABAAEAAAAYAP3/AAABAAEAAAAYAP7/AAABAAEAAAAYAP//AAABAAEAAAAYAAAAAAABAAEAAAAZAPr/AAABAAEAAAAZAPv/AAABAAEAAAAZAPz/AAABAAEAAAAZAP3/AAABAAEAAAAZAP7/AAABAAEAAAAZAP//AAABAAEAAAAZAAAAAAABAAEAAAAaAPr/AAABAAEAAAAaAPv/AAABAAEAAAAaAPz/AAABAAEAAAAaAP3/AAABAAEAAAAaAP7/AAABAAEAAAAaAP//AAABAAEAAAAaAAAAAAABAAEAAAAbAPr/AAABAAEAAAAbAPv/AAABAAEAAAAbAPz/AAABAAEAAAAbAP3/AAABAAEAAAAbAP7/AAABAAEAAAAbAP//AAABAAEAAAAbAAAAAAABAAEAAAAcAPr/AAABAAEAAAAcAPv/AAABAAEAAAAcAPz/AAABAAEAAAAcAP3/AAABAAEAAAAcAP7/AAABAAEAAAAcAP//AAABAAEAAAAcAAAAAAABAAEAAAAdAPr/AAABAAEAAAAdAPv/AAABAAEAAAAdAPz/AAABAAEAAAAdAP3/AAABAAEAAAAdAP7/AAABAAEAAAAdAP//AAABAAEAAAAdAAAAAAABAAEAAAAeAPr/AAABAAEAAAAeAPv/AAABAAEAAAAeAPz/AAABAAEAAAAeAP3/AAABAAEAAAAeAP7/AAABAAEAAAAeAP//AAABAAEAAAAeAAAAAAABAAEAAAAfAPr/AAABAAEAAAAfAPv/AAABAAEAAAAfAPz/AAABAAEAAAAfAP3/AAABAAEAAAAfAP7/AAABAAEAAAAfAP//AAABAAEAAAAfAAAAAAABAAEAAAAgAPr/AAABAAEAAAAgAPv/AAABAAEAAAAgAPz/AAABAAEAAAAgAP3/AAABAAEAAAAgAP7/AAABAAEAAAAgAP//AAABAAEAAAAgAAAAAAABAAEAAAAhAPr/AAABAAEAAAAhAPv/AAABAAEAAAAhAPz/AAABAAEAAAAhAP3/AAABAAEAAAAhAP7/AAABAAEAAAAhAP//AAABAAEAAAAhAAAAAAABAAEAAAAiAPr/AAABAAEAAAAiAPv/AAABAAEAAAAiAPz/AAABAAEAAAAiAP3/AAABAAEAAAAiAP7/AAABAAEAAAAiAP//AAABAAEAAAAiAAAAAAABAAEAAAAjAPr/AAABAAEAAAAjAPv/AAABAAEAAAAjAPz/AAABAAEAAAAjAP3/AAABAAEAAAAjAP7/AAABAAEAAAAjAP//AAABAAEAAAAjAAAAAAABAAEAAAAkAPr/AAABAAEAAAAkAPv/AAABAAEAAAAkAPz/AAABAAEAAAAkAP3/AAABAAEAAAAkAP7/AAABAAEAAAAkAP//AAABAAEAAAAkAAAAAAABAAEAAAAlAPv/AAABAAEAAAAlAPz/AAABAAEAAAAlAP3/AAABAAEAAAAlAP7/AAABAAEAAAAlAP//AAABAAEAAAAlAAAAAAABAAEAAAAmAPv/AAABAAEAAAAmAPz/AAABAAEAAAAmAP3/AAABAAEAAAAmAP7/AAABAAEAAAAmAP//AAABAAEAAAAmAAAAAAABAAEAAAD/////AAABAAEAAAD//wAAAAABAAEAAAAAAP//AAABAAEAAAAAAAAAAAABAAEAAAABAP//AAABAAEAAAABAAAAAAABAAEAAAACAP//AAABAAEAAAACAAAAAAABAAEAAAADAP//AAABAAEAAAADAAAAAAABAAEAAAAEAP//AAABAAEAAAAEAAAAAAABAAEAAAAFAP//AAABAAEAAAAFAAAAAAABAAEAAAAGAP//AAABAAEAAAAGAAAAAAABAAEAAAAHAP//AAABAAEAAAAHAAAAAAABAAEAAAAIAP//AAABAAEAAAAIAAAAAAABAAEAAAAJAP//AAABAAEAAAAJAAAAAAABAAEAAAAKAP//AAABAAEAAAAKAAAAAAABAAEAAAALAP//AAABAAEAAAALAAAAAAABAAEAAAAMAP//AAABAAEAAAAMAAAAAAABAAEAAAANAP//AAABAAEAAAANAAAAAAABAAEAAAAOAP//AAABAAEAAAAOAAAAAAABAAEAAAD///H/AAAAAAEAAAD///L/AAAAAAEAAAD///P/AAAAAAEAAAD///T/AAAAAAEAAAD///X/AAAAAAEAAAD///b/AAAAAAEAAAD///f/AAAAAAEAAAD///j/AAAAAAEAAAD///n/AAAAAAEAAAD///r/AAAAAAIAAAAUAPb/AAACAAIAAAATAPb/AAAAAAIAAAAUAPH/AAACAAEAAAAUAPL/AAACAAEAAAAUAPP/AAACAAEAAAAUAPT/AAACAAEAAAAUAPX/AAACAAEAAAATAPH/AAAIAAAAAAATAPL/AAAAAAEAAAATAPP/AAAAAAEAAAATAPT/AAAAAAEAAAATAPX/AAAAAAEAAAABAPH/AAABAAIAAAACAPH/AAABAAIAAAADAPH/AAABAAIAAAAEAPH/AAABAAIAAAAFAPH/AAABAAIAAAAGAPH/AAABAAIAAAAHAPH/AAABAAIAAAAIAPH/AAABAAIAAAAJAPH/AAABAAIAAAAKAPH/AAABAAIAAAALAPH/AAABAAIAAAAMAPH/AAABAAIAAAANAPH/AAABAAIAAAAOAPH/AAABAAIAAAAPAPH/AAABAAIAAAAQAPH/AAABAAIAAAARAPH/AAABAAIAAAASAPH/AAABAAIAAAAEAPv/AAAHAAUAAAAFAPv/AAAIAAUAAAADAPv/AAAGAAUAAAD+//r/AAABAAEAAAD+//v/AAABAAEAAAD+//z/AAABAAEAAAD+//3/AAABAAEAAAD+//7/AAABAAEAAAAUAPD/AAABAAEAAAAVAPD/AAABAAEAAAAWAPD/AAABAAEAAAAXAPD/AAABAAEAAAAYAPD/AAABAAEAAAAZAPD/AAABAAEAAAAZAPP/AAAHAAQAAAAaAPP/AAAIAAQAAAAbAPP/AAAHAAQAAAAcAPP/AAAIAAQAAAAdAPP/AAAHAAQAAAAeAPP/AAAIAAQAAAAfAPP/AAAAAAEAAAAgAPP/AAABAAEAAAAhAPP/AAABAAEAAAAiAPP/AAABAAEAAAAjAPP/AAABAAEAAAAfAPj/AAAAAAEAAAAfAPf/AAAAAAEAAAAfAPb/AAAAAAEAAAAfAPX/AAAAAAEAAAAfAPT/AAAAAAEAAAAgAPT/AAABAAEAAAAgAPX/AAABAAEAAAAgAPb/AAABAAEAAAAgAPf/AAABAAEAAAAgAPj/AAABAAEAAAAhAPj/AAABAAEAAAAhAPf/AAABAAEAAAAhAPb/AAABAAEAAAAhAPX/AAABAAEAAAAhAPT/AAABAAEAAAAiAPT/AAABAAEAAAAjAPT/AAABAAEAAAAjAPX/AAABAAEAAAAjAPb/AAABAAEAAAAjAPf/AAABAAEAAAAjAPj/AAABAAEAAAAiAPj/AAABAAEAAAAiAPf/AAABAAEAAAAiAPb/AAABAAEAAAAiAPX/AAABAAEAAAA=")
+tile_set = ExtResource("1_tmrgn")
 
 [node name="LevelBounds" type="Node2D" parent="." unique_id=2019289198]
 z_index = 256
@@ -38,19 +779,361 @@ target_area_name = "Forest_09A"
 [node name="PlayerSpawn" parent="." unique_id=1390794315 instance=ExtResource("4_l1jjo")]
 position = Vector2(41, -109)
 
-[node name="Ladder" type="Node2D" parent="." unique_id=1136307291]
-position = Vector2(689, -448)
-scale = Vector2(2, 2)
+[node name="BossLadder" type="Node2D" parent="." unique_id=1136307291 node_paths=PackedStringArray("boss_orchestrator")]
+position = Vector2(696, -480)
 skew = 0.0017453292
+script = ExtResource("5_h0363")
+boss_orchestrator = NodePath("../BossBattleOrchestrator")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Ladder" unique_id=1147600935]
-offset_right = 31.999998
-offset_bottom = 16.00003
+[node name="NinePatchRect" type="NinePatchRect" parent="BossLadder" unique_id=1147600935]
+custom_minimum_size = Vector2(32, 32)
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("5_tmrgn")
-region_rect = Rect2(0, 54, 32, 10)
-patch_margin_bottom = 5
+region_rect = Rect2(0, 0, 32, 128)
+patch_margin_bottom = 8
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Ladder" unique_id=1366499503]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BossLadder" unique_id=1366499503]
 libraries/ = SubResource("AnimationLibrary_5nudp")
+autoplay = &"ladder_up"
+
+[node name="Rock_debries_v1" parent="BossLadder" unique_id=1626053933 instance=ExtResource("16_csind")]
+material = SubResource("CanvasItemMaterial_6inp1")
+position = Vector2(22.446795, 256.0004)
+lifetime = 1.5
+speed_scale = 1.0
+process_material = SubResource("ParticleProcessMaterial_qugoh")
+
+[node name="InteractionTrigger" type="Node2D" parent="BossLadder" unique_id=881137994]
+position = Vector2(22.43459, 249.00038)
+script = ExtResource("8_x2r06")
+trigger = "KLETTERN"
+actions = Array[ExtResource("9_x2r06")]([SubResource("Resource_x2r06")])
+metadata/_custom_type_script = "uid://b0k0qmg06rfnt"
+
+[node name="Area2D" type="Area2D" parent="BossLadder/InteractionTrigger" unique_id=1070188506]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossLadder/InteractionTrigger/Area2D" unique_id=428322719]
+position = Vector2(0, -16.000046)
+shape = SubResource("RectangleShape2D_c8sum")
+
+[node name="3" type="CanvasLayer" parent="." unique_id=636650756]
+layer = 3
+follow_viewport_enabled = true
+follow_viewport_scale = 1.3
+
+[node name="Modulate" type="Sprite2D" parent="3" unique_id=1770478568]
+
+[node name="2" type="CanvasLayer" parent="." unique_id=454975878]
+layer = 2
+follow_viewport_enabled = true
+follow_viewport_scale = 1.2
+
+[node name="Modulate" type="Sprite2D" parent="2" unique_id=1304764522]
+
+[node name="1" type="CanvasLayer" parent="." unique_id=1034868486]
+follow_viewport_enabled = true
+follow_viewport_scale = 1.05
+
+[node name="Modulate" type="Sprite2D" parent="1" unique_id=1511524400]
+texture = SubResource("CompressedTexture2D_h0363")
+region_enabled = true
+region_rect = Rect2(544, 0, 64, 32)
+
+[node name="0" type="Sprite2D" parent="." unique_id=909491352]
+
+[node name="Modulate" type="Sprite2D" parent="0" unique_id=1279972594]
+
+[node name="-1" type="CanvasLayer" parent="." unique_id=773888073]
+layer = -1
+follow_viewport_enabled = true
+follow_viewport_scale = 0.95
+
+[node name="Modulate" type="Sprite2D" parent="-1" unique_id=2076750938]
+modulate = Color(0.78235406, 0.78235406, 0.78235406, 1)
+
+[node name="-2" type="CanvasLayer" parent="." unique_id=493569647]
+layer = -2
+follow_viewport_enabled = true
+follow_viewport_scale = 0.9
+
+[node name="Modulate" type="Sprite2D" parent="-2" unique_id=1114713000]
+modulate = Color(0.45882353, 0.45882353, 0.45882353, 1)
+
+[node name="-3" type="CanvasLayer" parent="." unique_id=420874030]
+layer = -3
+follow_viewport_enabled = true
+follow_viewport_scale = 0.85
+
+[node name="Modulate" type="Sprite2D" parent="-3" unique_id=19207465]
+
+[node name="-4" type="CanvasLayer" parent="." unique_id=1756038959]
+layer = -4
+follow_viewport_enabled = true
+follow_viewport_scale = 0.8
+
+[node name="Modulate" type="Sprite2D" parent="-4" unique_id=2093185375]
+modulate = Color(0.18679522, 0.18679522, 0.18679522, 1)
+
+[node name="-5" type="CanvasLayer" parent="." unique_id=1979968551]
+layer = -5
+
+[node name="ColorRect" type="ColorRect" parent="-5" unique_id=214927985]
+custom_minimum_size = Vector2(3600, 1800)
+custom_maximum_size = Vector2(3600, 1800)
+offset_left = -560.0
+offset_top = -1121.0
+offset_right = 3040.0
+offset_bottom = 679.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="MusicAutoTrigger" type="Node" parent="." unique_id=1616929359]
+script = ExtResource("10_c3r7e")
+track = ExtResource("11_x5wqr")
+reverb = 1
+metadata/_custom_type_script = "uid://dkq8a6unh4igm"
+
+[node name="BossBattleOrchestrator" type="Node" parent="." unique_id=279024200 node_paths=PackedStringArray("boss", "trigger_area", "boss_level_bounds", "original_level_bounds")]
+script = ExtResource("13_evinr")
+boss_name = "Verdächtig großer Bandit"
+boss = NodePath("../Ogre")
+trigger_area = NodePath("Area2D")
+boss_track = ExtResource("14_4cpyi")
+boss_level_bounds = NodePath("../BossLevelBounds")
+original_level_bounds = NodePath("../LevelBounds")
+metadata/_custom_type_script = "uid://da0v5gigy5uy7"
+
+[node name="Area2D" type="Area2D" parent="BossBattleOrchestrator" unique_id=1446540705]
+position = Vector2(832, -320)
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossBattleOrchestrator/Area2D" unique_id=765872469]
+shape = SubResource("RectangleShape2D_3e5oy")
+
+[node name="EntrancePlayer" type="AnimationPlayer" parent="BossBattleOrchestrator" unique_id=1907375312]
+libraries/ = SubResource("AnimationLibrary_36oin")
+
+[node name="FallingRock" type="CharacterBody2D" parent="BossBattleOrchestrator/EntrancePlayer" unique_id=504815286]
+collision_layer = 0
+script = ExtResource("19_rpn0i")
+particle_scene = ExtResource("17_h0363")
+
+[node name="Sprite2D" type="Sprite2D" parent="BossBattleOrchestrator/EntrancePlayer/FallingRock" unique_id=1689584012]
+position = Vector2(639, -286)
+texture = ExtResource("14_yu4ox")
+hframes = 15
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossBattleOrchestrator/EntrancePlayer/FallingRock" unique_id=1472337214]
+position = Vector2(649, -248)
+shape = SubResource("CircleShape2D_uyyxd")
+
+[node name="DamageArea" type="Area2D" parent="BossBattleOrchestrator/EntrancePlayer/FallingRock" unique_id=827804395]
+collision_layer = 0
+collision_mask = 32
+monitoring = false
+monitorable = false
+script = ExtResource("20_6inp1")
+metadata/_custom_type_script = "uid://cwxs3xm3awfci"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossBattleOrchestrator/EntrancePlayer/FallingRock/DamageArea" unique_id=1088911045]
+position = Vector2(638, -248)
+shape = SubResource("RectangleShape2D_uaawx")
+
+[node name="Rock_debries_v1" parent="BossBattleOrchestrator/EntrancePlayer" unique_id=84413247 instance=ExtResource("16_csind")]
+material = SubResource("CanvasItemMaterial_s5x2c")
+position = Vector2(638, -225)
+lifetime = 1.5
+process_material = SubResource("ParticleProcessMaterial_iikhb")
+
+[node name="Rock_debries_v2" parent="BossBattleOrchestrator/EntrancePlayer" unique_id=605666216 instance=ExtResource("17_h0363")]
+material = SubResource("CanvasItemMaterial_r0a5o")
+position = Vector2(638, -286)
+lifetime = 3.5
+one_shot = false
+preprocess = 3.0
+explosiveness = 0.0
+process_material = SubResource("ParticleProcessMaterial_7kuqa")
+
+[node name="Rock_damage" parent="BossBattleOrchestrator/EntrancePlayer" unique_id=334189833 instance=ExtResource("17_h0363")]
+material = SubResource("CanvasItemMaterial_p7l0g")
+position = Vector2(638, -248)
+amount = 28
+lifetime = 3.5
+process_material = SubResource("ParticleProcessMaterial_ubdv6")
+
+[node name="Rock_destroyed" parent="BossBattleOrchestrator/EntrancePlayer" unique_id=1944115120 instance=ExtResource("17_h0363")]
+material = SubResource("CanvasItemMaterial_oxkmk")
+position = Vector2(641.00006, -248.00002)
+rotation = -0.017453292
+amount = 32
+lifetime = 4.0
+speed_scale = 2.0
+randomness = 0.25
+process_material = SubResource("ParticleProcessMaterial_i41nb")
+
+[node name="Dust_Ground" parent="BossBattleOrchestrator" unique_id=692736497 instance=ExtResource("18_x2r06")]
+position = Vector2(641, -286)
+emitting = false
+
+[node name="Ogre" parent="." unique_id=2090919361 node_paths=PackedStringArray("left_wall", "right_wall", "ceiling_marker") instance=ExtResource("15_yu4ox")]
+visible = false
+position = Vector2(721, -436)
+left_wall = NodePath("../LeftWall")
+right_wall = NodePath("../RightWall")
+ceiling_marker = NodePath("../Ceiling")
+health = 40.0
+
+[node name="LeftWall" type="Marker2D" parent="." unique_id=319738102]
+position = Vector2(704, -256)
+
+[node name="RightWall" type="Marker2D" parent="." unique_id=1882329450]
+position = Vector2(960, -256)
+
+[node name="Ceiling" type="Marker2D" parent="." unique_id=918588837]
+position = Vector2(960, -438)
+
+[node name="BgRocks13" type="Sprite2D" parent="." unique_id=1160920934]
+position = Vector2(635, -374)
+texture = ExtResource("19_csind")
+region_enabled = true
+region_rect = Rect2(32, 336, 48, 144)
+
+[node name="BgRocks" type="Sprite2D" parent="." unique_id=115554315]
+position = Vector2(827, -420)
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(416, 0, 128, 32)
+
+[node name="Rock" type="Sprite2D" parent="." unique_id=1567413545]
+position = Vector2(997, -410)
+texture = ExtResource("22_rpn0i")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(32, 32, 32, 32)
+
+[node name="BgRocks15" type="Sprite2D" parent="." unique_id=918919632]
+position = Vector2(779, -510)
+texture = ExtResource("19_csind")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(160, 320, 32, 160)
+
+[node name="BgRocks14" type="Sprite2D" parent="." unique_id=594983467]
+position = Vector2(662, -440)
+texture = ExtResource("19_csind")
+region_enabled = true
+region_rect = Rect2(160, 320, 32, 160)
+
+[node name="BgRocks8" type="Sprite2D" parent="." unique_id=395904384]
+position = Vector2(665, -390)
+rotation = -1.5707964
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(416, 0, 128, 32)
+
+[node name="BgRocks4" type="Sprite2D" parent="." unique_id=679761177]
+position = Vector2(1017, -422)
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(416, 0, 128, 32)
+
+[node name="BgRocks2" type="Sprite2D" parent="." unique_id=1112225643]
+position = Vector2(1126, -420)
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(544, 0, 64, 32)
+
+[node name="BgRocks9" type="Sprite2D" parent="." unique_id=118820160]
+position = Vector2(664, -309)
+rotation = -1.5707964
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(544, 0, 64, 32)
+
+[node name="BgRocks10" type="Sprite2D" parent="." unique_id=835781832]
+position = Vector2(628, -294)
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(544, 0, 64, 32)
+
+[node name="BgRocks6" type="Sprite2D" parent="." unique_id=46429858]
+position = Vector2(910, -420)
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(544, 0, 64, 32)
+
+[node name="BgRocks3" type="Sprite2D" parent="." unique_id=1028391736]
+position = Vector2(947, -420)
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(608, 0, 32, 32)
+
+[node name="BgRocks5" type="Sprite2D" parent="." unique_id=1516313434]
+position = Vector2(1088, -420)
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(608, 0, 32, 32)
+
+[node name="BgRocks7" type="Sprite2D" parent="." unique_id=679387552]
+position = Vector2(769, -435)
+rotation = 1.5707964
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(608, 0, 32, 32)
+
+[node name="BgRocks11" type="Sprite2D" parent="." unique_id=1248149403]
+position = Vector2(609, -355)
+rotation = 1.5707964
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(416, 0, 128, 32)
+
+[node name="BgRocks12" type="Sprite2D" parent="." unique_id=358180582]
+position = Vector2(610, -428)
+rotation = 1.5707964
+texture = ExtResource("19_csind")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(544, 0, 64, 32)
+
+[node name="SavePoint" parent="." unique_id=1159206433 instance=ExtResource("23_6inp1")]
+z_index = 1
+position = Vector2(382, -88)
+
+[node name="InteractionTrigger" type="Node2D" parent="SavePoint" unique_id=1701450890]
+script = ExtResource("8_x2r06")
+trigger = "RASTEN"
+actions = Array[ExtResource("9_x2r06")]([SubResource("Resource_3e5oy")])
+metadata/_custom_type_script = "uid://b0k0qmg06rfnt"
+
+[node name="Area2D" type="Area2D" parent="SavePoint/InteractionTrigger" unique_id=1858332530]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint/InteractionTrigger/Area2D" unique_id=163888656]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_oo5qn")

@@ -6,6 +6,7 @@ const HEALTH_UP_AUDIO = preload("uid://dgwkuwvdcictb")
 @export var heal_amount : float = 2.0
 
 var bounce_count : int = 8
+var friction : float = 6.0
 
 @onready var area_2d: Area2D = $Area2D
 
@@ -13,7 +14,7 @@ var bounce_count : int = 8
 
 func _ready() -> void:
 	area_2d.body_entered.connect( _on_player_entered )
-	pass 
+	pass
 
 
 func _physics_process( delta: float ) -> void:
@@ -24,6 +25,12 @@ func _physics_process( delta: float ) -> void:
 			bounce_count -= 1
 			velocity = velocity.bounce( collision.get_normal() ) * 0.75
 			velocity.x *= 0.75
+	else:
+		# Was missing entirely — once bounces ran out this pickup just froze
+		# mid-air instead of settling to the ground like gold.gd does.
+		velocity.x = lerp( velocity.x, 0.0, friction * delta )
+		velocity += get_gravity() * delta
+		move_and_slide()
 	pass
 
 func _on_player_entered( n : Node2D ) -> void:

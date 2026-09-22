@@ -1,84 +1,63 @@
 @tool
-extends Node2D
+class_name SecretArea
+extends Sprite2D
 
-# ─────────────────────────────
-# Inspector options
-# ─────────────────────────────
+@onready var secret_area: Area2D = $Area2D
+const SECRET_AREA_AUDIO = preload("uid://v5etoef251rc")
 
-@export_group("Visual")
+## Leave empty to auto-derive one from this node's path (fine as long as you
+## don't reparent/rename this secret area); set it explicitly for a stable
+## id regardless of scene position.
+##
+## NOTE: this used to be keyed by SceneManager.current_scene_uid alone —
+## i.e. by WHICH SCENE the secret area is in, not which secret area it is.
+## With more than one secret area in the same scene, finding any one of
+## them marked ALL of them found (and finding one didn't survive a reload
+## if a different one in the same scene got checked first). persistent_id
+## below makes each instance its own key, the same way every other
+## persisted object in the game already works — see
+## RegionInfo.persistent_key()'s doc comment.
+@export var persistent_id : String = ""
 
-@export var texture: Texture2D:
-	set(value):
-		texture = value
-		if is_inside_tree():
-			$Sprite2D.texture = value
-
-@export var disable_sprite_after_trigger := false
-@export var z_index_after_trigger := -3
-
-
-@export_group("Trigger Area")
-
-@export var area_offset := Vector2.ZERO:
-	set(value):
-		area_offset = value
-		if is_inside_tree():
-			$Area2D.position = value
-
-@export var area_size := Vector2(64, 64):
-	set(value):
-		area_size = value
-		if is_inside_tree():
-			$Area2D/CollisionShape2D.shape.size = value
-
-
-@export_group("Audio")
-
-@export var sound: AudioStream
-
-
-# ─────────────────────────────
-# Internal state
-# ─────────────────────────────
-
-var triggered := false
-@onready var secret_area: Node2D = $"."
-@onready var sprite: Sprite2D = $Sprite2D
-@onready var area: Area2D = $Area2D
-@onready var collision: CollisionShape2D = $Area2D/CollisionShape2D
-@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+var is_explored : bool = false
 
 
 func _ready() -> void:
-	sprite.texture = texture
-	audio.stream = sound
-
-	area.position = area_offset
-	collision.shape.size = area_size
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if triggered:
+	if Engine.is_editor_hint():
 		return
 
-	if not body.is_in_group("Player"):
-		return
+	if SaveManager.is_secret_area_found( _key() ):
+		is_explored = true
+		queue_free()
 
-	triggered = true
+	pass
 
-	if audio.stream:
-		audio.play()
 
-	secret_area.z_index = z_index_after_trigger
-	
+func _key() -> String:
+	if persistent_id.is_empty():
+		persistent_id = str( get_path() )
+	return SaveManager.persistent_key( self, persistent_id )
 
-	if disable_sprite_after_trigger:
-		sprite.visible = false
 
-	area.monitoring = false
-	collision.disabled = true
+func _get_configuration_warnings() -> PackedStringArray:
+	if _check_for_area() == false:
+		return ["Requires an Area2D!"]
+	return []
 
-	area.disconnect(
-		"body_entered",
-		Callable(self, "_on_area_2d_body_entered")
-	)
+
+func _check_for_area() -> bool:
+	for c in get_children():
+		if c is Area2D:
+			return true
+	return false
+
+
+func _on_area_2d_body_entered( _body: Node2D ) -> void:
+	is_explored = true
+	Audio.play_spatial_sound( SECRET_AREA_AUDIO, global_position )
+
+	SaveManager.register_secret_area( _key() )
+
+	visible = false
+	queue_free()
+	pass
